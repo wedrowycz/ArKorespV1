@@ -10,8 +10,10 @@ var users = require("@arangodb/users");</br>
 users.grantDatabase("tomasz","obieg");</br>
 This user is used to connect to DB - security for objects is generated in db objects</br>
 <hr>
+<b>
 <div>
 Inside create collection ATUZYTK and populate it with document in maneer: </br>
 {"UserName":"TJ","Password":"alamakota","Status":0,"Role":2} </br>
 This will be first - admin user
 </div>
+</p>
