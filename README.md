@@ -16,6 +16,7 @@ This user is used to connect to DB - security for objects is generated in db obj
 <div>
 Inside create collection ATUZYTK and populate it with document in maneer: </br>
 {"UserName":"TJ","Password":"alamakota","Status":0,"Role":2} </br>
-This will be first - admin user
+This will be first - admin user </br>
+2019-01-01 - finished user management, some EF-like libraries
 </div>
 </p>
