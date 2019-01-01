@@ -99,6 +99,12 @@ namespace ArKorespV1.Models
             
         }
 
+        /// <summary>
+        /// returns one (?) document provided by document id
+        /// </summary>
+        /// <typeparam name="T"> class which type is collection</typeparam>
+        /// <param name="id">documents id</param>
+        /// <returns>whole document of type T</returns>
         public T GetById<T>(string id)
             where T : IDataRecord,  new()
         {

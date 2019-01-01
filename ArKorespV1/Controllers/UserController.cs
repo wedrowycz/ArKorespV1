@@ -37,7 +37,7 @@ namespace ArKorespV1.Controllers
                     ATLOGDBSet atlog = new ATLOGDBSet();
                     ATLOG logininfo = new ATLOG();
                     logininfo.UserId = userdata.ID;
-                    logininfo.LoginDateTime = DateTime.Now.ToLongDateString();
+                    logininfo.LoginDateTime = DateTime.Now.ToString();
                     logininfo.LoginUrl = Request.Headers.GetValues("Origin").FirstOrDefault();
                     atlog.Insert(logininfo);
                     return RedirectToAction("Index", "Home");
