@@ -7,11 +7,18 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    public class ADBSet<T>: List<T>
-        where T: class, IDictionaryAssignable,IDataRecord, new()
+    public class ADBSet<T> : List<T>
+        where T : class, IDictionaryAssignable, IDataRecord, new()
     {
         public ADBContext db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
-        
+
+        public ADBSet()
+        {
+            if (db != null)
+            {
+                db.InitializeCollection<T>();
+            }
+        }
         public string CollectionName()
         {
             var attr = typeof(ATUZYTK).GetCustomAttribute<CollectionNameAttribute>(false);
@@ -31,10 +38,11 @@ namespace ArKorespV1.Models
         }
 
         
-
         public virtual T Insert(T newdata)
         {
-            return newdata;
+            string newkey = db.Insert<T>(newdata);
+            newdata.ID = newkey;
+            return newdata;        
         }
 
         public virtual T GetById(string id)

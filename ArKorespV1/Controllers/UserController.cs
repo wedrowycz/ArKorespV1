@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArKorespV1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -33,6 +34,12 @@ namespace ArKorespV1.Controllers
                     Session["UserName"] = user.UserName;
                     Session["UserId"] = userdata.ID;
                     Session["Role"] = userdata.UserRole.ToString();
+                    ATLOGDBSet atlog = new ATLOGDBSet();
+                    ATLOG logininfo = new ATLOG();
+                    logininfo.UserId = userdata.ID;
+                    logininfo.LoginDateTime = DateTime.Now.ToLongDateString();
+                    logininfo.LoginUrl = Request.Headers.GetValues("Origin").FirstOrDefault();
+                    atlog.Insert(logininfo);
                     return RedirectToAction("Index", "Home");
                 }
                 else

@@ -189,5 +189,27 @@ namespace ArKorespV1.Models
             return default(List<T>);
         }
 
+        public bool InitializeCollection<T>()
+            where T : IDataRecord, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            var colection = db.Collection.Get(tmpobj.GetType().Name);
+            if (!colection.Success)
+            {
+                var createCollectionResult = db.Collection
+                    .KeyGeneratorType(AKeyGeneratorType.Autoincrement)
+                    .WaitForSync(true)
+                    .Create(tmpobj.GetType().Name);
+                if (!createCollectionResult.Success)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
     }
 }

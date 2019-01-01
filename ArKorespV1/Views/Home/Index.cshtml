@@ -32,7 +32,8 @@
         <p><a class="btn btn-default" href="#">Dalej &raquo;</a></p>
     </div>
 </div>
-@if (Session["Role"].Equals("2"))
+@if (Request.IsAuthenticated)
+{if (Session["Role"].Equals("2"))
 {
 <div class="row">
     <div class="col-md-4">
@@ -41,4 +42,5 @@
         <p><a class="btn btn-default" href="/ATUZYTK/Index">Dalej &raquo;</a></p>
     </div>
 </div>
+    }
 }
