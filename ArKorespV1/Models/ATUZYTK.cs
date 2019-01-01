@@ -35,19 +35,21 @@ namespace ArKorespV1.Models
 
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
+            ID = dictionarry["_id"];
             UserName = dictionarry["UserName"];
             Password = dictionarry["Password"];
             Status = Int32.Parse(dictionarry["Status"]);
-            UserRole = Int32.Parse(dictionarry["Role"]);
+            UserRole = Int32.Parse(dictionarry["UserRole"]);
             return true;
         }
 
         void ADictionaryReader.AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
+            ID = dictionarry["_id"];
             UserName = dictionarry["UserName"];
             Password = dictionarry["Password"];
             Status = Int32.Parse(dictionarry["Status"]);
-            UserRole = Int32.Parse(dictionarry["Role"]);
+            UserRole = Int32.Parse(dictionarry["UserRole"]);
             //throw new NotImplementedException();
         }
     }

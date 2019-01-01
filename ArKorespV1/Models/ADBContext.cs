@@ -99,6 +99,22 @@ namespace ArKorespV1.Models
 
             
         }
+
+        public string Insert<T>(T newdata)
+            where T : IDictionaryAssignable
+        {
+            var db = new ADatabase("obieg");
+            var createresult = 
+                db.Document.WaitForSync(true)
+                .Create<T>(newdata.GetType().Name,newdata);
+            if (createresult.Success)
+            {
+                var key = createresult.Value.String("_key");
+                return key;
+            }
+
+            return "";
+        }
           
     }
 }

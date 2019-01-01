@@ -24,7 +24,7 @@ namespace ArKorespV1.Models
                                         dane["UserName"].Trim(),
                                         dane["Password"].Trim(), 
                                         Int32.Parse(dane["Status"]),
-                                        Int32.Parse(dane["Role"]));
+                                        Int32.Parse(dane["UserRole"]));
                 
                 if (password.Trim().Equals(uzytk.Password))
                 {

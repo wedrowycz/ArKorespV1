@@ -30,6 +30,10 @@ namespace ArKorespV1.Models
             return true;
         }
 
+        public virtual T Insert(T newdata)
+        {
+            return newdata;
+        }
 
     }
 }

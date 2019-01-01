@@ -37,11 +37,16 @@ namespace ArKorespV1.Controllers
 
         // POST: ATUZYTK/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ATUZYTK collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    ATUZYTKDBSet dbset = new ATUZYTKDBSet();
+                    dbset.Insert(collection);
+                }
 
                 return RedirectToAction("Index");
             }

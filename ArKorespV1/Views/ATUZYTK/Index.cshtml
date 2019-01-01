@@ -66,6 +66,7 @@
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Status)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UserRole)</th>
         <th></th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -94,10 +95,13 @@
         <td>@Html.DisplayFor(modelitem => item.UserRole)</td>
         <td>
             @Html.ActionLink(linkText: "Zmień", actionName: "Edit", routeValues: new { id = item.ID })
-                <br />
-            @Html.ActionLink(linkText: (item.Status == 0)?"Zablokuj":"Odblokuj", actionName: "ChangeState", routeValues: new { id = item.ID, status = (item.Status==0)?1:0 })
-                
+            <br />
+            @Html.ActionLink(linkText: (item.Status == 0) ? "Zablokuj" : "Odblokuj", actionName: "ChangeState", routeValues: new { id = item.ID, status = (item.Status == 0) ? 1 : 0 })
+            <br />
+            @Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = item.ID })
+
         </td>
+        <td>@Html.DisplayFor(modelitem => item.ID)</td>
     </tr>
     }
     </table>

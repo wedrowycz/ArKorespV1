@@ -30,5 +30,13 @@ namespace ArKorespV1.Models
             return db.GetRecords(aquery, this.AddNewItem, -1, -1);            
         }
 
+        public override ATUZYTK Insert(ATUZYTK newdata)
+        {
+
+            string newkey = db.Insert<ATUZYTK>(newdata);
+            newdata.ID = newkey;
+            return newdata;
+        }
+
     }
 }
