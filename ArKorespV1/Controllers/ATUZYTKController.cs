@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,17 +15,18 @@ namespace ArKorespV1.Controllers
         public ActionResult Index()
         {
             ATUZYTKDBSet lista = new ATUZYTKDBSet();
-            if (lista.Query(""))
+            if (!lista.Get(""))
             {
-                return View(lista);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else
-            { return View();
-            }
+
+            var lista2 = lista.OrderBy(kl => kl.UserName);
+
+            return View(lista);
         }
 
         // GET: ATUZYTK/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             return View();
         }
@@ -57,19 +59,28 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: ATUZYTK/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            ATUZYTKDBSet dbset = new ATUZYTKDBSet();
+            ATUZYTK datatoupdate = dbset.GetById(id.Replace("_", "/"));
+            if (datatoupdate == null )
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(datatoupdate);
         }
 
         // POST: ATUZYTK/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(string id, ATUZYTK collection)
         {
             try
             {
                 // TODO: Add update logic here
-
+                ATUZYTKDBSet dbset = new ATUZYTKDBSet();
+                dbset.Update(collection);
                 return RedirectToAction("Index");
             }
             catch
@@ -79,18 +90,33 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: ATUZYTK/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            if( id == null || id == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ATUZYTKDBSet dbset = new ATUZYTKDBSet();
+            ATUZYTK datatodelete = dbset.GetById(id.Replace("_","/"));
+            if(datatodelete == null || datatodelete.UserRole == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(datatodelete);
         }
 
         // POST: ATUZYTK/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
         {
             try
             {
                 // TODO: Add delete logic here
+                ATUZYTKDBSet dbset = new ATUZYTKDBSet();                
+                dbset.Delete(id.Replace("_", "/"));
 
                 return RedirectToAction("Index");
             }

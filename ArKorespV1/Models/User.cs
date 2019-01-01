@@ -20,7 +20,7 @@ namespace ArKorespV1.Models
             ATUZYTK uzytk = null;
             if (dane != null)
             {
-                uzytk = new ATUZYTK(dane["_key"],
+                uzytk = new ATUZYTK(dane["_id"],
                                         dane["UserName"].Trim(),
                                         dane["Password"].Trim(), 
                                         Int32.Parse(dane["Status"]),

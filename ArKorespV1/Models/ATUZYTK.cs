@@ -9,9 +9,10 @@ using ArKorespV1.Helpers;
 namespace ArKorespV1.Models
 {
     [CollectionName("ATUZYTK")]
-    public class ATUZYTK : ADictionaryReader, IDictionaryAssignable
+    public class ATUZYTK : ADictionaryReader, IDictionaryAssignable , IDataRecord
     {
-        [Key]
+        public string _id { get; set; }
+        [Key]                 
         public string ID { get; set; }
         [Display(Name = "Nazwa użytkownika")]
         public string UserName { get; set; }
@@ -35,7 +36,7 @@ namespace ArKorespV1.Models
 
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
-            ID = dictionarry["_id"];
+            ID = dictionarry["_id"].Replace("/","_");
             UserName = dictionarry["UserName"];
             Password = dictionarry["Password"];
             Status = Int32.Parse(dictionarry["Status"]);
@@ -45,7 +46,7 @@ namespace ArKorespV1.Models
 
         void ADictionaryReader.AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
-            ID = dictionarry["_id"];
+            ID = dictionarry["_id"].Replace("/", "_");
             UserName = dictionarry["UserName"];
             Password = dictionarry["Password"];
             Status = Int32.Parse(dictionarry["Status"]);

@@ -201,6 +201,7 @@
     <Compile Include="Models\ATUZYTK.cs" />
     <Compile Include="Models\ATUZYTKDBSet.cs" />
     <Compile Include="Models\CollectionNameAttribute.cs" />
+    <Compile Include="Models\IDataRecord.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,6 +261,9 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\ATUZYTK\Index.cshtml" />
     <Content Include="Views\ATUZYTK\Create.cshtml" />
+    <Content Include="Views\ATUZYTK\Delete.cshtml" />
+    <Content Include="Views\ATUZYTK\Edit.cshtml" />
+    <Content Include="Views\ATUZYTK\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

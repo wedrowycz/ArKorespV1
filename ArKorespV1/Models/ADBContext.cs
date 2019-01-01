@@ -96,12 +96,27 @@ namespace ArKorespV1.Models
             }
             else
                 return false;
-
             
         }
 
+        public T GetById<T>(string id)
+            where T : IDataRecord,  new()
+        {
+            var db = new ADatabase("obieg");
+            var getbyidresult = db.Document.Get<T>(id);
+            if (getbyidresult.Success)
+            {
+                //var dtaresult = new T();
+                var dtaresult = getbyidresult.Value;
+                dtaresult.ID = id;
+                return dtaresult;
+            }
+            else
+                return default(T);
+        }
+
         public string Insert<T>(T newdata)
-            where T : IDictionaryAssignable
+            where T : IDataRecord
         {
             var db = new ADatabase("obieg");
             var createresult = 
@@ -109,12 +124,70 @@ namespace ArKorespV1.Models
                 .Create<T>(newdata.GetType().Name,newdata);
             if (createresult.Success)
             {
-                var key = createresult.Value.String("_key");
+                var key = createresult.Value.String("_id");
                 return key;
             }
 
             return "";
         }
-          
+
+        public string Delete<T>(T datatodelete)
+            where T : IDataRecord
+        {
+            var db = new ADatabase("obieg");
+            var deleteresult = db.Document.Delete(datatodelete.ID);
+            if (deleteresult.Success)
+                return datatodelete.ID;
+            else
+                return "";
+        }
+
+        public string Delete<T>(string datatodelete)
+           where T : IDataRecord
+        {
+            var db = new ADatabase("obieg");
+            var deleteresult = db.Document.Delete(datatodelete);
+            if (deleteresult.Success)
+                return datatodelete;
+            else
+                return "";
+        }
+
+        public T Update<T>(T updaterecord)
+            where T : IDataRecord
+        {
+            var db = new ADatabase("obieg");
+            var updaterezult = db.Document.Update<T>(updaterecord.ID.Replace("_","/"), updaterecord);
+
+            if (updaterezult.Success)
+            {
+                return updaterecord;
+            }
+
+            return default(T);
+        }
+
+        //retrieve all records from collection T
+        public List<T> Get<T>(string filter)
+            where T : IDataRecord , new() 
+        {
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            string aquery = "FOR item IN " + tmpobj.GetType().Name +
+                (filter != "" ? " FILTER " + filter : "") +
+                " RETURN item";
+            var getrezult = db.Query.Aql(aquery).ToList<T>();
+            if(getrezult.Success)
+            {
+                for (int i = 0; i < getrezult.Value.Count; i++)
+                {
+                    getrezult.Value[i].ID = getrezult.Value[i]._id.Replace("/","_");
+                }
+                return getrezult.Value;
+            }
+           
+            return default(List<T>);
+        }
+
     }
 }

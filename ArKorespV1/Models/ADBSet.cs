@@ -8,7 +8,7 @@ using System.Web;
 namespace ArKorespV1.Models
 {
     public class ADBSet<T>: List<T>
-        where T: class, IDictionaryAssignable, new()
+        where T: class, IDictionaryAssignable,IDataRecord, new()
     {
         public ADBContext db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
         
@@ -30,10 +30,42 @@ namespace ArKorespV1.Models
             return true;
         }
 
+        
+
         public virtual T Insert(T newdata)
         {
             return newdata;
         }
 
+        public virtual T GetById(string id)
+        {
+            T rezult = db.GetById<T>(id);
+            return rezult;
+        }
+
+        public virtual string Delete(T datatodelete)
+        {
+            string rezult = db.Delete<T>(datatodelete);
+            return rezult;
+        }
+
+        public virtual string Delete(string id)
+        {
+            string rezult = db.Delete<T>(id);
+            return rezult;
+        }
+
+        public virtual T Update(T updatedata)
+        {
+            T rezult = db.Update(updatedata);
+            return rezult;
+        }
+
+        public virtual bool Get(string condition)
+        {
+            List<T> rezult = db.Get<T>(condition);
+            this.AddRange(rezult);
+            return true;
+        }
     }
 }

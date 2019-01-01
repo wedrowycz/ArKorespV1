@@ -38,5 +38,11 @@ namespace ArKorespV1.Models
             return newdata;
         }
 
+        //public override ATUZYTK GetById(string id)
+        //{
+        //    ATUZYTK rezult = db.GetById<ATUZYTK>(id);
+        //    return rezult;
+        //}
+
     }
 }

@@ -1,0 +1,27 @@
+﻿@model ArKorespV1.Models.ATUZYTK
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Użytkownik systemu</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+    @Html.ActionLink("Powrót do listy", "Index")
+</div>
