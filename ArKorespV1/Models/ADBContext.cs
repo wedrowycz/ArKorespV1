@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Arango.Client;
+using ArKorespV1.Helpers;
 
 namespace ArKorespV1.Models
 {
@@ -30,6 +31,27 @@ namespace ArKorespV1.Models
             }
         }
 
+        /// <summary>
+        /// retrieve one record then call s=assign from caller
+        /// </summary>
+        /// <param name="query"> query text</param>
+        /// <param name="dictreader">object where data are assigned</param>
+        /// <returns>if data are present</returns>
+        public bool GetRecord( string query, ADictionaryReader dictreader)
+        {
+            Dictionary<string, string> dict = GetData(query);
+            if (dict != null)
+            {
+                dictreader.AssignFromDictionary(dict);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //retrieve one record
         public Dictionary<string,string> GetData(string query)
         {
             var db = new ADatabase("obieg");
@@ -52,6 +74,31 @@ namespace ArKorespV1.Models
         }
 
 
+        public bool GetRecords(string query, Func<Dictionary<string,string>,bool> addmethod, int datacount, int offset)
+        {
+            var db = new ADatabase("obieg");
 
+            var coll = db.Query.Aql(query).ToDocuments();
+            if (coll.Success)
+            {
+                
+                foreach (var document in coll.Value)
+                {
+                    Dictionary<string, string> rezult = new Dictionary<string, string>();
+                    foreach (string klucz in document.Keys)
+                    {
+                        rezult.Add(klucz, document.String(klucz));
+                    }
+                    addmethod(rezult);
+
+                }
+                return true;
+            }
+            else
+                return false;
+
+            
+        }
+          
     }
 }

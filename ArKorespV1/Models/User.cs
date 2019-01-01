@@ -20,11 +20,12 @@ namespace ArKorespV1.Models
             ATUZYTK uzytk = null;
             if (dane != null)
             {
-                uzytk = new ATUZYTK();
-                uzytk.ID = dane["_key"];
-                uzytk.Password = dane["Password"].Trim();
-                uzytk.Status = Int32.Parse( dane["Status"]) ;
-                uzytk.UserRole = Int32.Parse(dane["Role"]);
+                uzytk = new ATUZYTK(dane["_key"],
+                                        dane["UserName"].Trim(),
+                                        dane["Password"].Trim(), 
+                                        Int32.Parse(dane["Status"]),
+                                        Int32.Parse(dane["Role"]));
+                
                 if (password.Trim().Equals(uzytk.Password))
                 {
                     return uzytk;

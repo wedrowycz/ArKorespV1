@@ -32,3 +32,13 @@
         <p><a class="btn btn-default" href="#">Dalej &raquo;</a></p>
     </div>
 </div>
+@if (Session["Role"].Equals("2"))
+{
+<div class="row">
+    <div class="col-md-4">
+        <h2>Użytkownicy</h2>
+        <p>Administracja - wykaz użytkowników.</p>
+        <p><a class="btn btn-default" href="/ATUZYTK/Index">Dalej &raquo;</a></p>
+    </div>
+</div>
+}

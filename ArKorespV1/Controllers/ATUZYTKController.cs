@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArKorespV1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,18 @@ namespace ArKorespV1.Controllers
 {
     public class ATUZYTKController : Controller
     {
+
         // GET: ATUZYTK
         public ActionResult Index()
         {
-            return View();
+            ATUZYTKDBSet lista = new ATUZYTKDBSet();
+            if (lista.Query(""))
+            {
+                return View(lista);
+            }
+            else
+            { return View();
+            }
         }
 
         // GET: ATUZYTK/Details/5

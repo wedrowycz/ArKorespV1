@@ -10,8 +10,8 @@ namespace ArKorespV1.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
+            ViewBag.Title = "Strona domowa";
+            //initialize collections
             return View();
         }
     }

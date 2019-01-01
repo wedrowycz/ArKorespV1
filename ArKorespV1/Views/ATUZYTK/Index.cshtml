@@ -1,0 +1,103 @@
+﻿@model ArKorespV1.Models.ATUZYTKDBSet
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .table, th, td {
+        border: 1px solid lightgray;
+        max-width: none;
+        margin-left: initial;
+    }
+
+    a.my-class {
+        color: #333333
+    }
+
+        a.my-class:active {
+            color: #666666
+        }
+
+        a.my-class:link {
+            color: #3b9c46
+        }
+
+        a.my-class:visited {
+            color: coral
+        }
+</style>
+
+<style>
+    tr.NIEPARZYSTE td {
+        background-color: lightblue;
+    }
+
+    tr.PARZYSTE td {
+        background-color: white;
+    }
+
+    tr.TRZECIE td {
+        background-color: #e6fffa;
+    }
+
+    tr.CZWARTE td {
+        background-color: #ffe6e6;
+    }
+</style>
+
+<style>
+    .container {
+        margin-left: 1px;
+        max-width: none;
+    }
+</style>
+@{int i = 0;}
+<p>
+    <span>
+        @Html.ActionLink("Dodaj", "Create", null,
+         new { @class = "btn btn-primary" })
+    </span>
+</p>
+
+<table class="table">
+    <tr style="background-color:#f2f2f2">
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UserName)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Password)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Status)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UserRole)</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        i++;
+        string rowColor;
+        if (i % 4 == 0)
+        {
+            rowColor = "PARZYSTE";
+        }
+        else if (i % 4 == 1)
+        {
+            rowColor = "NIEPARZYSTE";
+        }
+        else if (i % 4 == 3)
+        {
+            rowColor = "TRZECIE";
+        }
+        else
+        {
+            rowColor = "CZWARTE";
+        }
+    <tr class="@rowColor">
+        <td>@Html.DisplayFor(modelitem => item.UserName)</td>
+        <td>@Html.DisplayFor(modelitem => item.Password)</td>
+        <td>@Html.DisplayFor(modelitem => item.Status)</td>
+        <td>@Html.DisplayFor(modelitem => item.UserRole)</td>
+        <td>
+            @Html.ActionLink(linkText: "Zmień", actionName: "Edit", routeValues: new { id = item.ID })
+                <br />
+            @Html.ActionLink(linkText: (item.Status == 0)?"Zablokuj":"Odblokuj", actionName: "ChangeState", routeValues: new { id = item.ID, status = (item.Status==0)?1:0 })
+                
+        </td>
+    </tr>
+    }
+    </table>
