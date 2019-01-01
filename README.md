@@ -1,7 +1,9 @@
 # ArKorespV1
 2018 12 30
 Office registration utility using Arango
-
+</br>
+2019-01-01 use dev2019 brach
+</br>
 Requires local Arango database (version 3.4.1)</br>
 Inside database "obieg"</br>
 User "tomasz" with same password bounded to this database.</br>
