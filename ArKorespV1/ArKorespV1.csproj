@@ -205,6 +205,7 @@
     <Compile Include="Models\ATUZYTKDBSet.cs" />
     <Compile Include="Models\CollectionNameAttribute.cs" />
     <Compile Include="Models\IDataRecord.cs" />
+    <Compile Include="Models\PESKRZPOCZT.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

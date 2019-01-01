@@ -23,7 +23,7 @@ namespace ArKorespV1.Models
         {
             if (dictionarry != null)
             {
-                _id = dictionarry.ContainsKey("_id")?dictionarry["_key"]: "";
+                _id = dictionarry.ContainsKey("_id")?dictionarry["_id"]: "";
                 UserId = dictionarry.ContainsKey("UserId") ? dictionarry["UserId"] : "";
                 LoginDateTime = dictionarry.ContainsKey("LoginDateTime") ? dictionarry["LoginDateTime"] : "";
                 LoginUrl = dictionarry.ContainsKey("LoginUrl") ? dictionarry["LoginUrl"] : "";
