@@ -98,7 +98,7 @@
             <br />
             @Html.ActionLink(linkText: (item.Status == 0) ? "Zablokuj" : "Odblokuj", actionName: "ChangeState", routeValues: new { id = item.ID, status = (item.Status == 0) ? 1 : 0 })
             <br />
-            @Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = item.ID })
+            @Html.ActionLink(linkText: (item.UserRole == 0) ?"Usuń":"----", actionName: (item.UserRole == 0)?"Delete":"Index", routeValues: new { id = item.ID })
             <br/>
             @Html.ActionLink(linkText: "Historia logowań", controllerName: "ATLOG",actionName:"Index" , routeValues: new { id = item.ID } , htmlAttributes: new { target = "_blank" })
         </td>

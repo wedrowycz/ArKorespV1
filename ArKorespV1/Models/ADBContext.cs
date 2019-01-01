@@ -103,7 +103,7 @@ namespace ArKorespV1.Models
             where T : IDataRecord,  new()
         {
             var db = new ADatabase("obieg");
-            var getbyidresult = db.Document.Get<T>(id);
+            var getbyidresult = db.Document.Get<T>(id.Replace("_","/"));
             if (getbyidresult.Success)
             {
                 //var dtaresult = new T();

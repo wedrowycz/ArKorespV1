@@ -123,7 +123,32 @@ namespace ArKorespV1.Controllers
             catch
             {
                 return View();
+            }           
+        }
+        /// <summary>
+        /// Change user's status 0 - active, 1 inactive
+        /// </summary>
+        /// <param name="id">documents id</param>
+        /// <param name="nowystatus"> new status</param>
+        /// <returns>redirects to index</returns>
+        public ActionResult ChangeState(string id, int? status)
+        {
+            ATUZYTKDBSet dbset = new ATUZYTKDBSet();
+            ATUZYTK datatochange = dbset.GetById(id);
+
+            if (datatochange == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            //admin users cannot be blocked
+            if(datatochange.UserRole == 2 && status >0 )
+            {
+                return RedirectToAction("Index");
+            }
+            datatochange.Status = status ?? 0;
+            dbset.Update(datatochange);
+            return RedirectToAction("Index");
         }
     }
 }
