@@ -1,6 +1,6 @@
 # ArKorespV1
 2018 12 30
-Office registration utility using Arango
+Office post registration utility, using Arango, ASP ,C#, Razor
 </br>
 2019-01-01 use dev2019 brach
 </br>
