@@ -1,0 +1,52 @@
+﻿@model ArKorespV1.Models.PESKRZPOCZT
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>Usuwanie skrzynki obiegu</h2>
+
+    <h3>Czy jesteś pewien ?</h3>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ID)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DNAZWA)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DNAZWA)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DSYMBOL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DSYMBOL)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DEMAIL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DEMAIL)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-default" /> |
+                @Html.ActionLink("Powrót do listy", "Index")
+            </div>
+        }
+    </div>

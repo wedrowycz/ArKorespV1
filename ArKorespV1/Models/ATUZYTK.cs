@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using Arango.Client;
 using ArKorespV1.Helpers;
@@ -9,7 +10,7 @@ using ArKorespV1.Helpers;
 namespace ArKorespV1.Models
 {
     [CollectionName("ATUZYTK")]
-    public class ATUZYTK : ADictionaryReader, IDictionaryAssignable , IDataRecord
+    public class ATUZYTK : CollectionMember, ADictionaryReader, IDictionaryAssignable , IDataRecord 
     {
         public string _id { get; set; }
         [Key]                 
@@ -52,6 +53,19 @@ namespace ArKorespV1.Models
             Status = Int32.Parse(dictionarry["Status"]);
             UserRole = Int32.Parse(dictionarry["UserRole"]);
             //throw new NotImplementedException();
+        }
+
+        public override string CollectionName()
+        {
+            var attr = typeof(ATUZYTK).GetCustomAttribute<CollectionNameAttribute>(false);
+            if (attr == null)
+            {
+                return this.GetType().Name;
+            }
+            else
+            {
+                return attr.Name;
+            }
         }
     }
 }

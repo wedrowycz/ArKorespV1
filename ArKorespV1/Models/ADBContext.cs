@@ -122,12 +122,12 @@ namespace ArKorespV1.Models
         }
 
         public string Insert<T>(T newdata)
-            where T : IDataRecord
+            where T : IDataRecord,ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
             var createresult = 
                 db.Document.WaitForSync(true)
-                .Create<T>(newdata.GetType().Name,newdata);
+                .Create<T>(newdata.CollectionName(),newdata);
             if (createresult.Success)
             {
                 var key = createresult.Value.String("_id");
@@ -141,7 +141,7 @@ namespace ArKorespV1.Models
             where T : IDataRecord
         {
             var db = new ADatabase("obieg");
-            var deleteresult = db.Document.Delete(datatodelete.ID);
+            var deleteresult = db.Document.Delete(datatodelete.ID.Replace("_","/"));
             if (deleteresult.Success)
                 return datatodelete.ID;
             else
@@ -152,7 +152,7 @@ namespace ArKorespV1.Models
            where T : IDataRecord
         {
             var db = new ADatabase("obieg");
-            var deleteresult = db.Document.Delete(datatodelete);
+            var deleteresult = db.Document.Delete(datatodelete.Replace("_","/"));
             if (deleteresult.Success)
                 return datatodelete;
             else
@@ -175,11 +175,11 @@ namespace ArKorespV1.Models
 
         //retrieve all records from collection T
         public List<T> Get<T>(string filter)
-            where T : IDataRecord , new() 
+            where T : IDataRecord, ICollectionMember , new() 
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
-            string aquery = "FOR item IN " + tmpobj.GetType().Name +
+            string aquery = "FOR item IN " + tmpobj.CollectionName() +
                 (filter != "" ? " FILTER " + filter : "") +
                 " RETURN item";
             var getrezult = db.Query.Aql(aquery).ToList<T>();
@@ -196,16 +196,18 @@ namespace ArKorespV1.Models
         }
 
         public bool InitializeCollection<T>()
-            where T : IDataRecord, new()
+            where T : IDataRecord,ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
-            var colection = db.Collection.Get(tmpobj.GetType().Name);
+            
+            var colection = db.Collection.Get(tmpobj.CollectionName());
             if (!colection.Success)
             {
                 var createCollectionResult = db.Collection
                     .KeyGeneratorType(AKeyGeneratorType.Autoincrement)
                     .WaitForSync(true)
+                    .Type(ACollectionType.Document)
                     .Create(tmpobj.GetType().Name);
                 if (!createCollectionResult.Success)
                 {

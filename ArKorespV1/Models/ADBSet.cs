@@ -8,8 +8,9 @@ using System.Web;
 namespace ArKorespV1.Models
 {
     public class ADBSet<T> : List<T>
-        where T : class, IDictionaryAssignable, IDataRecord, new()
+        where T : class, IDictionaryAssignable, IDataRecord, ICollectionMember, new()
     {
+        //TODO: change db connection parameters to web.config values
         public ADBContext db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
 
         public ADBSet()

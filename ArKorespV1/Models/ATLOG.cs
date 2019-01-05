@@ -7,8 +7,8 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    [CollectionName("ATUZYTK")]
-    public class ATLOG : IDataRecord, IDictionaryAssignable
+    [CollectionName("ATLOG")]
+    public class ATLOG :CollectionMember, IDataRecord, IDictionaryAssignable
     {
         public string _id { get; set; }
         [Display(Name ="Id użytkownika")]

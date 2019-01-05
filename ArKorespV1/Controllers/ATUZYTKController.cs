@@ -77,8 +77,7 @@ namespace ArKorespV1.Controllers
         public ActionResult Edit(string id, ATUZYTK collection)
         {
             try
-            {
-                // TODO: Add update logic here
+            {                
                 ATUZYTKDBSet dbset = new ATUZYTKDBSet();
                 dbset.Update(collection);
                 return RedirectToAction("Index");
@@ -113,8 +112,7 @@ namespace ArKorespV1.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             try
-            {
-                // TODO: Add delete logic here
+            {                
                 ATUZYTKDBSet dbset = new ATUZYTKDBSet();                
                 dbset.Delete(id.Replace("_", "/"));
 
