@@ -1,4 +1,5 @@
-﻿using ArKorespV1.Helpers;
+﻿using Arango.Client;
+using ArKorespV1.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,7 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    [CollectionType(ACollectionType.Document)]
     [CollectionName("ATLOG")]
     public class ATLOG :CollectionMember, IDataRecord, IDictionaryAssignable
     {

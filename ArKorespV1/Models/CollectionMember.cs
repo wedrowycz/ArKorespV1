@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Arango.Client;
 
 namespace ArKorespV1.Models
 {
@@ -18,6 +19,19 @@ namespace ArKorespV1.Models
             else
             {
                 return attr.Name;
+            }
+        }
+
+        public ACollectionType CollectionType()
+        {
+            var attr = GetType().GetCustomAttribute<CollectionTypeAttribute>(false);
+            if (attr == null)
+            {
+                return ACollectionType.Document;
+            }
+            else
+            {
+                return attr.CollectionType;
             }
         }
     }

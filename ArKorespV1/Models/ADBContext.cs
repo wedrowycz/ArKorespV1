@@ -207,8 +207,8 @@ namespace ArKorespV1.Models
                 var createCollectionResult = db.Collection
                     .KeyGeneratorType(AKeyGeneratorType.Autoincrement)
                     .WaitForSync(true)
-                    .Type(ACollectionType.Document)
-                    .Create(tmpobj.GetType().Name);
+                    .Type(tmpobj.CollectionType())
+                    .Create(tmpobj.CollectionName());
                 if (!createCollectionResult.Success)
                 {
                     return false;

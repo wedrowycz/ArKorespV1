@@ -189,6 +189,7 @@
     <Compile Include="Controllers\ATLOGController.cs" />
     <Compile Include="Controllers\ATUZYTKController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PEREJKORESPController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -206,8 +207,11 @@
     <Compile Include="Models\ATUZYTKDBSet.cs" />
     <Compile Include="Models\CollectionMember.cs" />
     <Compile Include="Models\CollectionNameAttribute.cs" />
+    <Compile Include="Models\CollectionTypeAttribute.cs" />
     <Compile Include="Models\ICollectionMember.cs" />
     <Compile Include="Models\IDataRecord.cs" />
+    <Compile Include="Models\PEREJKORESPDBSet.cs" />
+    <Compile Include="Models\PEREJKORSP.cs" />
     <Compile Include="Models\PESKRZPOCZT.cs" />
     <Compile Include="Models\PESKRZPOCZTDBSet.cs" />
     <Compile Include="Models\User.cs" />
@@ -277,6 +281,10 @@
     <Content Include="Views\PESKRZPOCZT\Create.cshtml" />
     <Content Include="Views\PESKRZPOCZT\Edit.cshtml" />
     <Content Include="Views\PESKRZPOCZT\Delete.cshtml" />
+    <Content Include="Views\PEREJKORESP\Index.cshtml" />
+    <Content Include="Views\PEREJKORESP\Create.cshtml" />
+    <Content Include="Views\PEREJKORESP\Edit.cshtml" />
+    <Content Include="Views\PEREJKORESP\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

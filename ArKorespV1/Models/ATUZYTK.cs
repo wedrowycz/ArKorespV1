@@ -9,6 +9,7 @@ using ArKorespV1.Helpers;
 
 namespace ArKorespV1.Models
 {
+    [CollectionType(ACollectionType.Document)]
     [CollectionName("ATUZYTK")]
     public class ATUZYTK : CollectionMember, ADictionaryReader, IDictionaryAssignable , IDataRecord 
     {
