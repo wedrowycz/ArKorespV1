@@ -13,7 +13,6 @@ namespace ArKorespV1.Models
     [CollectionName("ATUZYTK")]
     public class ATUZYTK : CollectionMember, ADictionaryReader, IDictionaryAssignable , IDataRecord 
     {
-        public string _id { get; set; }
         [Key]                 
         public string ID { get; set; }
         [Display(Name = "Nazwa użytkownika")]

@@ -33,9 +33,11 @@ namespace ArKorespV1.Controllers
 
         private SelectList KierunkiSelectList()
         {
-            Dictionary<int, string> kierunki = new Dictionary<int, string>();
-            kierunki.Add(1, przychodzacaitem);
-            kierunki.Add(2, wychodzacaitem);
+            Dictionary<int, string> kierunki = new Dictionary<int, string>
+            {
+                { 1, przychodzacaitem },
+                { 2, wychodzacaitem }
+            };
             return new SelectList(kierunki.Select(kk => new { id = kk.Key, value = kk.Value }), "id", "value");
         }
 

@@ -205,9 +205,9 @@ namespace ArKorespV1.Models
             if (!colection.Success)
             {
                 var createCollectionResult = db.Collection
-                    .KeyGeneratorType(AKeyGeneratorType.Autoincrement)
-                    .WaitForSync(true)
                     .Type(tmpobj.CollectionType())
+                    //.KeyGeneratorType(AKeyGeneratorType.Autoincrement)                    
+                    //.WaitForSync(true)                    
                     .Create(tmpobj.CollectionName());
                 if (!createCollectionResult.Success)
                 {
@@ -216,6 +216,79 @@ namespace ArKorespV1.Models
             }
 
             return true;
+        }
+
+        public List<T> GetEdges<T>(string key, ADirection direction)
+            where T :  ICollectionMember, IDictionaryAssignable, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpObj = new T();
+            var getresult = db.Document
+                .GetEdges(tmpObj.CollectionName(), key.Replace("_", "/"), direction);
+            
+            if (getresult.Success)
+            {
+                var retlist = new List<T>();
+                foreach (var edge in getresult.Value)
+                {
+                    var tmpO = new T();
+                    var rezult = new Dictionary<string, string>();
+                    foreach (string klucz in edge.Keys)
+                    {
+                        rezult.Add(klucz, edge.String(klucz));
+                    }
+                    tmpO.AssignFromDictionary(rezult);
+                    retlist.Add(tmpO);
+                }
+                return retlist;
+            }
+            return null;
+        }
+
+        public List<V> GetOtherSide<T,V>(string key, ADirection direction)
+            where T : IDataRecord, ICollectionMember, new()
+            where V : IDataRecord, ICollectionMember, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpObj = new T();
+            string dirstr = direction == ADirection.Any ? " ANY " : (direction == ADirection.In?" INBOUND ":" OUTBOUND ");
+            string querry = "FOR item in " + dirstr + " '" + key + "' " + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
+            var getrezult = db
+                .Query.Aql(querry).ToList<V>();
+                //.Document
+                //.GetEdges(tmpObj.CollectionName(), key.Replace("_", "/"), ADirection.In);
+
+            if (getrezult.Success)
+            {
+                for (int i = 0; i < getrezult.Value.Count; i++)
+                {
+                    getrezult.Value[i].ID = getrezult.Value[i]._id.Replace("/", "_");
+                }
+                return getrezult.Value;
+            }
+            return null;
+        }
+
+        public bool RemoveEdge<T>(string _from, string _to)
+            where T : ICollectionMember, new()
+        {
+            var tmpObj = new T();
+            if (tmpObj.CollectionType() == ACollectionType.Edge)
+            {
+                var db = new ADatabase("obieg");
+                string delstr = "for u in " + tmpObj.CollectionName() +
+                    " filter u._from == '" + _from + "' && u._to == '" + _to + "' " +
+                " REMOVE u in " + tmpObj.CollectionName();
+
+                var qresult = db.Query.Aql(delstr).ExecuteNonQuery();
+
+                return qresult.Success;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
 

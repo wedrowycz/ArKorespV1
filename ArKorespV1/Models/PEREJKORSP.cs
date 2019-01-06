@@ -12,7 +12,6 @@ namespace ArKorespV1.Models
     [CollectionName("PEREJKORESP")]
     public class PEREJKORESP : CollectionMember, IDataRecord, IDictionaryAssignable
     {        
-        public string _id { get ; set ; }
         [Key]
         public string ID { get ; set ; }
         [Display(Name ="Nazwa rejestru")]

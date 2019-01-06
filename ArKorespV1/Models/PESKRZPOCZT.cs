@@ -12,8 +12,6 @@ namespace ArKorespV1.Models
     [CollectionName("PESKRZPOCZT")]
     public class PESKRZPOCZT : CollectionMember, IDataRecord, IDictionaryAssignable
     {
-        [Display(Name = "Id")]
-        public string _id { get ; set ; }        
         public string ID { get ; set ; }
         [Display(Name ="Nazwa skrzynki")]
         public string DNAZWA { get; set; }

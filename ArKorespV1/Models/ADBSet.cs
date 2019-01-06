@@ -1,4 +1,5 @@
-﻿using ArKorespV1.Helpers;
+﻿using Arango.Client;
+using ArKorespV1.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,19 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// Template class for ARango-db operations
+    /// </summary>
+    /// <typeparam name="T"> type for operations , see alfo requirements in class where clause</typeparam>
     public class ADBSet<T> : List<T>
         where T : class, IDictionaryAssignable, IDataRecord, ICollectionMember, new()
     {
         //TODO: change db connection parameters to web.config values
         public ADBContext db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public ADBSet()
         {
             if (db != null)
@@ -76,5 +84,26 @@ namespace ArKorespV1.Models
             this.AddRange(rezult);
             return true;
         }
+
+        public virtual List<V> GetOtherSide<V>(string key, ADirection direction)
+            where V : IDataRecord , ICollectionMember,new()
+        {
+            //todo:check if T is Edge Collection
+            List< V > lista  = db.GetOtherSide<T, V>(key, direction);
+            return lista;
+        }
+
+        public virtual bool GetEdges(string key, ADirection direction)
+        {
+            //todo:check if T is Edge Collection
+            this.AddRange(db.GetEdges<T>(key, direction));
+            return true;
+        }
+
+        public virtual bool RemoveEdge(string _from, string _to)
+        {
+            return db.RemoveEdge<T>(_from, _to);
+        }
+
     }
 }

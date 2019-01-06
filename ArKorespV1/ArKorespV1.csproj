@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\ArKorespV1.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -191,6 +192,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PEREJKORESPController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
+    <Compile Include="Controllers\PESKRZPOCZTPRACController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -214,8 +216,11 @@
     <Compile Include="Models\PEREJKORSP.cs" />
     <Compile Include="Models\PESKRZPOCZT.cs" />
     <Compile Include="Models\PESKRZPOCZTDBSet.cs" />
+    <Compile Include="Models\PESKRZPOCZTPRAC.cs" />
+    <Compile Include="Models\PESKRZPOCZTPRACDBSet.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\PESKRZPOCZTPRACATUZYTK.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -285,6 +290,7 @@
     <Content Include="Views\PEREJKORESP\Create.cshtml" />
     <Content Include="Views\PEREJKORESP\Edit.cshtml" />
     <Content Include="Views\PEREJKORESP\Delete.cshtml" />
+    <Content Include="Views\PESKRZPOCZTPRAC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

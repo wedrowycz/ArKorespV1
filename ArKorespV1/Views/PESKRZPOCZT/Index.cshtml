@@ -100,7 +100,7 @@
             <br />
             @Html.ActionLink(linkText: "Usuń" , actionName: "Delete" , routeValues: new { id = item.ID })
             <br />
-            @Html.ActionLink(linkText: "Użytkownicy skrzynki", controllerName: "PESKRZPOCZTPRAC", actionName: "Index", routeValues: new { id = item.ID }, htmlAttributes: new { target = "_blank" })
+            @Html.ActionLink(linkText: "Użytkownicy skrzynki", controllerName: "PESKRZPOCZTPRAC", actionName: "Index", routeValues: new { skrzynka = item._id }, htmlAttributes: new { target = "_blank" })
         </td>
     </tr>
     }

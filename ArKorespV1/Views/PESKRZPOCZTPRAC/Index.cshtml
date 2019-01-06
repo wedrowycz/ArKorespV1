@@ -1,0 +1,85 @@
+﻿@model List<ArKorespV1.Models.ATUZYTK>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .table, th, td {
+        border: 1px solid lightgray;
+        max-width: none;
+        margin-left: initial;
+    }
+
+    a.my-class {
+        color: #333333
+    }
+
+        a.my-class:active {
+            color: #666666
+        }
+
+        a.my-class:link {
+            color: #3b9c46
+        }
+
+        a.my-class:visited {
+            color: coral
+        }
+</style>
+
+<style>
+    tr.NIEPARZYSTE td {
+        background-color: lightblue;
+    }
+
+    tr.PARZYSTE td {
+        background-color: white;
+    }
+
+    tr.TRZECIE td {
+        background-color: #e6fffa;
+    }
+
+    tr.CZWARTE td {
+        background-color: #ffe6e6;
+    }
+</style>
+
+<style>
+    .container {
+        margin-left: 1px;
+        max-width: none;
+    }
+</style>
+
+
+<h2>Uczestnicy skrzynki obiegu @ViewBag.nazwaskrzynki</h2>
+
+<p>
+    <span>
+        @Html.ActionLink("Dodaj", "Create", new { parent = ViewBag.skrzynka },
+         new { @class = "btn btn-primary" })
+    </span>
+</p>
+
+<table class="table">
+    <tr style="background-color:#f2f2f2">
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UserName )
+        </th>
+        <th></th>
+            
+    </tr>
+    @foreach (var uzytk in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelitem => uzytk.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Usuń", "Delete", new { _from = ViewBag.skrzynka, _to = uzytk._id })
+        </td>
+    </tr>
+    }
+    
+
+</table>

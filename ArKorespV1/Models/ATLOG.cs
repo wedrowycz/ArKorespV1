@@ -11,8 +11,7 @@ namespace ArKorespV1.Models
     [CollectionType(ACollectionType.Document)]
     [CollectionName("ATLOG")]
     public class ATLOG :CollectionMember, IDataRecord, IDictionaryAssignable
-    {
-        public string _id { get; set; }
+    {        
         [Display(Name ="Id użytkownika")]
         public string UserId { get; set; }
         [Display(Name ="Data i czas logowania")]
