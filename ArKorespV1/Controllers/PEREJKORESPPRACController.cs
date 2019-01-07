@@ -9,39 +9,30 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
-    /// <summary>
-    /// object's PESKRZPOCZT users
-    /// </summary>
-    public class PESKRZPOCZTPRACController : Controller
+    public class PEREJKORESPPRACController : Controller
     {
-        /// <summary>
-        ///  list object users
-        /// </summary>
-        /// <param name="skrzynka"></param>
-        /// <returns> view with users collection</returns>
-        // GET: PESKRZPOCZTPRAC
-        public ActionResult Index(string skrzynka)
+        // GET: PEREJKORESPPRAC
+        public ActionResult Index(string rejestr)
         {
-            PESKRZPOCZTPRACDBSet powiazania = new PESKRZPOCZTPRACDBSet();
-            var lista = powiazania.GetOtherSide<ATUZYTK>(skrzynka, ADirection.Out);
+            PEREJKORESPPRACDBSet powiazania = new PEREJKORESPPRACDBSet();
+            var lista = powiazania.GetOtherSide<ATUZYTK>(rejestr, ADirection.Out);
             if (lista == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PESKRZPOCZTDBSet info = new PESKRZPOCZTDBSet();
-            var infooskrz = info.GetById(skrzynka);
-            ViewBag.skrzynka = skrzynka;
-            ViewBag.nazwaskrzynki = infooskrz.DNAZWA;
+            PEREJKORESPDBSet info = new PEREJKORESPDBSet();
+            var infooskrz = info.GetById(rejestr);
+            ViewBag.rejestr = rejestr;
+            ViewBag.nazwarejestru = infooskrz.DNAZWA;
 
             return View(lista);
         }
 
-        // GET: PESKRZPOCZTPRAC/Details/5
+        // GET: PEREJKORESPPRAC/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
         private SelectList UserSelectList()
         {
             ATUZYTKDBSet uzytkownicy = new ATUZYTKDBSet();
@@ -52,32 +43,32 @@ namespace ArKorespV1.Controllers
                 //return new SelectList(uzytkownicy
                 //            .Select(ul => new { id = ul._id , value = ul.UserName })
                 //                    ,"id","value");
-                return new SelectList(lista,"Value","Text");
+                return new SelectList(lista, "Value", "Text");
             }
             return null;
         }
 
-        // GET: PESKRZPOCZTPRAC/Create
-        public ActionResult Create(string skrzynka)
+        // GET: PEREJKORESPPRAC/Create
+        public ActionResult Create(string rejestr)
         {
-            ViewBag.skrzynka = skrzynka;
+            ViewBag.rejestr = rejestr;
             ViewBag.ListaU = UserSelectList();
             return View();
         }
 
-        // POST: PESKRZPOCZTPRAC/Create
+        // POST: PEREJKORESPPRAC/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PESKRZPOCZTPRAC collection)
+        public ActionResult Create(PEREJKORESPPRAC collection)
         {
             try
             {
-                PESKRZPOCZTPRACDBSet pracs = new PESKRZPOCZTPRACDBSet();
+                PEREJKORESPPRACDBSet pracs = new PEREJKORESPPRACDBSet();
                 Dictionary<string, object> extradane = new Dictionary<string, object>();
                 extradane.Add("SDATA", DateTime.Now);
                 pracs.CreateEdge(collection._from, collection._to, extradane);
 
-                return RedirectToAction("Index",new { skrzynka = collection._from });
+                return RedirectToAction("Index", new { rejestr = collection._from });
             }
             catch
             {
@@ -85,13 +76,13 @@ namespace ArKorespV1.Controllers
             }
         }
 
-        // GET: PESKRZPOCZTPRAC/Edit/5
+        // GET: PEREJKORESPPRAC/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: PESKRZPOCZTPRAC/Edit/5
+        // POST: PEREJKORESPPRAC/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -107,24 +98,25 @@ namespace ArKorespV1.Controllers
             }
         }
 
-        // GET: PESKRZPOCZTPRAC/Delete/5
+        // GET: PEREJKORESPPRAC/Delete/5
         public ActionResult Delete(string _from, string _to)
         {
-            PESKRZPOCZTPRACDBSet powiazania = new PESKRZPOCZTPRACDBSet();
+            PEREJKORESPPRACDBSet powiazania = new PEREJKORESPPRACDBSet();
 
             if (powiazania.GetEdges(_from, ADirection.Out))
             {
                 var edge = powiazania.Where(konc => konc._to == _to).FirstOrDefault();
-                ViewBag.skrzynka = _from;
+                ViewBag.rejestr = _from;
                 return View(edge);
-            }   
-            
+            }
+
             return View();
         }
 
-        // POST: PESKRZPOCZTPRAC/Delete/5
+        // POST: PEREJKORESPPRAC/Delete/5
         [HttpPost]
-        public ActionResult Delete(string _from,string _to, PESKRZPOCZTPRAC collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string _from, string _to, PEREJKORESPPRAC collection)
         {
             try
             {
@@ -132,10 +124,10 @@ namespace ArKorespV1.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                PESKRZPOCZTPRACDBSet powiazania = new PESKRZPOCZTPRACDBSet();
-                powiazania.RemoveEdge(_from,_to);
-                
-                return RedirectToAction("Index", new { rejestr = _from});
+                PEREJKORESPPRACDBSet powiazania = new PEREJKORESPPRACDBSet();
+                powiazania.RemoveEdge(_from, _to);
+
+                return RedirectToAction("Index", new { rejestr = _from });
             }
             catch
             {

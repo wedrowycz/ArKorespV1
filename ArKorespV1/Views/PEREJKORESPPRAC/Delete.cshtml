@@ -1,0 +1,46 @@
+﻿@model ArKorespV1.Models.PEREJKORESPPRAC
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuwanie powiązania użytkownika z rejestrem</h2>
+
+<h3>Czy jesteś pewien ?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model._from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._to)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._id)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót do listy", "Index", new { rejestr = ViewBag.rejestr })
+        </div>
+    }
+</div>
+
+

@@ -252,7 +252,7 @@ namespace ArKorespV1.Models
             var db = new ADatabase("obieg");
             var tmpObj = new T();
             string dirstr = direction == ADirection.Any ? " ANY " : (direction == ADirection.In ? " INBOUND " : " OUTBOUND ");
-            string querry = "FOR item in " + dirstr + " '" + key + "' " + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
+            string querry = "FOR item in " + dirstr + " '" + key.Replace("_","/") + "' " + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
             var getrezult = db
                 .Query.Aql(querry).ToList<V>();
             //.Document
@@ -277,7 +277,7 @@ namespace ArKorespV1.Models
             {
                 var db = new ADatabase("obieg");
                 string delstr = "for u in " + tmpObj.CollectionName() +
-                    " filter u._from == '" + _from + "' && u._to == '" + _to + "' " +
+                    " filter u._from == '" + _from.Replace("_","/") + "' && u._to == '" + _to.Replace("_","/") + "' " +
                 " REMOVE u in " + tmpObj.CollectionName();
 
                 var qresult = db.Query.Aql(delstr).ExecuteNonQuery();
@@ -296,7 +296,8 @@ namespace ArKorespV1.Models
         {
             T edgedef = new T();
             var db = new ADatabase("obieg");
-            var insertresult = db.Document.CreateEdge(edgedef.CollectionName(), _from, _to, elements);
+            var insertresult = db.Document.CreateEdge(edgedef.CollectionName()
+                    , _from.Replace("_","/"), _to.Replace("_","/"), elements);
             if (insertresult.Success)
             {
                 return true;

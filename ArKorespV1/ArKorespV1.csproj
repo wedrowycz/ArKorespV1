@@ -49,6 +49,7 @@
   <ItemGroup>
     <Reference Include="Arango.Client, Version=1.0.6149.18654, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ArangoDB-NET.0.10.2\lib\Arango.Client.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -192,6 +193,7 @@
     <Compile Include="Controllers\ATUZYTKController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PEREJKORESPController.cs" />
+    <Compile Include="Controllers\PEREJKORESPPRACController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTPRACController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -297,6 +299,9 @@
     <Content Include="Views\PESKRZPOCZTPRAC\Index.cshtml" />
     <Content Include="Views\PESKRZPOCZTPRAC\Create.cshtml" />
     <Content Include="Views\PESKRZPOCZTPRAC\Delete.cshtml" />
+    <Content Include="Views\PEREJKORESPPRAC\Index.cshtml" />
+    <Content Include="Views\PEREJKORESPPRAC\Create.cshtml" />
+    <Content Include="Views\PEREJKORESPPRAC\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
