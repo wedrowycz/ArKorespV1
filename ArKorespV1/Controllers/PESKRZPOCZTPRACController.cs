@@ -9,8 +9,16 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// object's PESKRZPOCZT users
+    /// </summary>
     public class PESKRZPOCZTPRACController : Controller
     {
+        /// <summary>
+        ///  list object users
+        /// </summary>
+        /// <param name="skrzynka"></param>
+        /// <returns> view with users collection</returns>
         // GET: PESKRZPOCZTPRAC
         public ActionResult Index(string skrzynka)
         {
@@ -34,21 +42,42 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        private SelectList UserSelectList()
+        {
+            ATUZYTKDBSet uzytkownicy = new ATUZYTKDBSet();
+            if (uzytkownicy.Get(""))
+            {
+                var lista = uzytkownicy.Select(iz => new SelectListItem { Value = iz._id, Text = iz.UserName }).AsEnumerable();
+
+                //return new SelectList(uzytkownicy
+                //            .Select(ul => new { id = ul._id , value = ul.UserName })
+                //                    ,"id","value");
+                return new SelectList(lista,"Value","Text");
+            }
+            return null;
+        }
+
         // GET: PESKRZPOCZTPRAC/Create
         public ActionResult Create(string skrzynka)
         {
+            ViewBag.skrzynka = skrzynka;
+            ViewBag.ListaU = UserSelectList();
             return View();
         }
 
         // POST: PESKRZPOCZTPRAC/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(PESKRZPOCZTPRAC collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                PESKRZPOCZTPRACDBSet pracs = new PESKRZPOCZTPRACDBSet();
+                Dictionary<string, object> extradane = new Dictionary<string, object>();
+                extradane.Add("SDATA", DateTime.Now);
+                pracs.CreateEdge(collection._from, collection._to, extradane);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { skrzynka = collection._from });
             }
             catch
             {
@@ -79,20 +108,35 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PESKRZPOCZTPRAC/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string _from, string _to)
         {
+            PESKRZPOCZTPRACDBSet powiazania = new PESKRZPOCZTPRACDBSet();
+
+            if (powiazania.GetEdges(_from, ADirection.Out))
+            {
+                var edge = powiazania.Where(konc => konc._to == _to).FirstOrDefault();
+                ViewBag.skrzynka = _from;
+                return View(edge);
+            }   
+            
             return View();
         }
 
         // POST: PESKRZPOCZTPRAC/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string _from,string _to, PESKRZPOCZTPRAC collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (_from == "" || _to == "")
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                PESKRZPOCZTPRACDBSet powiazania = new PESKRZPOCZTPRACDBSet();
+                powiazania.RemoveEdge(_from,_to);
+                
+                return RedirectToAction("Index", new { skrzynka = _from});
             }
             catch
             {

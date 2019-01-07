@@ -13,12 +13,13 @@ namespace ArKorespV1.Models
     /// </summary>
     [CollectionType(ACollectionType.Edge)]
     [CollectionName("PESKRZPOCZTPRAC")]
-    public class PESKRZPOCZTPRAC : CollectionMember, IDataRecord, IDictionaryAssignable
-    {        
+    public class PESKRZPOCZTPRAC : CollectionMember, IDataRecord, IDictionaryAssignable , IEdgeCollection
+    {     
+        [Key]
         public string ID { get ; set; }
-        [Display(Name ="Obiekt źródłowy")]
+        [Display(Name ="Obiekt źródłowy - skrzynka")]
         public string _from { get; set; }
-        [Display(Name ="Obiekt docelowy")]
+        [Display(Name ="Obiekt docelowy - użytkownik")]
         public string _to { get; set; }
         [Display(Name ="Poziom uprawnień")]
         public int PERMISSIONTYPE { get; set; }
@@ -30,6 +31,8 @@ namespace ArKorespV1.Models
             ID = _id.Replace("/", "_");
             PERMISSIONTYPE = dictionarry.ContainsKey("PERMISSIONTYPE") ? Int32.Parse(dictionarry["PERMISSIONTYPE"]) : 0;
             SDATA = dictionarry.ContainsKey("SDATA") ? DateTime.Parse(dictionarry["SDATA"]) : DateTime.Now;
+            _from = dictionarry.ContainsKey("_from") ? dictionarry["_from"] : "";
+            _to = dictionarry.ContainsKey("_to") ? dictionarry["_to"] : "";
             return true;
         }
     }

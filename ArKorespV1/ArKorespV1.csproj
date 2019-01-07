@@ -34,7 +34,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\ArKorespV1.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -212,7 +213,10 @@
     <Compile Include="Models\CollectionTypeAttribute.cs" />
     <Compile Include="Models\ICollectionMember.cs" />
     <Compile Include="Models\IDataRecord.cs" />
+    <Compile Include="Models\IEdgeCollection.cs" />
     <Compile Include="Models\PEREJKORESPDBSet.cs" />
+    <Compile Include="Models\PEREJKORESPPRAC.cs" />
+    <Compile Include="Models\PEREJKORESPPRACDBSet.cs" />
     <Compile Include="Models\PEREJKORSP.cs" />
     <Compile Include="Models\PESKRZPOCZT.cs" />
     <Compile Include="Models\PESKRZPOCZTDBSet.cs" />
@@ -291,6 +295,8 @@
     <Content Include="Views\PEREJKORESP\Edit.cshtml" />
     <Content Include="Views\PEREJKORESP\Delete.cshtml" />
     <Content Include="Views\PESKRZPOCZTPRAC\Index.cshtml" />
+    <Content Include="Views\PESKRZPOCZTPRAC\Create.cshtml" />
+    <Content Include="Views\PESKRZPOCZTPRAC\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

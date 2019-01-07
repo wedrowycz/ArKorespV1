@@ -117,7 +117,7 @@ namespace ArKorespV1.Controllers
         // POST: PEREJKORESP/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id, FormCollection collection)
+        public ActionResult DeleteConfirmed(string id, PEREJKORESP collection)
         {
             try
             {

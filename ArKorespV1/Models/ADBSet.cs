@@ -105,5 +105,10 @@ namespace ArKorespV1.Models
             return db.RemoveEdge<T>(_from, _to);
         }
 
+        public virtual bool CreateEdge(string _from, string _to, Dictionary<string, object> elements)
+        {
+            return db.InsertEdge<T>(_from, _to, elements);
+        }
+
     }
 }
