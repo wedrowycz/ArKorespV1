@@ -9,6 +9,7 @@ namespace ArKorespV1.Models
     public interface IDataRecord
     {
         string _id { get; set; }
+        string _rev { get; set;}
         string ID { get; set; }
     }
 }

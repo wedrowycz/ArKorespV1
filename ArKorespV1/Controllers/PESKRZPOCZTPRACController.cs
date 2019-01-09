@@ -48,10 +48,6 @@ namespace ArKorespV1.Controllers
             if (uzytkownicy.Get(""))
             {
                 var lista = uzytkownicy.Select(iz => new SelectListItem { Value = iz._id, Text = iz.UserName }).AsEnumerable();
-
-                //return new SelectList(uzytkownicy
-                //            .Select(ul => new { id = ul._id , value = ul.UserName })
-                //                    ,"id","value");
                 return new SelectList(lista,"Value","Text");
             }
             return null;

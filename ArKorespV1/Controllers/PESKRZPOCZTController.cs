@@ -28,9 +28,22 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        private SelectList UserSelectList()
+        {
+            ATUZYTKDBSet uzytkownicy = new ATUZYTKDBSet();
+            if (uzytkownicy.Get(""))
+            {
+                var lista = uzytkownicy.Select(iz => new SelectListItem { Value = iz._id, Text = iz.UserName }).AsEnumerable();
+                return new SelectList(lista, "Value", "Text");
+            }
+            return null;
+        }
+
+
         // GET: PESKRZPOCZT/Create
         public ActionResult Create()
         {
+            ViewBag.ListaU = UserSelectList();
             return View();
         }
 
@@ -65,7 +78,7 @@ namespace ArKorespV1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
+            ViewBag.ListaU = UserSelectList();
             return View(datatoupdate);
         }
 

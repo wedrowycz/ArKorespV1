@@ -23,6 +23,8 @@ namespace ArKorespV1.Models
         [Display(Name ="email skrzynki")]
         [StringLength(80)]
         public string DEMAIL { get; set; }
+        [Display(Name ="użytkownik podstawowy")]
+        public string DUZYTKOWNIKPODSTID { get; set; }
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             if (dictionarry != null)

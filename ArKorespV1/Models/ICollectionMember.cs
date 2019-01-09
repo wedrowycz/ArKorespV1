@@ -14,6 +14,5 @@ namespace ArKorespV1.Models
     {
         string CollectionName();
         ACollectionType CollectionType();
-
     }
 }
