@@ -17,6 +17,7 @@ namespace ArKorespV1.Models
     {
         //TODO: change db connection parameters to web.config values
         public ADBContext db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
+        public bool alreadycreated { get; set; }
 
         /// <summary>
         /// default constructor
@@ -25,7 +26,11 @@ namespace ArKorespV1.Models
         {
             if (db != null)
             {
-                db.InitializeCollection<T>();
+                bool created;
+                if (db.InitializeCollection<T>(out created))
+                {
+                    alreadycreated = created;
+                }
             }
         }
         public string CollectionName()

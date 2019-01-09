@@ -195,12 +195,12 @@ namespace ArKorespV1.Models
             return default(List<T>);
         }
 
-        public bool InitializeCollection<T>()
+        public bool InitializeCollection<T>( out bool created)
             where T : IDataRecord, ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
-
+            created = false;
             var colection = db.Collection.Get(tmpobj.CollectionName());
             if (!colection.Success)
             {
@@ -212,6 +212,10 @@ namespace ArKorespV1.Models
                 if (!createCollectionResult.Success)
                 {
                     return false;
+                }
+                else
+                {
+                    created = true;
                 }
             }
 

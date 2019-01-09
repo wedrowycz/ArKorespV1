@@ -27,7 +27,7 @@ namespace ArKorespV1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userdata = user.IsValid(user.UserName, user.Password);
+                var userdata = user.IsValid2(user.UserName, user.Password);
                 if (userdata != null)
                 {
                     FormsAuthentication.SetAuthCookie(userName: user.UserName, createPersistentCookie: true);

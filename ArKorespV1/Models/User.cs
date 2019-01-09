@@ -6,12 +6,49 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// Model class for user login controller 
+    /// also includes methods to validate password
+    /// </summary>
     public class User
     {
         [Display(Name ="Nazwa użytkownika")]
         public string UserName { get; set; }
         [Display(Name = "Hasło")]
         public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"> provided user name</param>
+        /// <param name="password"> provided password</param>
+        /// <returns> ATUZYTK object if user exists</returns>
+        public ATUZYTK IsValid2(string username, string password)
+        {
+            ATUZYTKDBSet uds = new ATUZYTKDBSet();
+            if (uds.alreadycreated)
+            {
+                ATUZYTK firstadmin = new ATUZYTK
+                {
+                    UserName = username,
+                    Password = password,
+                    UserRole = 2
+                };
+
+                uds.Insert(firstadmin);
+                
+            }
+
+            if (uds.Get(" item.UserName =='"+ username.Trim()+"'"))
+            {
+                var uzytk = uds.Where(uz => uz.Password == password).FirstOrDefault();
+                if (uzytk != null)
+                {
+                    return uzytk;
+                }
+            }
+            return null;
+        }
 
         public ATUZYTK IsValid(string username, string password)
         {
