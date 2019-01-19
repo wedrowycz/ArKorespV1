@@ -20,7 +20,7 @@ namespace ArKorespV1.Models
         public bool alreadycreated { get; set; }
 
         /// <summary>
-        /// default constructor
+        /// default constructor perform collection existnece check
         /// </summary>
         public ADBSet()
         {
@@ -33,24 +33,24 @@ namespace ArKorespV1.Models
                 }
             }
         }
-        public string CollectionName()
+        /// <summary>
+        /// method provides T type collection name 
+        /// </summary>
+        /// <returns>string - collection name</returns>
+        public virtual string CollectionName()
         {
-            var attr = typeof(ATUZYTK).GetCustomAttribute<CollectionNameAttribute>(false);
-            if (attr == null)
-            {
-                return typeof(T).GetType().Name;
-            }
-            else
-            {
-                return attr.Name;
-            }            
+            return new T().CollectionName();
         }
 
+        /// <summary>
+        /// virtual Query
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public virtual bool Query(string condition)
         {
             return true;
         }
-
         
         public virtual T Insert(T newdata)
         {

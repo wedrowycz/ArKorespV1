@@ -23,7 +23,7 @@ namespace ArKorespV1.Models
             string aquery = "FOR item IN " + CollectionName();
             if (condition != "")
             {
-                aquery += " FILTER item." + condition;
+                aquery += " FILTER " + condition;
             }
             aquery += " RETURN item";            
             

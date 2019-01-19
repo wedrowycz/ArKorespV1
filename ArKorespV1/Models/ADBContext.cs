@@ -15,6 +15,7 @@ namespace ArKorespV1.Models
         private int dbport;
         private string username;
         private string password;
+        protected string collectionprefix = "";
 
         public ADBContext(string hostname, int port, string dbname, string username, string password)
         {
@@ -127,7 +128,7 @@ namespace ArKorespV1.Models
             var db = new ADatabase("obieg");
             var createresult =
                 db.Document.WaitForSync(true)
-                .Create<T>(newdata.CollectionName(), newdata);
+                .Create<T>(collectionprefix + newdata.CollectionName(), newdata);
             if (createresult.Success)
             {
                 var key = createresult.Value.String("_id");
@@ -179,7 +180,7 @@ namespace ArKorespV1.Models
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
-            string aquery = "FOR item IN " + tmpobj.CollectionName() +
+            string aquery = "FOR item IN " + collectionprefix +  tmpobj.CollectionName() +
                 (filter != "" ? " FILTER " + filter : "") +
                 " RETURN item";
             var getrezult = db.Query.Aql(aquery).ToList<T>();
@@ -195,20 +196,21 @@ namespace ArKorespV1.Models
             return default(List<T>);
         }
 
-        public bool InitializeCollection<T>( out bool created)
+        public bool InitializeCollection<T>( out bool created, String prefix = "")
             where T : IDataRecord, ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
+            this.collectionprefix = prefix;
             created = false;
-            var colection = db.Collection.Get(tmpobj.CollectionName());
+            var colection = db.Collection.Get(prefix+tmpobj.CollectionName());
             if (!colection.Success)
             {
                 var createCollectionResult = db.Collection
                     .Type(tmpobj.CollectionType())
                     //.KeyGeneratorType(AKeyGeneratorType.Autoincrement)                    
                     //.WaitForSync(true)                    
-                    .Create(tmpobj.CollectionName());
+                    .Create(collectionprefix + tmpobj.CollectionName());
                 if (!createCollectionResult.Success)
                 {
                     return false;
@@ -228,7 +230,7 @@ namespace ArKorespV1.Models
             var db = new ADatabase("obieg");
             var tmpObj = new T();
             var getresult = db.Document
-                .GetEdges(tmpObj.CollectionName(), key.Replace("_", "/"), direction);
+                .GetEdges(collectionprefix + tmpObj.CollectionName(), key.Replace("_", "/"), direction);
 
             if (getresult.Success)
             {
@@ -256,7 +258,7 @@ namespace ArKorespV1.Models
             var db = new ADatabase("obieg");
             var tmpObj = new T();
             string dirstr = direction == ADirection.Any ? " ANY " : (direction == ADirection.In ? " INBOUND " : " OUTBOUND ");
-            string querry = "FOR item in " + dirstr + " '" + key.Replace("_","/") + "' " + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
+            string querry = "FOR item in " + dirstr + " '" + key.Replace("_","/") + "' " + collectionprefix + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
             var getrezult = db
                 .Query.Aql(querry).ToList<V>();
             //.Document
@@ -280,9 +282,9 @@ namespace ArKorespV1.Models
             if (tmpObj.CollectionType() == ACollectionType.Edge)
             {
                 var db = new ADatabase("obieg");
-                string delstr = "for u in " + tmpObj.CollectionName() +
+                string delstr = "for u in " + collectionprefix + tmpObj.CollectionName() +
                     " filter u._from == '" + _from.Replace("_","/") + "' && u._to == '" + _to.Replace("_","/") + "' " +
-                " REMOVE u in " + tmpObj.CollectionName();
+                " REMOVE u in " + collectionprefix + tmpObj.CollectionName();
 
                 var qresult = db.Query.Aql(delstr).ExecuteNonQuery();
 
@@ -300,7 +302,7 @@ namespace ArKorespV1.Models
         {
             T edgedef = new T();
             var db = new ADatabase("obieg");
-            var insertresult = db.Document.CreateEdge(edgedef.CollectionName()
+            var insertresult = db.Document.CreateEdge(collectionprefix + edgedef.CollectionName()
                     , _from.Replace("_","/"), _to.Replace("_","/"), elements);
             if (insertresult.Success)
             {
@@ -318,7 +320,7 @@ namespace ArKorespV1.Models
         {
             var rezult = new T();
             var db = new ADatabase("obieg");
-            var insertresult = db.Document.CreateEdge<T>(edgetoinsert.CollectionName(), edgetoinsert._from, edgetoinsert._to, edgetoinsert);
+            var insertresult = db.Document.CreateEdge<T>(collectionprefix + edgetoinsert.CollectionName(), edgetoinsert._from, edgetoinsert._to, edgetoinsert);
             if (insertresult.Success)
             {
                 var id = insertresult.Value.String("_id");

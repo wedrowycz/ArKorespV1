@@ -1,0 +1,49 @@
+﻿@model ArKorespV1.Models.UserNotes
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .editor-field textarea {
+        width: 800px;
+        height: 100px;
+    }
+</style>
+
+<h2>Nowa notatka</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DDATA, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DDATA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DDATA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+    <div  class="editor-field">
+        @Html.LabelFor(model => model.DNOTATKA, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.DNOTATKA, new { htmlAttributes = new { @class = "form-control" } })        
+    </div>
+        </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz" class="btn btn-default" />
+        </div>
+    </div>
+
+}
+
+
+<div>
+    @Html.ActionLink("Powrót do listy", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
