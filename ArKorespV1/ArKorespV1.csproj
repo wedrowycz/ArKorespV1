@@ -318,6 +318,7 @@
     <Content Include="Views\UserNotes\Create.cshtml" />
     <Content Include="Views\UserNotes\Edit.cshtml" />
     <Content Include="Views\UserNotes\Delete.cshtml" />
+    <Content Include="Views\Shared\_LayoutRefreshable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

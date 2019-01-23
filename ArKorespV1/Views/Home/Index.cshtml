@@ -1,4 +1,8 @@
-﻿<div class="jumbotron">
+﻿@{
+ 
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+<div class="jumbotron">
     <h1>Skrzynka odbiorcza</h1>
     <p class="lead">Wyświetl skrzynke odbiorczą.</p>
     <p><a href="#" class="btn btn-primary btn-lg">Dalej &raquo;</a></p>
@@ -15,7 +19,7 @@
         <p>Wyświetlaj i aktualizuj rejestr korespondencji przychodzącej.</p>
         <p><a class="btn btn-default" href="#">Dalej &raquo;</a></p>
     </div>
-    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <h2>Rejestry korespondencji - administracja</h2>
@@ -34,14 +38,15 @@
     </div>
 </div>
 @if (Request.IsAuthenticated)
-{if (Session["Role"].Equals("2"))
 {
-<div class="row">
-    <div class="col-md-4">
-        <h2>Użytkownicy</h2>
-        <p>Administracja - wykaz użytkowników.</p>
-        <p><a class="btn btn-default" href="/ATUZYTK/Index">Dalej &raquo;</a></p>
-    </div>
-</div>
+    if (Session["Role"].Equals("2"))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Użytkownicy</h2>
+                <p>Administracja - wykaz użytkowników.</p>
+                <p><a class="btn btn-default" href="/ATUZYTK/Index">Dalej &raquo;</a></p>
+            </div>
+        </div>
     }
 }
