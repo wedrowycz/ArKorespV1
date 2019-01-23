@@ -16,7 +16,10 @@ namespace ArKorespV1.Models
         [Display(Name ="notatka")]
         [MaxLength(10000)]
         public string DNOTATKA { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name ="data dodania")]
+        [UIHint("DateTimePicker")]
+        [DataType(DataType.Date)]
         public DateTime DDATA { get; set; }
 
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
