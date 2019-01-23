@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -38,11 +39,14 @@ namespace ArKorespV1.Controllers
         // POST: UserNotes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(UserNotes collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                string uname = Session["UserName"].ToString();
+                UserNotesDBSet datactr = new UserNotesDBSet(uname);
+                collection.SDATA = DateTime.Now;
+                datactr.Insert(collection);
 
                 return RedirectToAction("Index");
             }
@@ -53,18 +57,28 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: UserNotes/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            string uname = Session["UserName"].ToString();
+            UserNotesDBSet datactr = new UserNotesDBSet(uname);
+            UserNotes datatoupdate = datactr.GetById(id);
+            if(datatoupdate == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View( datatoupdate );
         }
 
         // POST: UserNotes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, UserNotes collection)
         {
             try
             {
-                // TODO: Add update logic here
+                string uname = Session["UserName"].ToString();
+                UserNotesDBSet datactr = new UserNotesDBSet(uname);
+                collection.SDATA = DateTime.Now;
+                datactr.Update(collection);
 
                 return RedirectToAction("Index");
             }
@@ -75,18 +89,28 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: UserNotes/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            string uname = Session["UserName"].ToString();
+            UserNotesDBSet datactr = new UserNotesDBSet(uname);
+            UserNotes datatodelete = datactr.GetById(id);
+            if (datatodelete == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View(datatodelete);
         }
 
         // POST: UserNotes/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string id, UserNotes collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                string uname = Session["UserName"].ToString();
+                UserNotesDBSet datactr = new UserNotesDBSet(uname);
+                datactr.Delete(id);
 
                 return RedirectToAction("Index");
             }

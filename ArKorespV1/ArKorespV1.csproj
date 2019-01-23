@@ -192,6 +192,7 @@
     <Compile Include="Controllers\ATLOGController.cs" />
     <Compile Include="Controllers\ATUZYTKController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PEKORESPController.cs" />
     <Compile Include="Controllers\PEREJKORESPController.cs" />
     <Compile Include="Controllers\PEREJKORESPPRACController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
@@ -217,6 +218,8 @@
     <Compile Include="Models\ICollectionMember.cs" />
     <Compile Include="Models\IDataRecord.cs" />
     <Compile Include="Models\IEdgeCollection.cs" />
+    <Compile Include="Models\PEKORESP.cs" />
+    <Compile Include="Models\PEKORESPDBSet.cs" />
     <Compile Include="Models\PEREJKORESPDBSet.cs" />
     <Compile Include="Models\PEREJKORESPPRAC.cs" />
     <Compile Include="Models\PEREJKORESPPRACDBSet.cs" />
@@ -322,6 +325,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PEKORESP\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

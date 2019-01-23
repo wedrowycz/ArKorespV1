@@ -1,11 +1,38 @@
-﻿@{
+﻿@model ArKorespV1.Models.UserNotes
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Usuwanie notatki</h2>
 
 <h3>Czy jesteś pewien ?</h3>
-
+    
 <div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DNOTATKA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DNOTATKA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DDATA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDATA)
+        </dd>
+
+       
+    </dl>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
