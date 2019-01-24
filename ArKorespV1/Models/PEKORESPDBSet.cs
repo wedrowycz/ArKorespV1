@@ -14,7 +14,7 @@ namespace ArKorespV1.Models
             if (db != null)
             {
                 bool created;
-                if (db.InitializeCollection<UserNotes>(out created, rejestr))
+                if (db.InitializeCollection<PEKORESP>(out created, rejestr))
                 {
                     alreadycreated = created;
                 }

@@ -86,7 +86,10 @@ namespace ArKorespV1.Models
         public virtual bool Get(string condition)
         {
             List<T> rezult = db.Get<T>(condition);
-            this.AddRange(rezult);
+            if (rezult != null)
+            {
+                this.AddRange(rezult);
+            }
             return true;
         }
 

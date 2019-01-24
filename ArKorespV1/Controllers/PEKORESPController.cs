@@ -16,6 +16,10 @@ namespace ArKorespV1.Controllers
             PEKORESPDBSet koresp = new PEKORESPDBSet(rejkoresp);
             if (koresp.Get(""))
             {
+                PEREJKORESPDBSet deff = new PEREJKORESPDBSet();
+                PEREJKORESP rk = deff.GetById(rejkoresp.Replace("_", "/"));
+
+                ViewBag.nazwa = rk.DNAZWA;
                 ViewBag.rejkoresp = rejkoresp;
                 return View(koresp);
             }

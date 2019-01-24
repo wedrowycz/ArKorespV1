@@ -1,4 +1,5 @@
-﻿using ArKorespV1.Models;
+﻿using Arango.Client;
+using ArKorespV1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,39 @@ namespace ArKorespV1.Controllers
         private const string przychodzacaitem = "przychodząca";
 
         // GET: PEREJKORESP
-        public ActionResult Index()
+        public ActionResult Index(int ? rodzaj)
         {
+            int rodz = rodzaj ?? 0;
+
             PEREJKORESPDBSet db = new PEREJKORESPDBSet();
             if (!db.Get(""))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var lista = db.OrderBy(rk => rk.DSYMBOL).ToList();
+            if (rodz > 0)
+            {
+                lista = lista.Where(lst => lst.DKIERUNEK == rodz).ToList();
+            }
+            ViewBag.rodzaj = rodz;
+            return View( lista );
+        }
 
-            return View(db.OrderBy(rk => rk.DSYMBOL).ToList());
+        public ActionResult UserRegisters(int? rodzaj)
+        {
+            int rodz = rodzaj ?? 0;
+            string user = Session["UserId"].ToString();
+
+            PEREJKORESPPRACDBSet listau = new PEREJKORESPPRACDBSet();
+            List<PEREJKORESP> lista = listau.GetOtherSide<PEREJKORESP>(user,ADirection.In);
+                        
+            lista = lista.OrderBy(rk => rk.DSYMBOL).ToList();
+            if (rodz > 0)
+            {
+                lista = lista.Where(lst => lst.DKIERUNEK == rodz).ToList();
+            }
+            ViewBag.rodzaj = rodz;
+            return View(lista);
         }
 
         // GET: PEREJKORESP/Details/5

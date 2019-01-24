@@ -322,10 +322,11 @@
     <Content Include="Views\UserNotes\Edit.cshtml" />
     <Content Include="Views\UserNotes\Delete.cshtml" />
     <Content Include="Views\Shared\_LayoutRefreshable.cshtml" />
+    <Content Include="Views\PEREJKORESP\UserRegisters.cshtml" />
+    <Content Include="Views\PEKORESP\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PEKORESP\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

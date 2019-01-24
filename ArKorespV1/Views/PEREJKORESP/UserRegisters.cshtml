@@ -52,19 +52,19 @@
     }
 </style>
 @{int i = 0;}
-<p>
+@*<p>
     <span>
         @Html.ActionLink("Dodaj", "Create", null,
          new { @class = "btn btn-primary" })
     </span>
-</p>
+</p>*@
 
 <table class="table">
     <tr style="background-color:#f2f2f2">
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DSYMBOL)</th>
-        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DKIERUNEK)</th>
-        <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DFORMAT)</th>
+        @*<th>@Html.DisplayNameFor(model => model.FirstOrDefault().DKIERUNEK)</th>*@
+        @*<th>@Html.DisplayNameFor(model => model.FirstOrDefault().DFORMAT)</th>*@
 
         <th>id</th>
         <th></th>
@@ -91,21 +91,26 @@
         }
         <tr class="@rowColor">
             <td>
-                @Html.DisplayFor(modelitem => item.DNAZWA)
+                @Html.ActionLink(linkText: item.DNAZWA
+                                    ,actionName:"Index"
+                                    , controllerName:"PEKORESP"
+                                    ,routeValues: new { rejkoresp = item.ID}
+                                    ,htmlAttributes : null)
+                @*@Html.DisplayFor(modelitem => item.DNAZWA)*@
             </td>
             <td>@Html.DisplayFor(modelitem => item.DSYMBOL)</td>
-            <td>@Html.Raw(item.DKIERUNEK == 1?"przychodząca":"wychodząca")</td>
-            <td>@Html.DisplayFor(modelitem => item.DFORMAT)</td>
+            @*<td>@Html.Raw(item.DKIERUNEK == 1?"przychodząca":"wychodząca")</td>*@
+            @*<td>@Html.DisplayFor(modelitem => item.DFORMAT)</td>*@
             <td>
                 @Html.DisplayFor(modelitem => item._id)<br />
             @Html.DisplayFor(modelitem => item.SDATA)
         </td>
         <td>
-            @Html.ActionLink(linkText: "Zmień", actionName: "Edit", routeValues: new { id = item.ID })
-            <br />
-            @Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = item.ID })
-            <br />
-            @Html.ActionLink(linkText: "Użytkownicy rejestru", controllerName: "PEREJKORESPPRAC", actionName: "Index", routeValues: new { rejestr = item.ID }, htmlAttributes: new { target = "_blank" })
+            @*@Html.ActionLink(linkText: "Zmień", actionName: "Edit", routeValues: new { id = item.ID })*@
+            @*<br />*@
+            @*@Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = item.ID })*@
+            @*<br />*@
+            @*@Html.ActionLink(linkText: "Użytkownicy rejestru", controllerName: "PEREJKORESPPRAC", actionName: "Index", routeValues: new { rejestr = item.ID }, htmlAttributes: new { target = "_blank" })*@
         </td>
     </tr>
 }
