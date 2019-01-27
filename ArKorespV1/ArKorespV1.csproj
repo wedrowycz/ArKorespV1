@@ -239,6 +239,7 @@
     <Compile Include="ViewModels\IdDescription.cs" />
     <Compile Include="ViewModels\PESKRZPOCZTPRACATUZYTK.cs" />
     <Compile Include="ViewModels\PEZalacznikiZOgonem.cs" />
+    <Compile Include="ViewModels\ZalacznikiZOgonemList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

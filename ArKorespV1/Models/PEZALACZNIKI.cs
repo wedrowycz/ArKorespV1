@@ -16,6 +16,10 @@ namespace ArKorespV1.Models
         [Display(Name ="plik jako taki")]
         public string DDANE { get; set; }
         public string DWERSJA { get; set; }
+        [Display(Name ="opis")]
+        public string DOPIS { get; set; }
+        [Display(Name ="Data pliku")]
+        public DateTime DDATA { get; set; }
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             return true;
