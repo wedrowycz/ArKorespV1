@@ -5,20 +5,20 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    public class PEKORESPDBSet:ADBSet<PEKORESP>
+    public class PEZALACZNIKIDBSet:ADBSet<PEZALACZNIKI>
     {
-        private string rejestr;
+        private object uzytkownik;
 
-        public PEKORESPDBSet(string rejestr)
+        public PEZALACZNIKIDBSet(string uzytkownik)
         {
             if (db != null)
             {
                 bool created;
-                if (db.InitializeCollection<PEKORESP>(out created, rejestr.Replace( "_","")))
+                if (db.InitializeCollection<PEZALACZNIKI>(out created, uzytkownik.Replace("_", "")))
                 {
                     alreadycreated = created;
                 }
-                this.rejestr = rejestr.Replace("_", "");
+                this.uzytkownik = uzytkownik.Replace("_", "");
             }
         }
     }

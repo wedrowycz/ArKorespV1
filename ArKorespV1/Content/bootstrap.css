@@ -2024,7 +2024,7 @@ pre code {
     float: left;
   }
   .col-md-12 {
-    width: 100%;
+    width: 200%;
   }
   .col-md-11 {
     width: 91.66666667%;
@@ -2054,7 +2054,7 @@ pre code {
     width: 25%;
   }
   .col-md-2 {
-    width: 16.66666667%;
+    width: 26.66666667%;
   }
   .col-md-1 {
     width: 8.33333333%;
@@ -2370,9 +2370,9 @@ th {
   text-align: left;
 }
 .table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 20px;
+  width: 1000%;
+  max-width: 1000%;
+  margin-bottom: 10px;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,
@@ -2738,7 +2738,7 @@ textarea.form-control {
   }
 }
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .radio,
 .checkbox {

@@ -56,7 +56,7 @@
 @{int i = 0;}
 <p>
     <span>
-        @Html.ActionLink("Dodaj", "Create", null,
+        @Html.ActionLink("Dodaj", "Create", new { rejkoresp  = ViewBag.rejkoresp },
          new { @class = "btn btn-primary" })
     </span>
 </p>
@@ -68,7 +68,7 @@
 else
 {
 
-    <table class="table">
+    <table class="table" style="width:140%">
         <tr style="background-color:#f2f2f2">
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().DDATA)<br />
@@ -76,13 +76,13 @@ else
             </th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DKONTRAHENT)</th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DDOTYCZY)</th>
-            <th>
+            <th style="width:10%;font-size:x-small">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().DNRWGKONTRAH)
                 <br />
                 @Html.DisplayNameFor(model => model.FirstOrDefault().DDATAWGKONTRAH)
             </th>
-            <th>@Html.Raw("id")</th>
             <th></th>
+            <th style="width:3%">@Html.Raw("id")</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -104,25 +104,31 @@ else
             {
                 rowColor = "CZWARTE";
             }
-            <tr class="@rowColor">
-                <td>
-                    @Html.DisplayFor(mi => item.DDATA) <br />
-                    @Html.DisplayFor(mi => item.DNUMER)
-                </td>
-                <td>
-                    @Html.DisplayFor(it => item.DKONTRAHENT)
-                </td>
-                <td>
-                    @Html.DisplayFor(it => item.DDOTYCZY)
-                </td>
-                <td>
-                    @Html.DisplayFor(mi => item.DDATAWGKONTRAH) <br />
-                    @Html.DisplayFor(mi => item.DNRWGKONTRAH)
-                </td>
-                <td>@Html.ActionLink("Zmień", "Edit", new { id = item.ID })</td>
-                <td>@Html.ActionLink("Usuń", "Delete", new { id = item.ID })</td>
-                <td>@Html.ActionLink("Obieg", "Obieg", new { id = item.ID })</td>
-            </tr>
+        <tr class="@rowColor">
+            <td>
+                @Html.DisplayFor(mi => item.DDATA) <br />
+                @Html.DisplayFor(mi => item.DNUMER)
+            </td>
+            <td>
+                @Html.DisplayFor(it => item.DKONTRAHENT)
+            </td>
+            <td>
+                @Html.DisplayFor(it => item.DDOTYCZY)
+            </td>
+            <td>
+                @Html.DisplayFor(mi => item.DDATAWGKONTRAH) <br />
+                @Html.DisplayFor(mi => item.DNRWGKONTRAH)
+            </td>
+
+            <td>
+                @Html.ActionLink("Zmień", "Edit",  new { id = item.ID,rejkoresp = ViewBag.rejkoresp })<br />
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
+                @Html.ActionLink("Obieg", "Obieg", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })
+        </td>
+        <td style="background-color:cornsilk;font-size:xx-small;font-style:normal">
+            @Html.DisplayFor(mi => item._id)<br />
+            @Html.DisplayFor(mi => item.SDATA)</td>
+        </tr>
         }
     </table>
 }

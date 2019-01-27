@@ -36,20 +36,30 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEKORESP/Create
-        public ActionResult Create()
+        public ActionResult Create(string rejkoresp)
         {
+            PEREJKORESPDBSet deff = new PEREJKORESPDBSet();
+            PEREJKORESP rk = deff.GetById(rejkoresp.Replace("_", "/"));
+
+            ViewBag.nazwa = rk.DNAZWA;
+            ViewBag.rejkoresp = rejkoresp;
             return View();
         }
 
         // POST: PEKORESP/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(PEKORESP collection, string rejkoresp)
         {
             try
             {
                 // TODO: Add insert logic here
+                PEKORESPDBSet datatoinsert = new PEKORESPDBSet(rejkoresp);
+                collection.SDATA = DateTime.Now;
+                datatoinsert.Insert(collection);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { rejkoresp = rejkoresp});
+                
             }
             catch
             {
@@ -58,14 +68,21 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEKORESP/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id, string rejkoresp)
         {
-            return View();
+            PEKORESPDBSet datatoinsert = new PEKORESPDBSet(rejkoresp);
+            PEKORESP pEKORESP = datatoinsert.GetById(id);
+            if (pEKORESP == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.rekoresp = rejkoresp;
+            return View(pEKORESP);
         }
 
         // POST: PEKORESP/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, PEKORESP collection, string rekoresp)
         {
             try
             {

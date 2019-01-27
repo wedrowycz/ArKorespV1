@@ -1,0 +1,148 @@
+﻿@model ArKorespV1.Models.PEKORESP
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .longer {
+        max-width: 1000%;
+    }
+</style>
+
+<h2>Modyfikacja wpisu do rejestru @Html.Raw(ViewBag.nazwa)</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </div>
+        <hr />
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @Html.HiddenFor(model => model.SDATA)
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model._id)
+        <input type="hidden" id="rejkoresp" name="rejkoresp" value=@Html.Raw(ViewBag.rejkoresp) />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DKONTRAHENT, htmlAttributes: new { @class = "control-label col-md-3 longer", @style = "width:200 % !important; min-width:180px;" })
+            <div class="style=" width:500px">
+                @Html.EditorFor(model => model.DKONTRAHENT, new { htmlAttributes = new { @class = "form-control longer", @placeholder = "nazwa kontrahenta", @style = "width:800px;" } })
+                @Html.ValidationMessageFor(model => model.DKONTRAHENT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DKONTRAHENTADRES, htmlAttributes: new { @class = "control-label col-md-3" })
+
+            @Html.EditorFor(model => model.DKONTRAHENTADRES,
+                new { htmlAttributes =
+                new { @class = "form-control longer"
+                        , @placeholder = "adres kontrahenta"
+                        , @style = "width:800px;" } })
+            @Html.ValidationMessageFor(model => model.DKONTRAHENTADRES, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DDOTYCZY, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.DDOTYCZY,
+                    new { htmlAttributes = new {
+                        @class = "form-control longer"
+                        ,
+                        @rows = 6
+                    } })
+                @Html.ValidationMessageFor(model => model.DDOTYCZY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DDATAWGKONTRAH,
+                    htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DDATAWGKONTRAH,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DDATAWGKONTRAH, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DNRWGKONTRAH,
+                htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DNRWGKONTRAH,
+                new { htmlAttributes = new { @class = "form-control"
+                        ,@placeholder = "nr wg nadawcy"
+                } })
+                @Html.ValidationMessageFor(model => model.DNRWGKONTRAH, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DDATA,
+                htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DDATA,
+                        new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DDATA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DNUMER, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DNUMER,
+                    new { htmlAttributes = new { @class = "form-control"
+                                                , @placeholder = "zostaw niewypełniony " } })
+                @Html.ValidationMessageFor(model => model.DNUMER, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DDEKRET, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.DDEKRET, new { htmlAttributes = new { @class = "form-control longer" } })
+                @Html.ValidationMessageFor(model => model.DDEKRET, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DNOTATKA,
+                        htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DNOTATKA,
+                    new { htmlAttributes = new {
+                        @class = "form-control longer"
+                        ,
+                        @rows = 6
+                    } })
+                @Html.ValidationMessageFor(model => model.DDOTYCZY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    }
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

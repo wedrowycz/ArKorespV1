@@ -197,6 +197,7 @@
     <Compile Include="Controllers\PEREJKORESPPRACController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTPRACController.cs" />
+    <Compile Include="Controllers\PEZALACZNIKIController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserNotesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Helpers\ADictionaryAssignable.cs" />
     <Compile Include="Helpers\ADictionaryReader.cs" />
     <Compile Include="Helpers\AExtensions.cs" />
+    <Compile Include="Helpers\HexHelper.cs" />
     <Compile Include="Models\ADBContext.cs" />
     <Compile Include="Models\ADBSet.cs" />
     <Compile Include="Models\ATLOG.cs" />
@@ -228,11 +230,15 @@
     <Compile Include="Models\PESKRZPOCZTDBSet.cs" />
     <Compile Include="Models\PESKRZPOCZTPRAC.cs" />
     <Compile Include="Models\PESKRZPOCZTPRACDBSet.cs" />
+    <Compile Include="Models\PEZALACZNIKI.cs" />
+    <Compile Include="Models\PEZALACZNIKIDBSet.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserNotes.cs" />
     <Compile Include="Models\UserNotesDBSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\IdDescription.cs" />
     <Compile Include="ViewModels\PESKRZPOCZTPRACATUZYTK.cs" />
+    <Compile Include="ViewModels\PEZalacznikiZOgonem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -324,6 +330,9 @@
     <Content Include="Views\Shared\_LayoutRefreshable.cshtml" />
     <Content Include="Views\PEREJKORESP\UserRegisters.cshtml" />
     <Content Include="Views\PEKORESP\Index.cshtml" />
+    <Content Include="Views\PEKORESP\Create.cshtml" />
+    <Content Include="Views\PEKORESP\Edit.cshtml" />
+    <Content Include="Views\PEZALACZNIKI\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
