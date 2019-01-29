@@ -1,9 +1,11 @@
-﻿using ArKorespV1.Models;
+﻿using ArKorespV1.Helpers;
+using ArKorespV1.Models;
 using ArKorespV1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -59,19 +61,31 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEZALACZNIKI/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            string uname = Session["UserName"].ToString();
+            PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
+            PEZALACZNIKI pEZALACZNIKI = zalaczniki.GetById(id);
+            if (pEZALACZNIKI != null)
+            {
+                return View(pEZALACZNIKI);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST: PEZALACZNIKI/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, PEZALACZNIKI collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                string uname = Session["UserName"].ToString();
+                PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
+                collection.SDATA = DateTime.Now;
+                zalaczniki.Update(collection);
                 return RedirectToAction("Index");
             }
             catch
@@ -81,64 +95,79 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEZALACZNIKI/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            string uname = Session["UserName"].ToString();
+            PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
+            PEZALACZNIKI pEZALACZNIKI = zalaczniki.GetById(id);
+            if (pEZALACZNIKI != null)
+            {
+                return View(pEZALACZNIKI);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
         }
 
         // POST: PEZALACZNIKI/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, PEZALACZNIKI collection)
         {
+
             try
             {
-                // TODO: Add delete logic here
+                string uname = Session["UserName"].ToString();
+                PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
+                zalaczniki.Delete(id);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
-        //GET: PEZALACZNIKIs/AttachementInsert/5
-        public ActionResult AttachementInsert(int? imgid, HttpPostedFileBase file, String comment, int? dokumentid)
+        [HttpPost]
+        public ActionResult AttachementInsert( HttpPostedFileBase file, String comment, int? dokumentid)
         {
-            //string routeto = (string.IsNullOrEmpty(returnaction)) ? "Index" : returnaction;
-            string keyword = imgid.ToString();
             BinaryReader b = new BinaryReader(file.InputStream);
-            byte[] binData = new byte[file.ContentLength];
-            //byte[] binData = b.ReadBytes(file.ContentLength);
+            byte[] binData = new byte[file.ContentLength];            
             file.InputStream.Read(binData, 0, binData.Length);
-
-            //SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.
-            //                                        ConnectionStrings["Zalaczniki"].ConnectionString);
-            //conn.Open();
-            //SqlCommand zapytanie = new SqlCommand("select top 1 SID from PEZALACZNIKI where not exists(select top 1 1 from PEZALACZNIKI z where z.SID = PEZALACZNIKI.SID +1) and SID > 0", conn);
-            //int theId = (int)zapytanie.ExecuteScalar() + 1;
-
-            //zapytanie.CommandText = "INSERT INTO PEZALACZNIKI ( SID ,DNAZWAPLIKU  , DDOKUMENT , DREJESTRID , DKOMENTARZ, SUZYTKOWNIK , SDATA, SSYSTEM , DREJESTR ) " +
-            //    "Values (@id , @wartosc, @bloob , @dokumentid ,@komentarz , @uzytk , @dataczas ,'joda' , @rejestr )";
-            //zapytanie.Parameters.AddWithValue("id", theId);
-            ////zapytanie.Parameters.AddWithValue("komentarz", parametry.theInfo);
-            //zapytanie.Parameters.AddWithValue("wartosc", Path.GetFileName(file.FileName));
-            //zapytanie.Parameters.Add("bloob", SqlDbType.VarBinary, binData.Length).Value = binData;
-            //zapytanie.Parameters.AddWithValue("dokumentid", dokumentid);
-            //zapytanie.Parameters.AddWithValue("komentarz", comment);
-            //string usrname = Session["UserName"].ToString().Substring(0, (Session["UserName"].ToString().Length > 8) ? 8 : Session["UserName"].ToString().Length);
-            //zapytanie.Parameters.AddWithValue("uzytk", usrname);
-            //zapytanie.Parameters.AddWithValue("dataczas", DateTime.Now);
-            //zapytanie.Parameters.AddWithValue("rejestr", "PWIK_JODA");
-            //zapytanie.CommandTimeout = 36000;
-            //zapytanie.ExecuteNonQuery();
-
-            //conn.Close();
-
+            String hexencoded = HexHelper.ByteArrayToHexString(binData);
+            string uname = Session["UserName"].ToString();
+            PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
+            PEZALACZNIKI pEZALACZNIKI = new PEZALACZNIKI();
+            pEZALACZNIKI.DDANE = hexencoded;
+            pEZALACZNIKI.DNAZWAPLIKU = file.FileName;
+            pEZALACZNIKI.SDATA = DateTime.Now;
+            pEZALACZNIKI.DWERSJA = "1";
+            pEZALACZNIKI.DDATA = DateTime.Now;
+            pEZALACZNIKI.DOPIS = comment;
+            zalaczniki.Insert(pEZALACZNIKI);
+            
             return RedirectToAction("Index",
-                    routeValues: new { jodaid = dokumentid })
+                    routeValues: new {  })
                     ;
 
+        }
+
+        [HttpGet]
+        public FileResult DownloadFile(string id)
+        {            
+            byte[] pdfByte;
+            string uname = Session["UserName"].ToString();
+            PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
+            PEZALACZNIKI pEZALACZNIKI = zalaczniki.GetById(id);
+            if (pEZALACZNIKI != null)
+            {
+                pdfByte = HexHelper.HexStringToByteArray(pEZALACZNIKI.DDANE);
+                return File(pdfByte, "application/pdf", pEZALACZNIKI.DNAZWAPLIKU);
+            }
+            else
+              return null ;
         }
 
     }

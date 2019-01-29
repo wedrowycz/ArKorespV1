@@ -1,0 +1,46 @@
+﻿@model ArKorespV1.Models.PEZALACZNIKI
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuwanie załącznika</h2>
+
+<h3>Czy jesteś pewien ?</h3>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DNAZWAPLIKU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DNAZWAPLIKU)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DDATA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DDATA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DWERSJA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DWERSJA)
+        </dd>
+        
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót do listy", "Index")
+        </div>
+    }
+</div>
+

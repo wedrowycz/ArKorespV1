@@ -334,6 +334,8 @@
     <Content Include="Views\PEKORESP\Create.cshtml" />
     <Content Include="Views\PEKORESP\Edit.cshtml" />
     <Content Include="Views\PEZALACZNIKI\Index.cshtml" />
+    <Content Include="Views\PEZALACZNIKI\Delete.cshtml" />
+    <Content Include="Views\PEZALACZNIKI\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

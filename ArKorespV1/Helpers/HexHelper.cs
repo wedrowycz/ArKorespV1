@@ -39,13 +39,13 @@ namespace ArKorespV1.Helpers
         {
             byte[] bajts = new byte[hexstring.Length / 2];
             int[] hexalphabet = new int[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
-                    0x06, 0x07, 0x08, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x06, 0x07, 0x08, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,//7 zer na roznice w ascii pomiedzy cyframi i alfabetem -znaki 58 - 54
                     0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F };
 
             for (int x = 0, i = 0; i < hexstring.Length; i += 2, x += 1)
             {
-                bajts[x] = (byte)(hexalphabet[Char.ToUpper(hexstring[i + 0]) - '0'] << 4 |//dolne
-                                  hexalphabet[Char.ToUpper(hexstring[i + 1]) - '0']); //górne
+                bajts[x] = (byte)(hexalphabet[Char.ToUpper(hexstring[i + 0]) - '0'] << 4 |//górne
+                                  hexalphabet[Char.ToUpper(hexstring[i + 1]) - '0']); //dolne
             }
 
             return bajts;//to moze byc zapisane jako plik

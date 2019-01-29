@@ -15,12 +15,12 @@
 <p>
     @using (Html.BeginForm(
            actionName: "AttachementInsert", controllerName: "PEZALACZNIKI",
-           routeValues: new { imgid = ViewBag.dokument, dokumentid = ViewBag.rejid },
+           routeValues: new {  },
            method: FormMethod.Post,
            htmlAttributes: new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="file" id="file" value="wybierz załącznik" /> <br>
-        @Html.Raw(" Komentarz") <input type="text" name="comment" id="comment" value="" size="100"><br>
+        @Html.Raw(" Komentarz") <input type="text" name="comment" id="comment" value="" size="200"><br>
         <input type="submit" name="submit" value="Zapisz" />
     }
 </p>
@@ -31,11 +31,11 @@
 }
 else
 {
-    <table class="table" style="width:140%">
+    <table class="table" style="width:120%">
         <tr style="background-color:#f2f2f2">
-            <th>@Html.DisplayFor(md => md.FirstOrDefault().pEZALACZNIKI.DNAZWAPLIKU)</th>
-            <th>@Html.DisplayFor(md => md.FirstOrDefault().pEZALACZNIKI.DOPIS)</th>
-            <th>@Html.DisplayFor(mi => mi.FirstOrDefault().pEZALACZNIKI.DDATA)</th>            
+            <th>@Html.DisplayNameFor(md => md.FirstOrDefault().pEZALACZNIKI.DNAZWAPLIKU)</th>
+            <th>@Html.DisplayNameFor(md => md.FirstOrDefault().pEZALACZNIKI.DOPIS)</th>
+            <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().pEZALACZNIKI.DDATA)</th>            
             <th></th>
             <th style="width:3%">@Html.Raw("id")</th>
         </tr>
@@ -47,7 +47,15 @@ else
                 <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DNAZWAPLIKU)</td>
                 <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DOPIS)</td>
                 <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DDATA)</td>
-                <td></td>
+                <td>@Html.ActionLink(linkText:"Pobierz plik",actionName:"DownloadFile"
+                    ,routeValues:new { id = item.pEZALACZNIKI.ID})
+                <br />
+                    @Html.ActionLink(linkText:"Usuń", actionName: "Delete" 
+                        , routeValues: new { id = item.pEZALACZNIKI.ID})
+                <br />
+                    @Html.ActionLink(linkText:"Edytuj metadane", actionName:"Edit"
+                        ,routeValues: new { id = item.pEZALACZNIKI.ID })
+                </td>
                 <td style="background-color:cornsilk;font-size:xx-small;font-style:normal">
                     @Html.DisplayFor(model => item.pEZALACZNIKI._id)
                 </td>
