@@ -93,6 +93,22 @@ namespace ArKorespV1.Models
             return true;
         }
 
+
+        public virtual bool Get(string condition, int page, int pagesize)
+        {
+            List<T> rezult = db.Get<T>(condition,page,pagesize);
+            if (rezult != null)
+            {
+                this.AddRange(rezult);
+            }
+            return true;
+        }
+
+        public int GetCount(string filter)
+        {
+            return db.GetCount<T>(filter);
+        }
+
         public virtual List<V> GetOtherSide<V>(string key, ADirection direction)
             where V : IDataRecord , ICollectionMember,new()
         {

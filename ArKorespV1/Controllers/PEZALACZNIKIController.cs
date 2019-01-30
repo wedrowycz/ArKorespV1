@@ -14,22 +14,36 @@ namespace ArKorespV1.Controllers
     public class PEZALACZNIKIController : Controller
     {
         // GET: PEZALACZNIKI
-        public ActionResult Index()
+        public ActionResult Index(int ? pagesize, int ? pagenumber)
         {
+            int psize = pagesize ?? 5;
+            int pnumber = pagenumber ?? 1;
+
             string uname = Session["UserName"].ToString();
             PEZALACZNIKIDBSet zalaczniki = new PEZALACZNIKIDBSet(uname);
-            if (zalaczniki.Get(""))
+
+            int ogolem = zalaczniki.GetCount("");
+
+            if (zalaczniki.Get("", pnumber, psize))
             {
-                ZalacznikiZOgonemList lista = new ZalacznikiZOgonemList()  ;
+                ZalacznikiZOgonemList lista = new ZalacznikiZOgonemList();
                 foreach (PEZALACZNIKI elem in zalaczniki)
                 {
                     lista.Add(elem);
                 }
                 ViewBag.uname = uname;
+                ViewBag.page = pnumber;
+                ViewBag.psize = psize;
+                ViewBag.numberofrecords = ogolem;
                 return View(lista);
             }
             else
+            {
+                ViewBag.uname = "";
+                ViewBag.page = pnumber;
+                ViewBag.psize = psize;
                 return View(new ZalacznikiZOgonemList());
+            }
         }
 
         // GET: PEZALACZNIKI/Details/5

@@ -10,7 +10,7 @@
     }
 </style>
 
-<h2>Lista plików użytkownika</h2>
+<h2 style="padding-top:10px">Lista plików użytkownika</h2>
 
 <p>
     @using (Html.BeginForm(
@@ -24,7 +24,7 @@
         <input type="submit" name="submit" value="Zapisz" />
     }
 </p>
-
+<hr />
 @if (Model.FirstOrDefault() == null)
 {
     <h2>Brak danych do wyświetlenia</h2>
@@ -32,27 +32,63 @@
 else
 {
     <table class="table" style="width:120%">
-        <tr style="background-color:#f2f2f2">
-            <th>@Html.DisplayNameFor(md => md.FirstOrDefault().pEZALACZNIKI.DNAZWAPLIKU)</th>
-            <th>@Html.DisplayNameFor(md => md.FirstOrDefault().pEZALACZNIKI.DOPIS)</th>
-            <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().pEZALACZNIKI.DDATA)</th>            
-            <th></th>
-            <th style="width:3%">@Html.Raw("id")</th>
-        </tr>
-
-
-        @foreach (var item in Model)
-        {
+        <thead>
+            <tr style="background-color:#f2f2f2">
+                <th>@Html.DisplayNameFor(md => md.FirstOrDefault().pEZALACZNIKI.DNAZWAPLIKU)</th>
+                <th>@Html.DisplayNameFor(md => md.FirstOrDefault().pEZALACZNIKI.DOPIS)</th>
+                <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().pEZALACZNIKI.DDATA)</th>
+                <th></th>
+                <th style="width:3%">@Html.Raw("id")</th>
+            </tr>
+        </thead>
+        <tfoot>
             <tr>
-                <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DNAZWAPLIKU)</td>
-                <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DOPIS)</td>
-                <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DDATA)</td>
-                <td>@Html.ActionLink(linkText:"Pobierz plik",actionName:"DownloadFile"
+                <td></td>
+                <td colspan="2" style="Border-bottom: 1px solid black;">
+                    <span style="padding-right:10px">
+                        @Html.ActionLink(linkText:"<<<",actionName:"Index"
+                       ,routeValues: new { pagesize = ViewBag.psize, pagenumber = 1 },
+                       htmlAttributes: new { @class= "btn btn-primary btn-lg" }
+                       )
+                    </span>
+                    @Html.ActionLink(linkText:"<",actionName:"Index",
+                   routeValues: new { pagesize = ViewBag.psize, pagenumber =  ViewBag.page== 1?1:ViewBag.page -1  },
+                   htmlAttributes: new { @class= "btn btn-primary btn-lg" }
+                   )
+                    @Html.Raw(ViewBag.page)
+                    @if (Model.Count() == ViewBag.psize)
+                    {
+                        <span style="padding-right:10px">
+                            @Html.ActionLink(linkText: ">", actionName: "Index", routeValues: new { pagesize = ViewBag.psize, pagenumber = ViewBag.page + 1 },
+                           htmlAttributes: new { @class = "btn btn-primary btn-lg" }
+                           )
+                        </span>
+                        @Html.ActionLink(linkText: ">>>", actionName: "Index",
+                       routeValues: new { pagesize = ViewBag.psize,
+                           pagenumber = ((ViewBag.numberofrecords -1 )/ ViewBag.psize) + 1
+                       },
+                       htmlAttributes: new { @class = "btn btn-primary btn-lg" }
+                       )
+                    }
+                    @Html.Raw("Liczba rekordów ") <b>@Html.Raw(ViewBag.numberofrecords)</b>
+                    @Html.Raw("Liczba stron ") <b>@Html.Raw(ViewBag.numberofrecords / ViewBag.psize + (ViewBag.numberofrecords % ViewBag.psize >0?1:0) )</b>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DNAZWAPLIKU)</td>
+                    <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DOPIS)</td>
+                    <td>@Html.DisplayFor(model => item.pEZALACZNIKI.DDATA)</td>
+                    <td>
+                        @Html.ActionLink(linkText:"Pobierz plik",actionName:"DownloadFile"
                     ,routeValues:new { id = item.pEZALACZNIKI.ID})
-                <br />
-                    @Html.ActionLink(linkText:"Usuń", actionName: "Delete" 
+                    <br />
+                    @Html.ActionLink(linkText:"Usuń", actionName: "Delete"
                         , routeValues: new { id = item.pEZALACZNIKI.ID})
-                <br />
+                    <br />
                     @Html.ActionLink(linkText:"Edytuj metadane", actionName:"Edit"
                         ,routeValues: new { id = item.pEZALACZNIKI.ID })
                 </td>
@@ -62,8 +98,10 @@ else
                 </td>
             </tr>
         }
-
+        </tbody>
         </table>
+
+    
 }
 
 

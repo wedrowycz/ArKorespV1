@@ -195,6 +195,56 @@ namespace ArKorespV1.Models
 
             return default(List<T>);
         }
+        
+        /// <summary>
+        ///retrieve all records from collection T, including paging ability 
+        /// </summary>
+        /// <typeparam name="T">class for which result is mapped</typeparam>
+        /// <param name="filter">AQL-syntax filter where current collection is referenced as item</param>
+        /// <param name="page">page number to display</param>
+        /// <param name="pagesize">page size - when not defined paging is not enabled</param>
+        /// <returns></returns>
+        public List<T> Get<T>(string filter, int page, int pagesize)
+            where T : IDataRecord, ICollectionMember, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            string aquery = "FOR item IN " + collectionprefix + tmpobj.CollectionName() +
+                (filter != "" ? " FILTER " + filter : "") +
+                (pagesize > 0 ? " Limit " + (pagesize * (page - 1)).ToString() + "," + pagesize.ToString() : "")
+                + " RETURN item"
+                
+                ;
+            var getrezult = db.Query.Aql(aquery).ToList<T>();
+            if (getrezult.Success)
+            {
+                for (int i = 0; i < getrezult.Value.Count; i++)
+                {
+                    getrezult.Value[i].ID = getrezult.Value[i]._id.Replace("/", "_");
+                }
+                return getrezult.Value;
+            }
+
+            return default(List<T>);
+        }
+
+        public int GetCount<T>(string filter)
+            where T : IDataRecord, ICollectionMember, new()
+        {
+            int wynik = 0;
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            string aquery = "FOR item IN " + collectionprefix + tmpobj.CollectionName() +
+                (filter != "" ? " FILTER " + filter : "") +
+                " COLLECT WITH COUNT INTO length"
+                + " RETURN length"  ;
+            var getresult = db.Query.Aql(aquery).ToObject();
+            if (getresult.Success)
+            {
+                wynik = Int32.Parse(getresult.Value.ToString());
+            }
+            return wynik;
+        }
 
         public bool InitializeCollection<T>( out bool created, String prefix = "")
             where T : IDataRecord, ICollectionMember, new()
