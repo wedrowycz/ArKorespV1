@@ -15,11 +15,14 @@ namespace ArKorespV1.Models
         public string DNAZWAPLIKU { get; set; }
         [Display(Name ="plik jako taki")]
         public string DDANE { get; set; }
+        [Display(Name ="wersja")]
         public string DWERSJA { get; set; }
         [Display(Name ="opis")]
         public string DOPIS { get; set; }
         [Display(Name ="Data pliku")]
         public DateTime DDATA { get; set; }
+        public int DROZMIARPLIKU { get; set; }
+        
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             return true;

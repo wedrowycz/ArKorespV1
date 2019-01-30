@@ -146,6 +146,7 @@ namespace ArKorespV1.Controllers
             pEZALACZNIKI.DWERSJA = "1";
             pEZALACZNIKI.DDATA = DateTime.Now;
             pEZALACZNIKI.DOPIS = comment;
+            pEZALACZNIKI.DROZMIARPLIKU = hexencoded.Length;
             zalaczniki.Insert(pEZALACZNIKI);
             
             return RedirectToAction("Index",
