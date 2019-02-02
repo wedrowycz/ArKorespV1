@@ -1,0 +1,105 @@
+﻿@model List<ArKorespV1.Models.PEPROCOBDOK>
+@{
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+
+<h2 style="padding-top:10px">Szablon obiegu</h2>
+
+<style>
+    .table, th, td {
+        border: 1px solid lightgray;
+        max-width: none;
+        margin-left: initial;
+    }
+
+    a.my-class {
+        color: #333333
+    }
+
+        a.my-class:active {
+            color: #666666
+        }
+
+        a.my-class:link {
+            color: #3b9c46
+        }
+
+        a.my-class:visited {
+            color: coral
+        }
+</style>
+
+<style>
+    tr.NIEPARZYSTE td {
+        background-color: lightblue;
+    }
+
+    tr.PARZYSTE td {
+        background-color: white;
+    }
+
+    tr.TRZECIE td {
+        background-color: #e6fffa;
+    }
+
+    tr.CZWARTE td {
+        background-color: #ffe6e6;
+    }
+</style>
+
+<style>
+    .container {
+        margin-left: 1px;
+        max-width: none;
+    }
+</style>
+
+<p>
+    <span>
+        @Html.ActionLink("Dodaj", "Create", new { rejkoresp  = ViewBag.rejkoresp },
+         new { @class = "btn btn-primary" })
+    </span>
+</p>
+
+@if (Model.FirstOrDefault() == null)
+{
+    <h2>Brak danych do wyświetlenia</h2>
+}
+else
+{
+    <table class="table" style="width:100%">
+        <thead>
+            <tr style="background-color:#f2f2f2">
+                <th style="width:20%">
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DOPIS)</th>
+                <th style="width:15%">
+                    
+                </th>
+                <th style="width:15%"></th>
+            </tr>
+        </thead>
+        <tfoot><tr>
+            <td>@Html.Raw("Liczba elementów: ") @Html.Raw(Model.Count)</td>
+            </tr></tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(mi => item.DNAZWA)</td>
+                <td>@Html.DisplayFor(mi => item.DOPIS)</td>
+                <td>
+                    @Html.ActionLink(linkText: "zmień", actionName: "Edit", routeValues: new { id = item.ID})<br />
+                    @Html.ActionLink(linkText: "etapy obiegu" , actionName:"RouteDiagram", routeValues: new { id = item.ID })
+                </td>
+                <td class="idcolumn">
+                    @Html.DisplayFor(mi => item._id) <br />
+                    @Html.DisplayFor(mi => item.SDATA)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+

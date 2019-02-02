@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ATUZYTKController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PEKORESPController.cs" />
+    <Compile Include="Controllers\PEPROCOBDOKController.cs" />
     <Compile Include="Controllers\PEREJKORESPController.cs" />
     <Compile Include="Controllers\PEREJKORESPPRACController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
@@ -214,14 +215,23 @@
     <Compile Include="Models\ATLOGDBSet.cs" />
     <Compile Include="Models\ATUZYTK.cs" />
     <Compile Include="Models\ATUZYTKDBSet.cs" />
+    <Compile Include="Models\AutoSignedCollectionMember.cs" />
     <Compile Include="Models\CollectionMember.cs" />
     <Compile Include="Models\CollectionNameAttribute.cs" />
     <Compile Include="Models\CollectionTypeAttribute.cs" />
+    <Compile Include="Models\EdgeCollectionMember.cs" />
     <Compile Include="Models\ICollectionMember.cs" />
     <Compile Include="Models\IDataRecord.cs" />
     <Compile Include="Models\IEdgeCollection.cs" />
     <Compile Include="Models\PEKORESP.cs" />
     <Compile Include="Models\PEKORESPDBSet.cs" />
+    <Compile Include="Models\PEPROCEDURY.cs" />
+    <Compile Include="Models\PEPROCEDURYDBSet.cs" />
+    <Compile Include="Models\PEPROCOBDOK.cs" />
+    <Compile Include="Models\PEPROCOBDOKDBSet.cs" />
+    <Compile Include="Models\PEPROCOBDOKPOZ.cs" />
+    <Compile Include="Models\PEPROCOBDOKPOZDBSet.cs" />
+    <Compile Include="Models\PEPROCOBDOKSKRZYNKI.cs" />
     <Compile Include="Models\PEREJKORESPDBSet.cs" />
     <Compile Include="Models\PEREJKORESPPRAC.cs" />
     <Compile Include="Models\PEREJKORESPPRACDBSet.cs" />
@@ -243,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\arkoresp.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -336,6 +347,10 @@
     <Content Include="Views\PEZALACZNIKI\Index.cshtml" />
     <Content Include="Views\PEZALACZNIKI\Delete.cshtml" />
     <Content Include="Views\PEZALACZNIKI\Edit.cshtml" />
+    <Content Include="Views\PEPROCOBDOK\Index.cshtml" />
+    <Content Include="Views\PEPROCOBDOK\Create.cshtml" />
+    <Content Include="Views\PEPROCOBDOK\Edit.cshtml" />
+    <Content Include="Views\PEPROCOBDOK\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

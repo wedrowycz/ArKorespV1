@@ -8,10 +8,9 @@ using System.Web;
 namespace ArKorespV1.Models
 {
     [CollectionType(Arango.Client.ACollectionType.Document)]
-    public class UserNotes : CollectionMember, IDataRecord, IDictionaryAssignable
+    public class UserNotes : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {
-        public string ID { get ; set ; }
-        public DateTime SDATA { get; set; }
+        public string ID { get ; set ; }        
         [DataType(DataType.MultilineText)]
         [Display(Name ="notatka")]
         [MaxLength(10000)]

@@ -8,24 +8,21 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    /// <summary>
-    /// Class defines routes from user - ATUZYTK to mail boxes - PESKRZPOCZT
-    /// </summary>
+    [CollectionName("PEPROCEDURY")]
     [CollectionType(ACollectionType.Edge)]
-    [CollectionName("PESKRZPOCZTPRAC")]
-    public class PESKRZPOCZTPRAC : EdgeCollectionMember, IDataRecord, IDictionaryAssignable , IEdgeCollection
-    {     
-        [Key]
-        public string ID { get ; set; }        
-        [Display(Name ="Poziom uprawnień")]
-        public int PERMISSIONTYPE { get; set; }
-        [Display(Name ="Data modyfikacji")]
+    public class PEPROCEDURY:EdgeCollectionMember, IDataRecord, IDictionaryAssignable
+    {
+        [Display(Name = "nazwa procedury")]
+        public string DNAZWA { get; set; }
+        [Display(Name = "opis procedury")]
+        public string DOPIS { get; set; }
+        public string ID { get ; set ; }
         public DateTime SDATA { get; set; }
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";
             ID = _id.Replace("/", "_");
-            PERMISSIONTYPE = dictionarry.ContainsKey("PERMISSIONTYPE") ? Int32.Parse(dictionarry["PERMISSIONTYPE"]) : 0;
+            DNAZWA = dictionarry.ContainsKey("DNAZWA") ? dictionarry["DNAZWA"] : "";
             SDATA = dictionarry.ContainsKey("SDATA") ? DateTime.Parse(dictionarry["SDATA"]) : DateTime.Now;
             _from = dictionarry.ContainsKey("_from") ? dictionarry["_from"] : "";
             _to = dictionarry.ContainsKey("_to") ? dictionarry["_to"] : "";

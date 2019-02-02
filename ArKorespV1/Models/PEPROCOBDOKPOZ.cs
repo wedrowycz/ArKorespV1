@@ -8,28 +8,23 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    [CollectionName("PEPROCOBDOKPOZ")]
     [CollectionType(ACollectionType.Document)]
-    [CollectionName("PEREJKORESP")]
-    public class PEREJKORESP : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
-    {        
+    public class PEPROCOBDOKPOZ : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
+    {
         [Key]
         public string ID { get ; set ; }
-        [Display(Name ="Nazwa rejestru")]
+        [Display(Name = "nazwa etapu")]
         public string DNAZWA { get; set; }
-        [Display(Name ="Symbol")]
-        public string DSYMBOL { get; set; }
-        [Display(Name ="Format numeracji")]
-        public string DFORMAT { get; set; }        
-        [Display(Name ="Kierunek")]
-        public int DKIERUNEK { get; set; }
+        [Display(Name = "opis etapu")]
+        public string DOPIS { get; set; }
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";
+            //_key = dictionarry.ContainsKey("_key") ? dictionarry["_key"] : "";
             ID = _id.Replace("/", "_");
-            DSYMBOL = dictionarry.ContainsKey("DSYMBOL") ? dictionarry["DSYMBOL"] : "";
             DNAZWA = dictionarry.ContainsKey("DNAZWA") ? dictionarry["DNAZWA"] : "";
-            SDATA = dictionarry.ContainsKey("SDATA") ? DateTime.Parse(dictionarry["SDATA"]):DateTime.Now;
-
+            DOPIS = dictionarry.ContainsKey("DOPIS") ? dictionarry["DOPIS"] : "";
             return true;
         }
     }

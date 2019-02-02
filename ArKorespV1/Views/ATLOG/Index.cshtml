@@ -1,8 +1,8 @@
 ﻿@model List<ArKorespV1.Models.ATLOG>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
-
+<br />
 <style>
     .table, th, td {
         border: 1px solid lightgray;
@@ -55,7 +55,7 @@
 @{int i = 0;}
 
 <h2>Wykaz logowań uzytkownika @Html.Raw(@ViewBag.UserName)</h2>
-<table class="table">
+<table class="table" style="width:100%">
     <tr style="background-color:#f2f2f2">
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UserId)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().LoginDateTime)</th>

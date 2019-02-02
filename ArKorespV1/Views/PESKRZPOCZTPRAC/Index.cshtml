@@ -1,12 +1,12 @@
 ﻿@model List<ArKorespV1.Models.ATUZYTK>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
 
 <style>
     .table, th, td {
         border: 1px solid lightgray;
-        max-width: none;
+        max-width: 100%;
         margin-left: initial;
     }
 
@@ -53,7 +53,7 @@
 </style>
 
 
-<h2>Uczestnicy skrzynki obiegu @ViewBag.nazwaskrzynki</h2>
+<h2 style="padding-top:10px">Uczestnicy skrzynki obiegu @ViewBag.nazwaskrzynki</h2>
 
 <p>
     <span>

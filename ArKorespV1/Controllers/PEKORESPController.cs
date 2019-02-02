@@ -82,11 +82,13 @@ namespace ArKorespV1.Controllers
 
         // POST: PEKORESP/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, PEKORESP collection, string rekoresp)
+        public ActionResult Edit(string id, PEKORESP collection, string rejkoresp)
         {
             try
             {
-                // TODO: Add update logic here
+                PEKORESPDBSet datatoupdate = new PEKORESPDBSet(rejkoresp);
+                collection.SDATA = DateTime.Now;
+                datatoupdate.Update(collection);
 
                 return RedirectToAction("Index");
             }

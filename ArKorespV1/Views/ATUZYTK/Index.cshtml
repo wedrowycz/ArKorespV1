@@ -1,7 +1,10 @@
 ﻿@model List<ArKorespV1.Models.ATUZYTK>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
+
+<br />
+<h2>Lista uzytkowników</h2>
 
 <style>
     .table, th, td {
@@ -59,7 +62,7 @@
     </span>
 </p>
 
-<table class="table">
+<table class="table" style="width:100%">
     <tr style="background-color:#f2f2f2">
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().UserName)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Password)</th>
@@ -102,7 +105,7 @@
             <br/>
             @Html.ActionLink(linkText: "Historia logowań", controllerName: "ATLOG",actionName:"Index" , routeValues: new { id = item.ID } , htmlAttributes: new { target = "_blank" })
         </td>
-        <td>@Html.DisplayFor(modelitem => item.ID)</td>
+        <td class="idcolumn" style="background-color:cornsilk">@Html.DisplayFor(modelitem => item.ID)</td>
     </tr>
     }
     </table>

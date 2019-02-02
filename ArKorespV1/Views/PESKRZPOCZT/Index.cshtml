@@ -1,11 +1,12 @@
 ﻿@model List<ArKorespV1.Models.PESKRZPOCZT>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
+<h2 style="padding-top:10px">Skrzynki obiegi</h2>
 <style>
     .table, th, td {
         border: 1px solid lightgray;
-        max-width: none;
+        max-width: 110%;
         margin-left: initial;
     }
 
@@ -59,12 +60,12 @@
 </p>
 
 <table class="table">
-    <tr  style="background-color:#f2f2f2">
+    <tr style="background-color:#f2f2f2">
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DSYMBOL)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DEMAIL)</th>
-        <th>id</th>
         <th></th>
+        <th>id</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -92,16 +93,18 @@
         </td>
         <td>@Html.DisplayFor(modelitem => item.DSYMBOL)</td>
         <td>@Html.DisplayFor(modelitem => item.DEMAIL)</td>
-        <td>@Html.DisplayFor(modelitem => item._id)<br/>
-            @Html.DisplayFor(modelitem => item.SDATA)
-        </td>
         <td>
-            @Html.ActionLink(linkText: "Zmień", actionName: "Edit", routeValues: new { id = item.ID })           
+            @Html.ActionLink(linkText: "Zmień", actionName: "Edit", routeValues: new { id = item.ID })
             <br />
-            @Html.ActionLink(linkText: "Usuń" , actionName: "Delete" , routeValues: new { id = item.ID })
+            @Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = item.ID })
             <br />
             @Html.ActionLink(linkText: "Użytkownicy skrzynki", controllerName: "PESKRZPOCZTPRAC", actionName: "Index", routeValues: new { skrzynka = item._id }, htmlAttributes: new { target = "_blank" })
         </td>
+        <td class="idcolumn" style="background-color:cornsilk">
+            @Html.DisplayFor(modelitem => item._id)<br />
+        @Html.DisplayFor(modelitem => item.SDATA)
+    </td>
+
     </tr>
     }
 </table>

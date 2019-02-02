@@ -1,67 +1,65 @@
 ﻿@model ArKorespV1.Models.PESKRZPOCZT
 @{
-                /**/
-
-                /**/
-
-                Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Nowa skrzynka</h2>
+<h2 style="padding-top:10px">Nowa skrzynka</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <div class="form-horizontal">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DNAZWA, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DNAZWA, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DNAZWA, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DNAZWA, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DNAZWA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DNAZWA, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DSYMBOL, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DSYMBOL, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DSYMBOL, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DSYMBOL, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DSYMBOL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DSYMBOL, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DEMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DEMAIL, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DEMAIL, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DEMAIL, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DEMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DEMAIL, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.DUZYTKOWNIKPODSTID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.DUZYTKOWNIKPODSTID,
-           (SelectList)ViewBag.ListaU
-           , new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DUZYTKOWNIKPODSTID, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DUZYTKOWNIKPODSTID, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.DUZYTKOWNIKPODSTID,
+               (SelectList)ViewBag.ListaU
+               , new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DUZYTKOWNIKPODSTID, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Zapisz" class="btn btn-default" />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
         </div>
-    </div>
-}
+        </div>
+        }
 
-<div>
-    @Html.ActionLink("Powrót do listy", "Index")
-</div>
+        <div>
+            @Html.ActionLink("Powrót do listy", "Index")
+        </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
 
 

@@ -1,4 +1,5 @@
-﻿using ArKorespV1.Helpers;
+﻿using Arango.Client;
+using ArKorespV1.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,12 +8,11 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    public class PEKORESP : CollectionMember, IDataRecord, IDictionaryAssignable
+    [CollectionType(ACollectionType.Document)]    
+    public class PEKORESP : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {
         [Key]
-        public string ID { get ; set ; }
-        [Display(Name ="data aktualizacji")]
-        public DateTime SDATA { get; set; }        
+        public string ID { get ; set ; }        
         [Display(Name ="kolejny numer")]
         public string DNUMER { get; set; }
         [Display(Name ="data przyjęcia")]

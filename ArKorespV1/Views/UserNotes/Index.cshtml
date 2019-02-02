@@ -1,9 +1,9 @@
 ﻿@model List<ArKorespV1.Models.UserNotes>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
 
-<h2>Notatki użytkownika @ViewBag.uname</h2>
+<h2 style="padding-top:10px">Notatki użytkownika @ViewBag.uname</h2>
 
 <p>
     <span>
@@ -13,10 +13,11 @@
 </p>
 
 
-<table class="table">
+<table class="table" style="width:110%">
     <tr>
         <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DDATA) </th>
         <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DNOTATKA) </th>
+        <th></th>
         <th></th>
     </tr>
     @foreach (var notki in Model)
@@ -33,6 +34,10 @@
                 <br />
                 @Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = notki.ID })
 
+            </td>
+            <td class="idcolumn">
+                @Html.DisplayFor(mi => notki.ID) <br />
+                @Html.DisplayFor(mi => notki.SDATA)
             </td>
         </tr>
     }

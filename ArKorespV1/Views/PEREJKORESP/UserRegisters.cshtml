@@ -6,7 +6,7 @@
 <style>
     .table, th, td {
         border: 1px solid lightgray;
-        max-width: none;
+        max-width: 100%;
         margin-left: initial;
     }
 
@@ -58,7 +58,7 @@
          new { @class = "btn btn-primary" })
     </span>
 </p>*@
-
+<h3 style="padding-top:10px">Wybierz rejestr korespondencji do przegladania</h3>
 <table class="table">
     <tr style="background-color:#f2f2f2">
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)</th>
@@ -101,7 +101,7 @@
             <td>@Html.DisplayFor(modelitem => item.DSYMBOL)</td>
             @*<td>@Html.Raw(item.DKIERUNEK == 1?"przychodząca":"wychodząca")</td>*@
             @*<td>@Html.DisplayFor(modelitem => item.DFORMAT)</td>*@
-            <td>
+            <td class="idcolumn" style="background-color:cornsilk">
                 @Html.DisplayFor(modelitem => item._id)<br />
             @Html.DisplayFor(modelitem => item.SDATA)
         </td>

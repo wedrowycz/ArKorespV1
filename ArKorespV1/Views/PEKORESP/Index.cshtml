@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
 
-<h2>Rejestr korespondencji @Html.Raw(ViewBag.nazwa)</h2>
+<h2 style="padding-top:10px">Rejestr korespondencji @Html.Raw(ViewBag.nazwa)</h2>
 
 <style>
     .table, th, td {
@@ -125,7 +125,7 @@ else
                 @Html.ActionLink("Usuń", "Delete", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
                 @Html.ActionLink("Obieg", "Obieg", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })
         </td>
-        <td style="background-color:cornsilk;font-size:xx-small;font-style:normal">
+        <td class="idcolumn" style="background-color:cornsilk">
             @Html.DisplayFor(mi => item._id)<br />
             @Html.DisplayFor(mi => item.SDATA)</td>
         </tr>
