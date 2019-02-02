@@ -1,5 +1,33 @@
-﻿@{
+﻿@model ArKorespV1.Models.PEPROCOBDOK
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="padding-top:10px">Usunąć szablon obiegu ?</h2>
+
+<div>
+    <dl>
+        <dt>@Html.DisplayNameFor(model => model.DNAZWA)</dt>
+        <dd>@Html.DisplayFor(model=> model.DNAZWA)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.DOPIS)</dt>
+        <dd>@Html.DisplayFor(model => model.DOPIS)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ID)</dt>
+        <dd>@Html.DisplayFor(model => model.ID)</dd>
+
+    </dl>
+    
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Usuń" class="btn btn-default" /> |
+        @Html.ActionLink("Powrót do listy", "Index")
+    </div>
 }
 
 

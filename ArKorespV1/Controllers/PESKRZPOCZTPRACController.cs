@@ -15,7 +15,7 @@ namespace ArKorespV1.Controllers
     public class PESKRZPOCZTPRACController : Controller
     {
         /// <summary>
-        ///  list object users
+        ///  object users controller
         /// </summary>
         /// <param name="skrzynka"></param>
         /// <returns> view with users collection</returns>
@@ -69,8 +69,10 @@ namespace ArKorespV1.Controllers
             try
             {
                 PESKRZPOCZTPRACDBSet pracs = new PESKRZPOCZTPRACDBSet();
-                Dictionary<string, object> extradane = new Dictionary<string, object>();
-                extradane.Add("SDATA", DateTime.Now);
+                Dictionary<string, object> extradane = new Dictionary<string, object>
+                {
+                    { "SDATA", DateTime.Now }
+                };
                 pracs.CreateEdge(collection._from, collection._to, extradane);
 
                 return RedirectToAction("Index",new { skrzynka = collection._from });

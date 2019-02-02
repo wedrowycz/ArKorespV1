@@ -74,10 +74,9 @@ else
                 @Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)
                 </th>
                 <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DOPIS)</th>
-                <th style="width:15%">
-                    
+                <th style="width:15%">                    
                 </th>
-                <th style="width:15%"></th>
+                <th style="width:15%">@Html.Raw("id")</th>
             </tr>
         </thead>
         <tfoot><tr>
@@ -91,7 +90,8 @@ else
                 <td>@Html.DisplayFor(mi => item.DOPIS)</td>
                 <td>
                     @Html.ActionLink(linkText: "zmień", actionName: "Edit", routeValues: new { id = item.ID})<br />
-                    @Html.ActionLink(linkText: "etapy obiegu" , actionName:"RouteDiagram", routeValues: new { id = item.ID })
+                    @Html.ActionLink(linkText: "etapy obiegu" , actionName:"RouteDiagram", routeValues: new { id = item.ID }) <br />
+                    @Html.ActionLink(linkText: "usuń", actionName:"Delete", routeValues: new { id = item.ID})
                 </td>
                 <td class="idcolumn">
                     @Html.DisplayFor(mi => item._id) <br />

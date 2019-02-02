@@ -84,16 +84,24 @@ namespace ArKorespV1.Controllers
         // GET: PEPROCOBDOK/Delete/5
         public ActionResult Delete(string id)
         {
-            return View();
+            PEPROCOBDOKDBSet db = new PEPROCOBDOKDBSet();
+            PEPROCOBDOK pEPROCOBDOK = db.GetById(id);
+            if (pEPROCOBDOK == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(pEPROCOBDOK);
         }
 
         // POST: PEPROCOBDOK/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, FormCollection collection)
+        public ActionResult Delete(string id, PEPROCOBDOK collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                PEPROCOBDOKDBSet db = new PEPROCOBDOKDBSet();
+                db.Delete(id);
 
                 return RedirectToAction("Index");
             }
