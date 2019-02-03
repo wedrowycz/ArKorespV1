@@ -301,6 +301,14 @@ namespace ArKorespV1.Models
             return null;
         }
 
+        /// <summary>
+        /// queries edge collection
+        /// </summary>
+        /// <typeparam name="T">edge collection class</typeparam>
+        /// <typeparam name="V">document collection class</typeparam>
+        /// <param name="key">start key</param>
+        /// <param name="direction">which side of edge collection will be queried for documents</param>
+        /// <returns></returns>
         public List<V> GetOtherSide<T, V>(string key, ADirection direction)
             where T : IDataRecord, ICollectionMember, new()
             where V : IDataRecord, ICollectionMember, new()
@@ -309,6 +317,39 @@ namespace ArKorespV1.Models
             var tmpObj = new T();
             string dirstr = direction == ADirection.Any ? " ANY " : (direction == ADirection.In ? " INBOUND " : " OUTBOUND ");
             string querry = "FOR item in " + dirstr + " '" + key.Replace("_","/") + "' " + collectionprefix + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
+            var getrezult = db
+                .Query.Aql(querry).ToList<V>();
+            //.Document
+            //.GetEdges(tmpObj.CollectionName(), key.Replace("_", "/"), ADirection.In);
+
+            if (getrezult.Success)
+            {
+                for (int i = 0; i < getrezult.Value.Count; i++)
+                {
+                    getrezult.Value[i].ID = getrezult.Value[i]._id.Replace("/", "_");
+                }
+                return getrezult.Value;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// queries edge collection
+        /// </summary>
+        /// <typeparam name="T">edge collection class</typeparam>
+        /// <typeparam name="V">document collection class</typeparam>
+        /// <param name="key">start key</param>
+        /// <param name="direction">which side of edge collection will be queried for documents</param>
+        /// <param name="depth">search traversal depth</param>
+        /// <returns></returns>
+        public List<V> GetOtherSide<T, V>(string key, ADirection direction,int depth)
+            where T : IDataRecord, ICollectionMember, new()
+            where V : IDataRecord, ICollectionMember, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpObj = new T();
+            string dirstr = direction == ADirection.Any ? " ANY " : (direction == ADirection.In ? " INBOUND " : " OUTBOUND ");
+            string querry = "FOR item in 1.."+ depth.ToString()+" "+ dirstr + " '" + key.Replace("_", "/") + "' " + collectionprefix + tmpObj.CollectionName() + " OPTIONS {bfs: true, uniqueVertices: 'global'} return item";
             var getrezult = db
                 .Query.Aql(querry).ToList<V>();
             //.Document

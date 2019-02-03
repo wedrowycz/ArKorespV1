@@ -13,7 +13,7 @@ namespace ArKorespV1.ViewModels
     {
         public PEZALACZNIKI pEZALACZNIKI { get; set; }
         /// <summary>
-        /// subitem up to 10th level
+        /// subitem 
         /// </summary>
         public List<IdDescription> idDescriptions {get;set;}
     }

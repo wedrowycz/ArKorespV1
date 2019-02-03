@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    public class PEPROCEDURYDBSet: ADBSet<PEPROCEDURY>
+    public class PEPROCEDURYDBSet: AEdgeDBSet<PEPROCEDURY>
     {
     }
 }

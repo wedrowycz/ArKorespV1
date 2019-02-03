@@ -9,7 +9,7 @@
     }
 </style>
 <br />
-<h2>Nowy szablon obiegu</h2>
+<h2>Szablon obiegu</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -51,7 +51,7 @@
 
     </div>
 }
-
+@Html.ActionLink("Powrót do listy", "Index")
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

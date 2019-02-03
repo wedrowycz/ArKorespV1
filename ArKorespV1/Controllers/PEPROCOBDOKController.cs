@@ -1,4 +1,6 @@
-﻿using ArKorespV1.Models;
+﻿using Arango.Client;
+using ArKorespV1.Models;
+using ArKorespV1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,6 +111,38 @@ namespace ArKorespV1.Controllers
             {
                 return View();
             }
+        }
+
+        /// <summary>
+        /// Display PEOBIEGDOKPROC routes
+        /// </summary>
+        /// <param name="id"> prprocobdok id</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult RouteDiagram(string id)
+        {
+            PEPROCEDURYDBSet procedura = new PEPROCEDURYDBSet();
+            PEPROCOBDOKPOZ etapy = new PEPROCOBDOKPOZ();
+            var lista = procedura.GetOtherSide<PEPROCOBDOKPOZ>(id, ADirection.Out);
+            if (lista == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var extendedlist = new List<PEPROCOBDOKPOZWithTail>();
+            foreach (PEPROCOBDOKPOZ item in lista)
+            {
+                PEPROCEDURYDBSet proceduryextra = new PEPROCEDURYDBSet();
+                var listaextra = proceduryextra.GetOtherSide<PEPROCOBDOKPOZ>(id, ADirection.Out, 1);
+                var newitem = new PEPROCOBDOKPOZWithTail
+                {
+                    pEPROCOBDOKPOZ = item
+                };
+                newitem.leaf.AddRange(listaextra);                
+                extendedlist.Add(newitem);
+            }
+
+            ViewBag.procedura = id;
+            return View(extendedlist);
         }
     }
 }

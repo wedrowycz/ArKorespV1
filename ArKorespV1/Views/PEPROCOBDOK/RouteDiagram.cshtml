@@ -1,0 +1,55 @@
+﻿@model List<ArKorespV1.ViewModels.PEPROCOBDOKPOZWithTail>
+@{
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+
+
+<h2 style="padding-top:10px">Kroki obiegu</h2>
+
+@if (Model.FirstOrDefault() == null)
+{
+    <p>
+        <span>
+            @Html.ActionLink(linkText:"Dodaj element startowy"
+                        ,actionName: "Create", controllerName:"PEPROCOBDOKPOZ" 
+                            ,routeValues: new { procedura  = ViewBag.procedura },
+                            htmlAttributes: new { @class = "btn btn-primary" })
+        </span>
+    </p>
+}
+else
+{
+    <table class="table" style="width:120%">
+        <thead>
+            <tr>
+                <th style="width:12%">@Html.DisplayNameFor(model => model.FirstOrDefault().pEPROCOBDOKPOZ.DNAZWA)</th>
+                <th style="width:25%">@Html.DisplayNameFor(model => model.FirstOrDefault().pEPROCOBDOKPOZ.DOPIS)</th>
+                <th>@Html.Raw("Dalsze elementy")</th>
+                <th style="width:10%"></th>
+                <th style="width:10%"></th>
+            </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.DNAZWA)</td>
+                    <td>@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.DOPIS)</td>
+                    <td>
+                        @foreach (var nextleaf in item.leaf)
+                        {
+                            @Html.Raw(nextleaf.DNAZWA) @Html.Raw(" ,")
+                        }
+                    </td>
+                    <td></td>
+                    <td class="idcolumn">@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.ID)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@Html.ActionLink("Powrót do listy", "Index")
