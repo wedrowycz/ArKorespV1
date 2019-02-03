@@ -129,9 +129,28 @@ namespace ArKorespV1.Models
             return db.RemoveEdge<T>(_from, _to);
         }
 
+        /// <summary>
+        /// insert edge using simple from - to with additional tags from dictionary
+        /// </summary>
+        /// <param name="_from"> id - from document collection</param>
+        /// <param name="_to"> _id - to document collection </param>
+        /// <param name="elements"> extra tags</param>
+        /// <returns></returns>
         public virtual bool CreateEdge(string _from, string _to, Dictionary<string, object> elements)
         {
             return db.InsertEdge<T>(_from, _to, elements);
+        }
+
+        /// <summary>
+        /// insert edge using strong typed data T
+        /// </summary>
+        /// <typeparam name="T">data type </typeparam>
+        /// <param name="element"> element that contains data</param>
+        /// <returns> edge element with id</returns>
+        public virtual T CreateEdge<T>(T element)
+            where T : ICollectionMember, IEdgeCollection,IDataRecord,new() 
+        {
+            return db.InsertEdge<T>(element);
         }
 
     }

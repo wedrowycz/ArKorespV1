@@ -1,5 +1,43 @@
-﻿@{
+﻿@model ArKorespV1.Models.PEPROCOBDOKPOZ
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Nowy element obiegu</h2>
 
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.DNAZWA, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.DNAZWA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DNAZWA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DOPIS, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.DOPIS, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DOPIS, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.Hidden("procedura", (string)ViewBag.procedura)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Powrót do listy", "RouteDiagram", new { id = ViewBag.procedura })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

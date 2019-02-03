@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArKorespV1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,20 +22,34 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEPROCOBDOKPOZ/Create
-        public ActionResult Create()
+        public ActionResult Create(string procedura)
         {
+            ViewBag.procedura = procedura;
             return View();
         }
 
         // POST: PEPROCOBDOKPOZ/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PEPROCOBDOKPOZ collection)
         {
             try
             {
+                string poprzedni = Request["procedura"].ToString();
                 // TODO: Add insert logic here
+                PEPROCOBDOKPOZDBSet krok = new PEPROCOBDOKPOZDBSet();
+                //data
+                var newcollection = krok.Insert(collection);
+                //edge
+                PEPROCEDURYDBSet connections = new PEPROCEDURYDBSet();
+                Dictionary<string, object> extradane = new Dictionary<string, object>
+                {
+                    { "SDATA", DateTime.Now }
+                };
+                connections.CreateEdge(poprzedni, newcollection.ID,extradane);
 
-                return RedirectToAction("Index");
+                return RedirectToAction(actionName:"RouteDiagram",
+                        controllerName:"PEPROCOBDOK",
+                        routeValues: new { id = poprzedni});
             }
             catch
             {

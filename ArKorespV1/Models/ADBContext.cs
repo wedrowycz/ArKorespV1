@@ -395,6 +395,7 @@ namespace ArKorespV1.Models
             var db = new ADatabase("obieg");
             var insertresult = db.Document.CreateEdge(collectionprefix + edgedef.CollectionName()
                     , _from.Replace("_","/"), _to.Replace("_","/"), elements);
+            
             if (insertresult.Success)
             {
                 return true;
@@ -411,7 +412,10 @@ namespace ArKorespV1.Models
         {
             var rezult = new T();
             var db = new ADatabase("obieg");
-            var insertresult = db.Document.CreateEdge<T>(collectionprefix + edgetoinsert.CollectionName(), edgetoinsert._from, edgetoinsert._to, edgetoinsert);
+            var insertresult = db.Document.CreateEdge<T>(collectionprefix + edgetoinsert.CollectionName()
+                , edgetoinsert._from.Replace("_","/")
+                , edgetoinsert._to.Replace("_", "/"), 
+                edgetoinsert);
             if (insertresult.Success)
             {
                 var id = insertresult.Value.String("_id");

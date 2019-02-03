@@ -19,7 +19,7 @@
 }
 else
 {
-    <table class="table" style="width:120%">
+    <table class="table" style="width:110%">
         <thead>
             <tr>
                 <th style="width:12%">@Html.DisplayNameFor(model => model.FirstOrDefault().pEPROCOBDOKPOZ.DNAZWA)</th>
@@ -41,7 +41,15 @@ else
                     <td>
                         @foreach (var nextleaf in item.leaf)
                         {
-                            @Html.Raw(nextleaf.DNAZWA) @Html.Raw(" ,")
+                            @Html.Raw(nextleaf.DNAZWA) @Html.Raw(" ,") <br />
+                            @Html.ActionLink(linkText: "Dodaj następny etap",
+                                actionName:"Create",
+                                controllerName:"PEPROCOBDOKPOZ",
+                                routeValues: new { procedura = ViewBag.procedura
+                                                        ,levelup = item.pEPROCOBDOKPOZ.ID },
+                                htmlAttributes: null
+                                )
+                         
                         }
                     </td>
                     <td></td>

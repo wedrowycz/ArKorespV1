@@ -14,5 +14,10 @@ namespace ArKorespV1.ViewModels
         /// elements that are directly linked to pEPROCOBDOKPOZ through PEPROCEDURY
         /// </summary>
         public List<PEPROCOBDOKPOZ> leaf { get; set; }
+
+        public PEPROCOBDOKPOZWithTail()
+        {
+            leaf = new List<PEPROCOBDOKPOZ>();
+        }
     }
 }
