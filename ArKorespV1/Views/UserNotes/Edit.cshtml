@@ -15,33 +15,56 @@
 {
     @Html.AntiForgeryToken()
 
+<div class="form-horizontal">
+
     <div class="form-group">
-        @Html.LabelFor(model => model.DDATA, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DDATA, new { htmlAttributes = new { @class = "form-control"  } })
-            @Html.ValidationMessageFor(model => model.DDATA, "", new { @class = "text-danger"  })
+        @Html.LabelFor(model => model.DDATA, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-8" style="width:20%">
+            @Html.EditorFor(model => model.DDATA,
+                new
+                     {
+                         htmlAttributes = new
+                {
+                    @class = "form-control",
+                    @Value = DateTime.Parse("2019-01-01")
+
+                         }
+                })
+            @Html.ValidationMessageFor(model => model.DDATA, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        <div class="editor-field">
-            @Html.LabelFor(model => model.DNOTATKA, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.DNOTATKA, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.DNOTATKA, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.DNOTATKA,
+                new
+                     {
+                         htmlAttributes = new
+                    {
+                             @class = "form-control longer"
+                        ,
+                             @placeholder = "notatka"
+                        ,
+                             @rows = 25
+                         }
+                     })
+            @Html.ValidationMessageFor(model => model.DNOTATKA, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Zapisz" class="btn btn-default" />
+            <input type="submit" value="Zapisz" class="btn btn-primary" />
         </div>
     </div>
+    </div>
+    }
 
-}
 
+    <div>
+        @Html.ActionLink("Powrót do listy", "Index")
+    </div>
 
-<div>
-    @Html.ActionLink("Powrót do listy", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
