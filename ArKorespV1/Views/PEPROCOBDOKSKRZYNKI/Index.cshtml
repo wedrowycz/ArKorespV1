@@ -1,0 +1,44 @@
+﻿@model List<ArKorespV1.Models.PESKRZPOCZT>
+@{
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+
+<h2 style="padding-top:10px">Wykaz skrzynek zadania </h2>
+
+<p>
+    <span>
+        @Html.ActionLink("Dodaj", "Create", new { pozycjaprocedury = ViewBag.pozycjaprocedury },
+         new { @class = "btn btn-primary" })
+    </span>
+</p>
+
+@if (Model.FirstOrDefault() == null)
+{
+    <h2>Brak danych do wyświetlenia</h2>
+}
+else
+{
+    <table class="table" style="width:110%">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DEMAIL)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot></tfoot>
+        <tbody>
+            @foreach (var elem in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(mi => elem.DNAZWA)</td>
+                    <td>@Html.DisplayFor(mi => elem.DEMAIL)</td>
+                    <td></td>
+                    <td class="idcolumn">@Html.DisplayFor(mi=> elem.ID)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

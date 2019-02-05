@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    public class PESKRZPOCZTPRACDBSet: AEdgeDBSet<PESKRZPOCZTPRAC>
+    public class PEPROCOBDOKSKRZYNKIDBSet:AEdgeDBSet<PEPROCOBDOKSKRZYNKI>
     {
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
-    public class PEREJKORESPPRACDBSet:ADBSet<PEREJKORESPPRAC>
+    public class PEREJKORESPPRACDBSet:AEdgeDBSet<PEREJKORESPPRAC>
     {
     }
 }

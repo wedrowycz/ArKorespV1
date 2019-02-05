@@ -26,8 +26,7 @@ namespace ArKorespV1.Models
         {
             if (db != null)
             {
-                bool created;
-                if (db.InitializeCollection<T>(out created))
+                if (db.InitializeCollection<T>(out bool created))
                 {
                     alreadycreated = created;
                 }
@@ -109,49 +108,8 @@ namespace ArKorespV1.Models
             return db.GetCount<T>(filter);
         }
 
-        public virtual List<V> GetOtherSide<V>(string key, ADirection direction)
-            where V : IDataRecord , ICollectionMember,new()
-        {
-            //todo:check if T is Edge Collection
-            List< V > lista  = db.GetOtherSide<T, V>(key, direction);
-            return lista;
-        }
+ 
 
-        public virtual bool GetEdges(string key, ADirection direction)
-        {
-            //todo:check if T is Edge Collection
-            this.AddRange(db.GetEdges<T>(key, direction));
-            return true;
-        }
-
-        public virtual bool RemoveEdge(string _from, string _to)
-        {
-            return db.RemoveEdge<T>(_from, _to);
-        }
-
-        /// <summary>
-        /// insert edge using simple from - to with additional tags from dictionary
-        /// </summary>
-        /// <param name="_from"> id - from document collection</param>
-        /// <param name="_to"> _id - to document collection </param>
-        /// <param name="elements"> extra tags</param>
-        /// <returns></returns>
-        public virtual bool CreateEdge(string _from, string _to, Dictionary<string, object> elements)
-        {
-            return db.InsertEdge<T>(_from, _to, elements);
-        }
-
-        /// <summary>
-        /// insert edge using strong typed data T
-        /// </summary>
-        /// <typeparam name="T">data type </typeparam>
-        /// <param name="element"> element that contains data</param>
-        /// <returns> edge element with id</returns>
-        public virtual T CreateEdge<T>(T element)
-            where T : ICollectionMember, IEdgeCollection,IDataRecord,new() 
-        {
-            return db.InsertEdge<T>(element);
-        }
 
     }
 }

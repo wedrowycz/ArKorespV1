@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -22,9 +23,10 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEPROCOBDOKPOZ/Create
-        public ActionResult Create(string procedura)
+        public ActionResult Create(string procedura, string levelup)
         {
             ViewBag.procedura = procedura;
+            ViewBag.levelup = levelup;
             return View();
         }
 
@@ -35,6 +37,7 @@ namespace ArKorespV1.Controllers
             try
             {
                 string poprzedni = Request["procedura"].ToString();
+                string levelup = Request["levelup"].ToString();
                 // TODO: Add insert logic here
                 PEPROCOBDOKPOZDBSet krok = new PEPROCOBDOKPOZDBSet();
                 //data
@@ -45,7 +48,7 @@ namespace ArKorespV1.Controllers
                 {
                     { "SDATA", DateTime.Now }
                 };
-                connections.CreateEdge(poprzedni, newcollection.ID,extradane);
+                connections.CreateEdge(levelup, newcollection.ID,extradane);
 
                 return RedirectToAction(actionName:"RouteDiagram",
                         controllerName:"PEPROCOBDOK",
@@ -58,20 +61,35 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEPROCOBDOKPOZ/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id, string procedura)
         {
-            return View();
+            PEPROCOBDOKPOZDBSet dbset = new PEPROCOBDOKPOZDBSet();
+            var datatoedit = dbset.GetById(id);
+            if (datatoedit == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.procedura = procedura;
+            return View(datatoedit);
         }
 
         // POST: PEPROCOBDOKPOZ/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, PEPROCOBDOKPOZ collection)
         {
             try
             {
-                // TODO: Add update logic here
+                string poprzedni = Request["procedura"].ToString();
+                PEPROCOBDOKPOZDBSet dbset = new PEPROCOBDOKPOZDBSet();                
+                if (collection == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                dbset.Update(collection);
 
-                return RedirectToAction("Index");
+                return RedirectToAction(actionName: "RouteDiagram",
+                        controllerName: "PEPROCOBDOK",
+                        routeValues: new { id = poprzedni });
             }
             catch
             {

@@ -1,8 +1,12 @@
-﻿body {
-}
-
+﻿
 .idcolumn {
     background-color: cornsilk;
     font-size: xx-small;
+    font-style: normal
+}
+
+.linkstyle {
+    background-color: cornsilk;
+    font-size: x-small;
     font-style: normal
 }

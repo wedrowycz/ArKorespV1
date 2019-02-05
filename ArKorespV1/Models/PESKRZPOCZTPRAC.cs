@@ -13,7 +13,7 @@ namespace ArKorespV1.Models
     /// </summary>
     [CollectionType(ACollectionType.Edge)]
     [CollectionName("PESKRZPOCZTPRAC")]
-    public class PESKRZPOCZTPRAC : EdgeCollectionMember, IDataRecord, IDictionaryAssignable , IEdgeCollection
+    public class PESKRZPOCZTPRAC : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {     
         [Key]
         public string ID { get ; set; }        

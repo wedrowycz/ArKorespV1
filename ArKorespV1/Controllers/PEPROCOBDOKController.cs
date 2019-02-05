@@ -123,7 +123,7 @@ namespace ArKorespV1.Controllers
         {
             PEPROCEDURYDBSet procedura = new PEPROCEDURYDBSet();
             PEPROCOBDOKPOZ etapy = new PEPROCOBDOKPOZ();
-            var lista = procedura.GetOtherSide<PEPROCOBDOKPOZ>(id, ADirection.Out);
+            var lista = procedura.GetOtherSide<PEPROCOBDOKPOZ>(id, ADirection.Out,10);
             if (lista == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -132,7 +132,7 @@ namespace ArKorespV1.Controllers
             foreach (PEPROCOBDOKPOZ item in lista)
             {
                 PEPROCEDURYDBSet proceduryextra = new PEPROCEDURYDBSet();
-                var listaextra = proceduryextra.GetOtherSide<PEPROCOBDOKPOZ>(id, ADirection.Out, 1);
+                var listaextra = proceduryextra.GetOtherSide<PEPROCOBDOKPOZ>(item._id, ADirection.Out, 1);
                 var newitem = new PEPROCOBDOKPOZWithTail
                 {
                     pEPROCOBDOKPOZ = item

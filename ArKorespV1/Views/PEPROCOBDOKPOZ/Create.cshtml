@@ -35,7 +35,12 @@
 }
 
 <div>
-    @Html.ActionLink("Powrót do listy", "RouteDiagram", new { id = ViewBag.procedura })
+    @Html.ActionLink(linkText:"Powrót do listy", 
+        actionName:"RouteDiagram",
+        controllerName:"PEPROCOBDOK"
+        ,routeValues: new { id = ViewBag.procedura }
+        ,htmlAttributes: null
+        )
 </div>
 
 @section Scripts {

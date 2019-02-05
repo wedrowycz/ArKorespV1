@@ -11,8 +11,8 @@
     <p>
         <span>
             @Html.ActionLink(linkText:"Dodaj element startowy"
-                        ,actionName: "Create", controllerName:"PEPROCOBDOKPOZ" 
-                            ,routeValues: new { procedura  = ViewBag.procedura },
+                        ,actionName: "Create", controllerName:"PEPROCOBDOKPOZ"
+                            ,routeValues: new { procedura  = ViewBag.procedura , levelup = ViewBag.procedura },
                             htmlAttributes: new { @class = "btn btn-primary" })
         </span>
     </p>
@@ -36,21 +36,32 @@ else
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.DNAZWA)</td>
+                    <td>@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.DNAZWA)
+                    <br />
+                    <span class="linkstyle">@Html.ActionLink(linkText:"Zmień"
+                                ,actionName:"Edit"
+                                ,controllerName: "PEPROCOBDOKPOZ"
+                                ,routeValues: new{ id = item.pEPROCOBDOKPOZ.ID, procedura = ViewBag.procedura}
+                                ,htmlAttributes: null)</span>
+                    </td>
                     <td>@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.DOPIS)</td>
                     <td>
+                        @if (item.leaf.Count == 0)
+                        {
+                            @Html.Raw("Brak następnego etapu.")<br />
+                        }
                         @foreach (var nextleaf in item.leaf)
                         {
                             @Html.Raw(nextleaf.DNAZWA) @Html.Raw(" ,") <br />
-                            @Html.ActionLink(linkText: "Dodaj następny etap",
+
+                        }
+                        @Html.ActionLink(linkText: "Dodaj następny etap",
                                 actionName:"Create",
                                 controllerName:"PEPROCOBDOKPOZ",
                                 routeValues: new { procedura = ViewBag.procedura
-                                                        ,levelup = item.pEPROCOBDOKPOZ.ID },
+                                                    ,levelup = item.pEPROCOBDOKPOZ.ID },
                                 htmlAttributes: null
                                 )
-                         
-                        }
                     </td>
                     <td></td>
                     <td class="idcolumn">@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.ID)</td>

@@ -9,11 +9,9 @@ namespace ArKorespV1.Models
 {
     [CollectionType(ACollectionType.Edge)]
     [CollectionName("PEREJKORESPPRAC")]
-    public class PEREJKORESPPRAC : CollectionMember, IDataRecord, IDictionaryAssignable, IEdgeCollection
+    public class PEREJKORESPPRAC : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {        
         public string ID { get ; set ; }
-        public string _from {get; set ; }
-        public string _to { get ; set ; }
         public DateTime SDATA { get; set; }
 
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
