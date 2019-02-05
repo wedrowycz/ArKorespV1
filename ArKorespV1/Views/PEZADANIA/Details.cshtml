@@ -1,0 +1,25 @@
+﻿@model ArKorespV1.Models.PEKORESP
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="padding-top:10px">Wpis w rejestrze</h2>
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(model => model.DKONTRAHENT)</dt>
+    <dd>@Html.DisplayFor(model => model.DKONTRAHENT)</dd>
+    <dt>@Html.DisplayNameFor(model => model.DKONTRAHENTADRES)</dt>
+    <dd>@Html.DisplayFor(model => model.DKONTRAHENTADRES)</dd>
+    <dt>@Html.DisplayNameFor(model => model.DDOTYCZY)</dt>
+    <dd>@Html.DisplayFor(model => model.DDOTYCZY)</dd>
+    <dt>@Html.DisplayNameFor(model => model.DDATA)</dt>
+    <dd>@Html.DisplayFor(model => model.DDATA)</dd>
+    <dt>@Html.DisplayNameFor(model => model.DNOTATKA)</dt>
+    <dd>@Html.DisplayFor(model => model.DNOTATKA)</dd>
+</dl>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zamknij okno" class="btn btn-primary" />
+        </div>
+    </div>
+}

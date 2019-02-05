@@ -55,6 +55,7 @@ namespace ArKorespV1.Models
         {
             string newkey = db.Insert<T>(newdata);
             newdata.ID = newkey;
+            newdata._id = newkey;
             return newdata;        
         }
 

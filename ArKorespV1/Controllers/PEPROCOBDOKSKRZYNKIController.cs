@@ -16,14 +16,15 @@ namespace ArKorespV1.Controllers
             PEPROCOBDOKPOZDBSet dbproc = new PEPROCOBDOKPOZDBSet();
             var pozycjap = dbproc.GetById(pozycjaprocedury);
             PEPROCOBDOKSKRZYNKIDBSet db = new PEPROCOBDOKSKRZYNKIDBSet();
-            if (!db.Get("item == " + pozycjaprocedury.Replace("_","/")))
+            var listaskrzynek = db.GetOtherSide<PESKRZPOCZT>(pozycjaprocedury.Replace("_", "/"), Arango.Client.ADirection.Out);
+            if (listaskrzynek == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.nazwa = pozycjap.DNAZWA;
             ViewBag.pozycjaprocedury = pozycjaprocedury;
             ViewBag.procedura = procedura;
-            return View(db);
+            return View(listaskrzynek);
         }
 
         // GET: PEPROCOBDOKSKRZYNKI/Details/5
@@ -52,9 +53,18 @@ namespace ArKorespV1.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                string procedura = Request["procedura"].ToString();
+                if (collection == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-                return RedirectToAction("Index");
+                PEPROCOBDOKSKRZYNKIDBSet db = new PEPROCOBDOKSKRZYNKIDBSet();
+                collection.SDATA = DateTime.Now;
+                db.CreateEdge(collection);
+
+                return RedirectToAction("Index",
+                    new { pozycjaprocedury = collection._from, procedura });
             }
             catch
             {
@@ -62,56 +72,31 @@ namespace ArKorespV1.Controllers
             }
         }
 
-        // GET: PEPROCOBDOKSKRZYNKI/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PEPROCOBDOKSKRZYNKI/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+       
         // GET: PEPROCOBDOKSKRZYNKI/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id, string pozycjaprocedury, string procedura)
         {
-            return View();
+            PEPROCOBDOKSKRZYNKIDBSet db = new PEPROCOBDOKSKRZYNKIDBSet();
+            if (db.GetEdges(pozycjaprocedury,Arango.Client.ADirection.Out))
+            {
+                var toremove = db.Where(lst => lst._to == id.Replace("_","/")).FirstOrDefault();
+                if (toremove != null)
+                {
+                    db.RemoveEdge(toremove._from, toremove._to);
+                }
+            }
+
+            return RedirectToAction("Index",
+                    new { pozycjaprocedury , procedura });
         }
 
-        // POST: PEPROCOBDOKSKRZYNKI/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        
         private SelectList UserSelectList()
         {
-            ATUZYTKDBSet uzytkownicy = new ATUZYTKDBSet();
+            PESKRZPOCZTDBSet uzytkownicy = new PESKRZPOCZTDBSet();
             if (uzytkownicy.Get(""))
             {
-                var lista = uzytkownicy.Select(iz => new SelectListItem { Value = iz._id, Text = iz.UserName }).AsEnumerable();
+                var lista = uzytkownicy.Select(iz => new SelectListItem { Value = iz._id, Text = iz.DNAZWA }).AsEnumerable();
                 return new SelectList(lista, "Value", "Text");
             }
             return null;

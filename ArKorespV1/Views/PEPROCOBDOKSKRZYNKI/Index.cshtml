@@ -7,10 +7,17 @@
 
 <p>
     <span>
-        @Html.ActionLink("Dodaj", "Create", new { pozycjaprocedury = ViewBag.pozycjaprocedury },
+        @Html.ActionLink("Dodaj", "Create", new { pozycjaprocedury = ViewBag.pozycjaprocedury, procedura = ViewBag.procedura },
          new { @class = "btn btn-primary" })
     </span>
 </p>
+
+@Html.ActionLink(linkText:"Powrót do listy",
+            actionName:"RouteDiagram",
+            controllerName:"PEPROCOBDOK"
+            ,routeValues: new { id = ViewBag.procedura }
+            ,htmlAttributes: null
+            )
 
 @if (Model.FirstOrDefault() == null)
 {
@@ -34,8 +41,10 @@ else
                 <tr>
                     <td>@Html.DisplayFor(mi => elem.DNAZWA)</td>
                     <td>@Html.DisplayFor(mi => elem.DEMAIL)</td>
-                    <td></td>
-                    <td class="idcolumn">@Html.DisplayFor(mi=> elem.ID)</td>
+                    <td>
+                        @Html.ActionLink("Usuń","Delete",new { id = elem.ID , pozycjaprocedury = ViewBag.pozycjaprocedury, procedura = ViewBag.procedura })
+                    </td>
+                    <td class="idcolumn">@Html.DisplayFor(mi => elem.ID)</td>
                 </tr>
             }
         </tbody>

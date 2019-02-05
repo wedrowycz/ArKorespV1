@@ -76,7 +76,7 @@ namespace ArKorespV1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.rekoresp = rejkoresp;
+            ViewBag.rejkoresp = rejkoresp;
             return View(pEKORESP);
         }
 

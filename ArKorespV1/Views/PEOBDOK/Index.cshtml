@@ -1,0 +1,59 @@
+﻿@model List<ArKorespV1.ViewModels.PEZADANIEZOGONEM>
+@{
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+
+<h2>Zadania obiegu dla: @Html.Raw(ViewBag.ddotyczy)</h2>
+<br />
+@if (ViewBag.rejestr != null)
+{@Html.ActionLink(linkText: "Powrót do rejestru",
+                    actionName: "Index",
+                    controllerName: "PEKORESP",
+                    routeValues: new { rejkoresp = ViewBag.rejestr },
+                    htmlAttributes: null)
+}
+@if (Model.FirstOrDefault() == null)
+{
+    <h3>Brak obiegu. Uruchomić ?</h3>
+    using (Html.BeginForm())
+    {
+        @Html.DropDownList("procedura", (SelectList)ViewBag.proceduryselectlist)
+        @Html.Hidden("rejkoresp", (string)ViewBag.rejestr);
+        @Html.Hidden("id", (string)ViewBag.korespondencja)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+else
+{
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(mdl => mdl.FirstOrDefault().pEZADANIA.DNAZWA)</th>
+                <th>@Html.DisplayNameFor(mdl => mdl.FirstOrDefault().pEZADANIA.DSTATUS)</th>
+                <th>@Html.DisplayNameFor(mdl => mdl.FirstOrDefault().pEZADANIA.DTRESC)</th>
+                <th>@Html.Raw("Skrzynka")</th>
+                <th></th>
+            </tr>            
+        </thead>
+        <tfoot></tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(mdl => item.pEZADANIA.DNAZWA)</td>
+                    <td>
+                        @Html.Raw(item.pEZADANIA.DSTATUS == 0 ?"niewykonane":"wykonane")
+                    </td>
+                    <td>@Html.DisplayFor(mdl => item.pEZADANIA.DTRESC)</td>
+                    <td>@Html.DisplayFor(mdl => item.pESKRZPOCZT.DNAZWA)</td>
+                    <td class="idcolumn">@Html.DisplayFor(mdl => item.pEZADANIA._id)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+           }
+

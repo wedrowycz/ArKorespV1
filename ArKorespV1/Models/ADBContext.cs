@@ -74,6 +74,24 @@ namespace ArKorespV1.Models
                 return null;
         }
 
+        public List<T> GetData<T>(string aql)
+        where T :  new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            string aquery = aql;
+            var getrezult = db.Query.Aql(aquery).ToList<T>();
+            if (getrezult.Success)
+            {
+                //for (int i = 0; i < getrezult.Value.Count; i++)
+                //{
+                //    getrezult.Value[i].ID = getrezult.Value[i]._id.Replace("/", "_");
+                //}
+                return getrezult.Value;
+            }
+
+            return default(List<T>);
+        }
 
         public bool GetRecords(string query, Func<Dictionary<string, string>, bool> addmethod, int datacount, int offset)
         {

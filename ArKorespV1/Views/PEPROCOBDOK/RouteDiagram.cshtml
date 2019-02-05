@@ -62,6 +62,13 @@ else
                                                     ,levelup = item.pEPROCOBDOKPOZ.ID },
                                 htmlAttributes: null
                                 )
+                        <br />
+                        @Html.ActionLink(linkText: "Skrzynki dla etapu",
+                                        actionName:"Index" ,
+                                        controllerName:"PEPROCOBDOKSKRZYNKI" ,
+                                        routeValues: new { pozycjaprocedury = item.pEPROCOBDOKPOZ.ID, procedura = ViewBag.procedura},
+                                        htmlAttributes: null
+                                        )
                     </td>
                     <td></td>
                     <td class="idcolumn">@Html.DisplayFor(mi => item.pEPROCOBDOKPOZ.ID)</td>

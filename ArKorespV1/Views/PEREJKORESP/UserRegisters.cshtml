@@ -92,10 +92,10 @@
         <tr class="@rowColor">
             <td>
                 @Html.ActionLink(linkText: item.DNAZWA
-                                    ,actionName:"Index"
+                                    , actionName:"Index"
                                     , controllerName:"PEKORESP"
-                                    ,routeValues: new { rejkoresp = item.ID}
-                                    ,htmlAttributes : null)
+                                    , routeValues: new { rejkoresp = item.ID}
+                                    , htmlAttributes : null)
                 @*@Html.DisplayFor(modelitem => item.DNAZWA)*@
             </td>
             <td>@Html.DisplayFor(modelitem => item.DSYMBOL)</td>

@@ -1,0 +1,53 @@
+﻿@model List<ArKorespV1.ViewModels.PEZADANIEZPROCEDURA>
+@{
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+<h2 style="padding-top:10px">Lista zadań</h2>
+
+@if (Model.FirstOrDefault() == null)
+{
+    @Html.Raw("Brak zadań. Poczekaj na nowe")
+}
+else
+{
+    <table class ="table table-hover" style="width:110%">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().procedura.DNAZWA)</th>
+                <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().procedura.DOPIS)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+        </tfoot>        
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(mi => item.procedura.DNAZWA)</td>
+                <td>@Html.DisplayFor(mi => item.procedura.DOPIS)</td>
+                <td>
+                    @Html.ActionLink(linkText:"Wykonaj",
+                                 actionName:"Edit" ,
+                                 routeValues: new { id = item.zadanie._id.Replace("/","_"), korespondencja = item.obieg.Korespondencja })
+                                <br />
+                                @Html.ActionLink(linkText:"Dotyczy",
+                                    actionName : "Details" ,
+                                    routeValues: new { korespondencja = item.obieg.Korespondencja } ,
+                                    htmlAttributes : new { target = "_blank" }
+                                    )
+                                <br />
+                                @Html.ActionLink(linkText: "Historia obiegu",
+                                        actionName: "Index",
+                                        controllerName: "PEOBDOK",
+                                        routeValues: new { id = item.obieg.Korespondencja, rejkoresp = " " },
+                                        htmlAttributes:  new { target = "_blank" } )<br />
+                            </td>
+                <td class="idcolumn">@Html.DisplayFor(mi => item.procedura._id)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+

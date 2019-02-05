@@ -121,10 +121,14 @@ else
             </td>
 
             <td>
-                @Html.ActionLink("Zmień", "Edit",  new { id = item.ID,rejkoresp = ViewBag.rejkoresp })<br />
+                @Html.ActionLink("Zmień", "Edit", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
                 @Html.ActionLink("Usuń", "Delete", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
-                @Html.ActionLink("Obieg", "Obieg", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })
-        </td>
+                @Html.ActionLink(linkText:"Obieg",actionName:"Index" ,controllerName:"PEOBDOK", routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },htmlAttributes:null)<br />
+                @Html.ActionLink("Zalaczniki",
+                        "Zalaczniki",
+                        routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },
+                        htmlAttributes: new { target = "_blank" })
+            </td>
         <td class="idcolumn" style="background-color:cornsilk">
             @Html.DisplayFor(mi => item._id)<br />
             @Html.DisplayFor(mi => item.SDATA)</td>

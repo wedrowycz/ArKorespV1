@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ATUZYTKController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PEKORESPController.cs" />
+    <Compile Include="Controllers\PEOBDOKController.cs" />
     <Compile Include="Controllers\PEPROCOBDOKController.cs" />
     <Compile Include="Controllers\PEPROCOBDOKPOZController.cs" />
     <Compile Include="Controllers\PEPROCOBDOKSKRZYNKIController.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Controllers\PEREJKORESPPRACController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTController.cs" />
     <Compile Include="Controllers\PESKRZPOCZTPRACController.cs" />
+    <Compile Include="Controllers\PEZADANIAController.cs" />
     <Compile Include="Controllers\PEZALACZNIKIController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserNotesController.cs" />
@@ -228,6 +230,8 @@
     <Compile Include="Models\IEdgeCollection.cs" />
     <Compile Include="Models\PEKORESP.cs" />
     <Compile Include="Models\PEKORESPDBSet.cs" />
+    <Compile Include="Models\PEKORESPZAL.cs" />
+    <Compile Include="Models\PEKORESPZALDBSet.cs" />
     <Compile Include="Models\PEPROCEDURY.cs" />
     <Compile Include="Models\PEPROCEDURYDBSet.cs" />
     <Compile Include="Models\PEPROCOBDOK.cs" />
@@ -244,15 +248,21 @@
     <Compile Include="Models\PESKRZPOCZTDBSet.cs" />
     <Compile Include="Models\PESKRZPOCZTPRAC.cs" />
     <Compile Include="Models\PESKRZPOCZTPRACDBSet.cs" />
+    <Compile Include="Models\ZADANIA\PEOBDOK.cs" />
+    <Compile Include="Models\ZADANIA\PEOBDOKDBSet.cs" />
+    <Compile Include="Models\ZADANIA\PEZADANIA.cs" />
     <Compile Include="Models\PEZALACZNIKI.cs" />
     <Compile Include="Models\PEZALACZNIKIDBSet.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserNotes.cs" />
     <Compile Include="Models\UserNotesDBSet.cs" />
+    <Compile Include="Models\ZADANIA\PEZADANIADBSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\IdDescription.cs" />
     <Compile Include="ViewModels\PEPROCOBDOKPOZWithTail.cs" />
     <Compile Include="ViewModels\PESKRZPOCZTPRACATUZYTK.cs" />
+    <Compile Include="ViewModels\PEZADANIEZOGONEM.cs" />
+    <Compile Include="ViewModels\PEZADANIEZPROCEDURA.cs" />
     <Compile Include="ViewModels\PEZalacznikiZOgonem.cs" />
     <Compile Include="ViewModels\ZalacznikiZOgonemList.cs" />
   </ItemGroup>
@@ -361,6 +371,11 @@
     <Content Include="Views\PEPROCOBDOKPOZ\Edit.cshtml" />
     <Content Include="Views\PEPROCOBDOKSKRZYNKI\Index.cshtml" />
     <Content Include="Views\PEPROCOBDOKSKRZYNKI\Create.cshtml" />
+    <Content Include="Views\PEOBDOK\Index.cshtml" />
+    <Content Include="Views\PEZADANIA\Index.cshtml" />
+    <Content Include="Views\PEZADANIA\Edit.cshtml" />
+    <Content Include="Views\PEZADANIA\Details.cshtml" />
+    <Content Include="Views\PEZADANIA\Close.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

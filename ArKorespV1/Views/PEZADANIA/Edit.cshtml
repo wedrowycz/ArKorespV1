@@ -1,0 +1,66 @@
+﻿@model ArKorespV1.Models.ZADANIA.PEZADANIA
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="padding-top:10px">Wykonanie zadania w obiegu</h2>
+<style>
+    .longer {
+        max-width: 1000%;
+    }
+</style>
+@Html.ActionLink("Powrót do listy", "Index")
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    @Html.HiddenFor(model => model.SDATA)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model._id)
+    @Html.HiddenFor(model => model.DNAZWA)
+    @Html.HiddenFor(model => model.DPROCEDURAID)
+    @Html.Hidden("korespondencja", (string)ViewBag.korespondencja)
+    <dl class="dl-horizontal">
+        <dt>@Html.Raw("Nazwa zadania : ")</dt>
+        <dd><b>@Html.Raw((string)ViewBag.nazwazadania)</b></dd>
+        <dt>@Html.Raw("Opis zadania : ")</dt>
+        <dd><b>@Html.Raw((string)ViewBag.opiszadania)</b> </dd>
+        <dt>@Html.Raw("Dotyczy : ")</dt>
+        <dd><b>@Html.Raw((string)ViewBag.dotyczy)</b></dd>
+        @Html.ActionLink(linkText:"Dotyczy",
+                        actionName : "Details" ,
+                        routeValues: new { korespondencja = ViewBag.korespondencja } ,
+                        htmlAttributes : new { target = "_blank" }
+                        )
+    </dl>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.DTRESC, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.DTRESC,
+                new { htmlAttributes = new {
+                    @class = "form-control longer"
+                    ,
+                    @rows = 6
+                } })
+            @Html.ValidationMessageFor(model => model.DTRESC, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Następne zadanie : ", htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-7">
+            @Html.DropDownList("nastepne",
+           (SelectList)ViewBag.nastepne
+           , new { htmlAttributes = new { @class = "form-control longer" } })
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz wykonanie" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+
