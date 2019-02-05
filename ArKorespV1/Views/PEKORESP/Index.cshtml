@@ -122,9 +122,10 @@ else
 
             <td>
                 @Html.ActionLink("Zmień", "Edit", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
-                @Html.ActionLink("Usuń", "Delete", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
+                @Html.ActionLink("Usuń", "Delete", 
+                    new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
                 @Html.ActionLink(linkText:"Obieg",actionName:"Index" ,controllerName:"PEOBDOK", routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },htmlAttributes:null)<br />
-                @Html.ActionLink("Zalaczniki",
+                @Html.ActionLink("Załączniki",
                         "Zalaczniki",
                         routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },
                         htmlAttributes: new { target = "_blank" })

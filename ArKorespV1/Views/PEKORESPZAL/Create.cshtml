@@ -1,0 +1,33 @@
+﻿@model ArKorespV1.Models.PEKORESPZAL
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="padding-top:10px">Dodaj plik do korespondencji</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", (string)ViewBag.id)
+    @Html.Hidden("rejkoresp",(string)ViewBag.rejkoresp)
+
+<div class="form-horizontal">
+    div class="form-group">
+    @Html.LabelFor(model => model._to, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(model => model._to,
+       (SelectList)ViewBag.listazal
+       , new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model._to, "", new { @class = "text-danger" })
+    </div>
+</div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz" class="btn btn-primary" />
+        </div>
+    </div>
+
+
+        }
+
+

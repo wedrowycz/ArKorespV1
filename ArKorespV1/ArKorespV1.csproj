@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ATUZYTKController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PEKORESPController.cs" />
+    <Compile Include="Controllers\PEKORESPZALController.cs" />
     <Compile Include="Controllers\PEOBDOKController.cs" />
     <Compile Include="Controllers\PEPROCOBDOKController.cs" />
     <Compile Include="Controllers\PEPROCOBDOKPOZController.cs" />
@@ -248,6 +249,8 @@
     <Compile Include="Models\PESKRZPOCZTDBSet.cs" />
     <Compile Include="Models\PESKRZPOCZTPRAC.cs" />
     <Compile Include="Models\PESKRZPOCZTPRACDBSet.cs" />
+    <Compile Include="Models\PEZALACZNIKIBD.cs" />
+    <Compile Include="Models\PEZALACZNIKIBDDBSet.cs" />
     <Compile Include="Models\ZADANIA\PEOBDOK.cs" />
     <Compile Include="Models\ZADANIA\PEOBDOKDBSet.cs" />
     <Compile Include="Models\ZADANIA\PEZADANIA.cs" />
@@ -376,6 +379,9 @@
     <Content Include="Views\PEZADANIA\Edit.cshtml" />
     <Content Include="Views\PEZADANIA\Details.cshtml" />
     <Content Include="Views\PEZADANIA\Close.cshtml" />
+    <Content Include="Views\PEKORESP\Delete.cshtml" />
+    <Content Include="Views\PEKORESP\Zalaczniki.cshtml" />
+    <Content Include="Views\PEKORESPZAL\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

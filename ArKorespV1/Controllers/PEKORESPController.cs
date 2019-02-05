@@ -99,25 +99,43 @@ namespace ArKorespV1.Controllers
         }
 
         // GET: PEKORESP/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id,string rejkoresp)
         {
-            return View();
+            PEKORESPDBSet pEKORESPs = new PEKORESPDBSet("");
+            PEKORESP element = pEKORESPs.GetById(id);
+            if (element== null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.rejkoresp = rejkoresp;
+            return View(element);
         }
 
         // POST: PEKORESP/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string id, PEKORESP collection, string rejkoresp)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                PEKORESPDBSet pEKORESPs = new PEKORESPDBSet("");
+                pEKORESPs.Delete(id);
+                return RedirectToAction("Index", new { rejkoresp});
             }
             catch
             {
                 return View();
             }
+        }
+
+        public ActionResult Zalaczniki(string id, string rejkoresp)
+        {
+            PEKORESPZALDBSet zadb = new PEKORESPZALDBSet();
+            var lista = zadb.GetOtherSide<PEZALACZNIKI>(id,Arango.Client.ADirection.Out);
+
+            ViewBag.id = id;
+            ViewBag.rejkoresp = rejkoresp;
+            return View(lista);
         }
     }
 }

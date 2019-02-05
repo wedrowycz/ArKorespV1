@@ -1,0 +1,60 @@
+﻿@model List<ArKorespV1.Models.PEZALACZNIKI>
+@{
+    Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
+}
+
+<h2 style="padding-top:10px">Załączniki dla elementu</h2>
+<p>
+    <span>
+        @Html.ActionLink(linkText:"Dodaj",
+         actionName: "Create", 
+         controllerName:"PEKORESPZAL",
+         routeValues: new { id = ViewBag.id ,rejkoresp  = ViewBag.rejkoresp },
+         htmlAttributes: new { @class = "btn btn-primary" })
+    </span>
+</p>
+
+@if (Model.FirstOrDefault() == null)
+{
+    <h3>Brak elementów do wyświetlenia</h3>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(md => Model.FirstOrDefault().DNAZWAPLIKU)</th>
+                <th>@Html.DisplayNameFor(md => Model.FirstOrDefault().DOPIS)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot></tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(md => item.DNAZWAPLIKU)</td>
+                    <td>@Html.DisplayFor(md => item.DOPIS)</td>
+                    <td>
+                        @Html.ActionLink(linkText:"Pobierz plik"
+                        ,actionName:"DownloadFile"
+                        , controllerName:"PEZALACZNIKI"
+                        ,routeValues:new { id = item.ID}
+                        ,htmlAttributes: null)
+                        <br />
+                        @Html.ActionLink(linkText:"Usuń",
+                                actionName:"Delete",
+                                controllerName:"PEKORESPZAL",
+                                routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },
+                                htmlAttributes: new { target = "_blank" }
+                                )
+                    </td>
+                    <td class="idcolumn">
+                    <td>@Html.DisplayFor(md => item.ID)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
