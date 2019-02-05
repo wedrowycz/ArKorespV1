@@ -12,14 +12,16 @@ namespace ArKorespV1.Controllers
     public class PEZADANIAController : Controller
     {
         // GET: PEZADANIA
-        public ActionResult Index()
+        public ActionResult Index(int ? status)
         {
             PEZADANIADBSet pEZADANIA = new PEZADANIADBSet();
+            int statuszad = status ?? 0;
             string userid = Session["UserId"].ToString();
             PESKRZPOCZTPRACDBSet skrzynka = new PESKRZPOCZTPRACDBSet();
             List<PESKRZPOCZT> listaskrzynek = skrzynka.GetOtherSide<PESKRZPOCZT>(userid, Arango.Client.ADirection.In);
 
-            var lista = pEZADANIA.GetPEZADANIAList(listaskrzynek.FirstOrDefault()._id, 0, 100, 1);
+            var lista = pEZADANIA.GetPEZADANIAList(listaskrzynek.FirstOrDefault()._id, statuszad, 100, 1);
+            ViewBag.status = statuszad;
             return View(lista);
         }
 

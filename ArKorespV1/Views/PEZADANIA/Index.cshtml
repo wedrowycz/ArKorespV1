@@ -3,6 +3,9 @@
     Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
 <h2 style="padding-top:10px">Lista zadań</h2>
+@Html.ActionLink(linkText: ViewBag.status == 0?"Pokaż zadania wykonane":"Pokaż zadania do wykonania",
+                    actionName:"Index",
+                    routeValues: new { status = ViewBag.status == 0?1:0 })
 
 @if (Model.FirstOrDefault() == null)
 {
@@ -28,9 +31,11 @@ else
                 <td>@Html.DisplayFor(mi => item.procedura.DNAZWA)</td>
                 <td>@Html.DisplayFor(mi => item.procedura.DOPIS)</td>
                 <td>
-                    @Html.ActionLink(linkText:"Wykonaj",
-                                 actionName:"Edit" ,
-                                 routeValues: new { id = item.zadanie._id.Replace("/","_"), korespondencja = item.obieg.Korespondencja })
+                    @if (item.zadanie.DSTATUS == 0)
+                    {@Html.ActionLink(linkText: "Wykonaj",
+                                         actionName: "Edit",
+                                         routeValues: new { id = item.zadanie._id.Replace("/", "_"), korespondencja = item.obieg.Korespondencja })
+                    }
                                 <br />
                                 @Html.ActionLink(linkText:"Dotyczy",
                                     actionName : "Details" ,

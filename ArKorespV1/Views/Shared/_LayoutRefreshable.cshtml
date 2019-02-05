@@ -33,6 +33,7 @@
                     <li>@Html.ActionLink("Interfejs API", "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(DateTime.Now.ToString(), "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Wyloguj", "Logout", "User", new {  }, null)</li>
+                    <li>@Html.ActionLink(Session["UserName"].ToString(), "Logout", "User", new { }, null)</li>
                 </ul>
             </div>
         </div>
