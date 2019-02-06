@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -18,7 +19,7 @@ namespace ArKorespV1.Models
         public string Password { get; set; }
 
         /// <summary>
-        /// 
+        /// Verifies user login
         /// </summary>
         /// <param name="username"> provided user name</param>
         /// <param name="password"> provided password</param>
@@ -50,9 +51,30 @@ namespace ArKorespV1.Models
             return null;
         }
 
+        /// <summary>
+        /// Verifies user login
+        /// </summary>
+        /// <param name="username">users name</param>
+        /// <param name="password">users password </param>
+        /// <returns>when succeded return users info record</returns>
         public ATUZYTK IsValid(string username, string password)
         {
-            ADBContext db = new ADBContext("127.0.0.1",8529,"obieg","tomasz","tomasz");
+            string hostvalue = ConfigurationManager.AppSettings["hostname"];
+            string portavalue = ConfigurationManager.AppSettings["port"];
+            string databasename = ConfigurationManager.AppSettings["databasename"];
+            string user = ConfigurationManager.AppSettings["user"];
+            string dbpassword = ConfigurationManager.AppSettings["password"];
+            ADBContext db = null;
+            if (hostvalue == null || portavalue == null || databasename == null || user == null || dbpassword == null)
+            {
+                db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
+            }
+            else
+            {
+                db = new ADBContext(hostvalue, Int32.Parse(portavalue), databasename, user, dbpassword);
+            }
+
+
             var dane = db.GetData("FOR item IN ATUZYTK filter item.UserName == '" + username  + "' RETURN item");
             ATUZYTK uzytk = null;
             if (dane != null)

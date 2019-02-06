@@ -2,6 +2,7 @@
 using ArKorespV1.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -16,7 +17,7 @@ namespace ArKorespV1.Models
         where T : class, IDictionaryAssignable, IDataRecord, ICollectionMember, new()
     {
         //TODO: change db connection parameters to web.config values
-        public ADBContext db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
+        public ADBContext db =  new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
         public bool alreadycreated { get; set; }
 
         /// <summary>
@@ -24,6 +25,21 @@ namespace ArKorespV1.Models
         /// </summary>
         public ADBSet()
         {
+            string hostvalue = ConfigurationManager.AppSettings["hostname"];
+            string portavalue = ConfigurationManager.AppSettings["port"];
+            string databasename = ConfigurationManager.AppSettings["databasename"];
+            string user = ConfigurationManager.AppSettings["user"];
+            string dbpassword = ConfigurationManager.AppSettings["password"];
+            ADBContext db = null;
+            if (hostvalue == null || portavalue == null || databasename == null || user == null || dbpassword == null)
+            {
+                db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
+            }
+            else
+            {
+                db = new ADBContext(hostvalue, Int32.Parse(portavalue), databasename, user, dbpassword);
+            }
+
             if (db != null)
             {
                 if (db.InitializeCollection<T>(out bool created))

@@ -21,6 +21,11 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Action called to check login
+        /// </summary>
+        /// <param name="user">form data</param>
+        /// <returns> redirects to main application form</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Models.User user)
