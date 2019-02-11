@@ -9,8 +9,17 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for current tasks
+    /// </summary>
     public class PEZADANIAController : Controller
     {
+
+        /// <summary>
+        /// produces data to view tasks - PEZADANIA with corresponding information
+        /// </summary>
+        /// <param name="status"> filter for data</param>
+        /// <returns>view with data</returns>
         // GET: PEZADANIA
         public ActionResult Index(int ? status)
         {
@@ -25,6 +34,11 @@ namespace ArKorespV1.Controllers
             return View(lista);
         }
 
+        /// <summary>
+        /// shows details of task's basis
+        /// </summary>
+        /// <param name="korespondencja"></param>
+        /// <returns>view that display tasks data</returns>
         // GET: PEZADANIA/Details/5
         public ActionResult Details(string korespondencja)
         {
@@ -32,6 +46,11 @@ namespace ArKorespV1.Controllers
             PEKORESP pEKORESP = koresp.GetById(korespondencja);
             return View(pEKORESP);
         }
+
+        /// <summary>
+        /// closes window
+        /// </summary>
+        /// <returns> redirect to close method</returns>
         [HttpPost]
         public ActionResult Details()
         {
@@ -60,6 +79,12 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// produces view with tasks data.
+        /// </summary>
+        /// <param name="id"> tasks id</param>
+        /// <param name="korespondencja"> context task register</param>
+        /// <returns>view with data</returns>
         // GET: PEZADANIA/Edit/5
         public ActionResult Edit(string id, string korespondencja)
         {
@@ -87,6 +112,13 @@ namespace ArKorespV1.Controllers
             return View(pEZADANIA);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <param name="korespondencja"></param>
+        /// <returns></returns>
         // POST: PEZADANIA/Edit/5
         [HttpPost]
         public ActionResult Edit(string id, PEZADANIA collection, string korespondencja)
@@ -137,12 +169,23 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: PEZADANIA/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         // POST: PEZADANIA/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

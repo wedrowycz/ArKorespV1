@@ -6,10 +6,18 @@ using System.Web;
 
 namespace ArKorespV1.ViewModels
 {
+    /// <summary>
+    /// view-content class for user and it's mailbox
+    /// </summary>
     public class PESKRZPOCZTPRACATUZYTK
     {
+        /// <summary>
+        /// user information class
+        /// </summary>
         public ATUZYTK user { get; set; }
-        public PESKRZPOCZTPRAC powiazanie { get; set; }
-        public string _from { get; set; }
+        /// <summary>
+        /// mailbox for user
+        /// </summary>
+        public PESKRZPOCZTPRAC powiazanie { get; set; }        
     }
 }

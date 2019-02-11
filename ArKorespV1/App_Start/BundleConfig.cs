@@ -3,9 +3,15 @@ using System.Web.Optimization;
 
 namespace ArKorespV1
 {
+    /// <summary>
+    /// application's standard bundle config
+    /// </summary>
     public class BundleConfig
     {
-        // Aby uzyskać więcej informacji o grupowaniu, odwiedź stronę https://go.microsoft.com/fwlink/?LinkId=301862
+        /// <summary>
+        /// Register bundle method, automatically generated
+        /// </summary>
+        /// <param name="bundles">application's bundle object</param>        
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

@@ -17,7 +17,8 @@ namespace ArKorespV1.Models
         where T : class, IDictionaryAssignable, IDataRecord, ICollectionMember, new()
     {
         //TODO: change db connection parameters to web.config values
-        public ADBContext db =  new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
+        public ADBContext db = null;
+            //new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
         public bool alreadycreated { get; set; }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace ArKorespV1.Models
             string databasename = ConfigurationManager.AppSettings["databasename"];
             string user = ConfigurationManager.AppSettings["user"];
             string dbpassword = ConfigurationManager.AppSettings["password"];
-            ADBContext db = null;
+            //ADBContext db = null;
             if (hostvalue == null || portavalue == null || databasename == null || user == null || dbpassword == null)
             {
                 db = new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");

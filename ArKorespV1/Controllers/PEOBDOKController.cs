@@ -50,7 +50,13 @@ namespace ArKorespV1.Controllers
             ViewBag.proceduryselectlist = ProcedurySelectList();
             return View(rozszerzone);
         }
-
+        /// <summary>
+        /// Post call from grid view that advances task flow
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="rejkoresp">context document set</param>
+        /// <param name="procedura">task to advance</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(string id, string rejkoresp,string procedura)
         {
