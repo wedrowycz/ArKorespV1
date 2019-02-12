@@ -11,7 +11,6 @@ namespace ArKorespV1.Models.ZADANIA
     {
         [Display(Name ="treść zadania")]
         public string DNAZWA { get; set; }
-        public string ID { get; set; }
         [Display(Name ="Treść - opis wykonania")]
         [DataType(DataType.MultilineText)]
         public string DTRESC { get; set; }

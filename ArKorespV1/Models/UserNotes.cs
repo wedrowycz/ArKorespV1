@@ -7,6 +7,9 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// user notes collection
+    /// </summary>
     [CollectionType(Arango.Client.ACollectionType.Document)]
     public class UserNotes : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {

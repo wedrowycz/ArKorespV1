@@ -7,8 +7,16 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// users logins controller
+    /// </summary>
     public class ATLOGController : Controller
     {
+        /// <summary>
+        /// generates data for view - users logins
+        /// </summary>
+        /// <param name="id">user id filter</param>
+        /// <returns>data for view</returns>
         // GET: ATLOG
         public ActionResult Index(string id)
         {

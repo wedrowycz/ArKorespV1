@@ -8,11 +8,16 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [CollectionType(ACollectionType.Document)]
     [CollectionName("PESKRZPOCZT")]
     public class PESKRZPOCZT : CollectionMember, IDataRecord, IDictionaryAssignable
     {
-        public string ID { get ; set ; }
+        /// <summary>
+        /// collection's property 
+        /// </summary>
         [Display(Name ="Nazwa skrzynki")]
         public string DNAZWA { get; set; }
         [Display(Name ="data modyfikacji")]

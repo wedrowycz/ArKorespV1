@@ -13,11 +13,14 @@ namespace ArKorespV1.Models.ZADANIA
     [CollectionName("PEOBDOK")]
     [CollectionType(ACollectionType.Edge)]
     public class PEOBDOK : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
-    {
-        public string ID { get; set; }
-        public DateTime SDATA { get; set; }
+    {        
         public string Skrzynka { get; set; }
         public string Korespondencja { get; set; }
+        /// <summary>
+        /// standard mapper from dictionary to class
+        /// </summary>
+        /// <param name="dictionarry"></param>
+        /// <returns></returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

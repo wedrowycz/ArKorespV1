@@ -9,12 +9,13 @@ using ArKorespV1.Helpers;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// User collection type definition
+    /// </summary>
     [CollectionType(ACollectionType.Document)]
     [CollectionName("ATUZYTK")]
     public class ATUZYTK : CollectionMember, ADictionaryReader, IDictionaryAssignable , IDataRecord 
-    {
-        [Key]                 
-        public string ID { get; set; }
+    {                             
         [Display(Name = "Nazwa użytkownika")]
         public string UserName { get; set; }
         [Display(Name = "Hasło")]

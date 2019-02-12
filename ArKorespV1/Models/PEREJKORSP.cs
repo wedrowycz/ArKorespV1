@@ -8,12 +8,13 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// correspondence register definition
+    /// </summary>
     [CollectionType(ACollectionType.Document)]
     [CollectionName("PEREJKORESP")]
     public class PEREJKORESP : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {        
-        [Key]
-        public string ID { get ; set ; }
         [Display(Name ="Nazwa rejestru")]
         public string DNAZWA { get; set; }
         [Display(Name ="Symbol")]

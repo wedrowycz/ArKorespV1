@@ -10,7 +10,7 @@ namespace ArKorespV1.Models
     /// class defines routes between Document collections 
     /// - edges : _from ,_to are route's ends
     /// </summary>
-    public class EdgeCollectionMember:CollectionMember,IEdgeCollection
+    public class EdgeCollectionMember: AutoSignedCollectionMember, IEdgeCollection
     {
         [Display(Name = "Obiekt źródłowy - skrzynka")]
         public string _from { get; set; }
