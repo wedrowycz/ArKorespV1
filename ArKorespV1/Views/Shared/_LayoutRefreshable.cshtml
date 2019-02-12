@@ -30,7 +30,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Interfejs API", "Index", "Help", new { area = "" }, null)</li>
+                    @*<li>@Html.ActionLink("Interfejs API", "Index", "Help", new { area = "" }, null)</li>*@
                     <li>@Html.ActionLink(DateTime.Now.ToString(), "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Wyloguj", "Logout", "User", new {  }, null)</li>
                     <li>@Html.ActionLink(Session["UserName"].ToString(), "Logout", "User", new { }, null)</li>
