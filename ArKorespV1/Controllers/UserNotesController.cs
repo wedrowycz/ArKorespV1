@@ -8,20 +8,60 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// user notes asp controller
+    /// </summary>
     public class UserNotesController : Controller
     {
+        /// <summary>
+        /// controllers index method
+        /// </summary>
+        /// <returns>data for Index view</returns>
         // GET: UserNotes
         public ActionResult Index()
         {
+            string filtr_notatka = Request["tx_notatka"];
+            string filtr_ddata = Request["tx_data"];
+
             string uname = Session["UserName"].ToString();
             UserNotesDBSet notatki = new UserNotesDBSet(uname);
-            if (notatki.Get(""))
+            ViewBag.tx_notatka = filtr_notatka;
+            ViewBag.tx_data = filtr_ddata;
+            String aqlcondition = "";
+            if (filtr_notatka != null && filtr_notatka != "")
+            {
+                aqlcondition += "Contains(item.DNOTATKA,'" + filtr_notatka + "' )";
+            }
+            if (filtr_ddata != null)
+            {
+                if (filtr_ddata.Length == 10)
+                {
+                    if (aqlcondition != "")
+                    {
+                        aqlcondition += " && ";
+                    }
+                    aqlcondition += " item.DDATA == '"+filtr_ddata+ "T23:00:00Z" + "'";
+                }
+                
+            }
+
+            if (notatki.Get(aqlcondition))
             {
                 ViewBag.uname = uname;
                 return View(notatki);
             }
             else
             return View();
+        }
+
+        /// <summary>
+        /// clear filter request controller method
+        /// </summary>
+        /// <returns>redirests to index</returns>
+        [HttpGet]
+        public ActionResult ClearFilters()
+        {
+            return RedirectToAction("Index");
         }
 
         // GET: UserNotes/Details/5

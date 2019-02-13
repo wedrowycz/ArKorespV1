@@ -14,14 +14,60 @@
 
 
 <table class="table" style="width:110%">
-    <tr>
-        <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DDATA) </th>
-        <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DNOTATKA) </th>
-        <th></th>
-        <th></th>
-    </tr>
-    @foreach (var notki in Model)
-    {
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DDATA) </th>
+            <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DNOTATKA) </th>
+            <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DPRZYPOMNIENIE) </th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            @using (Html.BeginForm())
+            {
+                <th>
+                @Html.TextBox("tx_data",
+                             (string)ViewBag.tx_data,
+                              new
+                              {
+                                  @class = "form-control",
+                                  placeholder = "data"
+                              })
+            </th>
+            <th>
+                @Html.TextBox("tx_notatka",
+                                        (string)ViewBag.tx_notatka,
+                                         new
+                                         {
+                                             @class = "form-control",
+                                             placeholder = "notatka"
+                                         })
+            </th>
+            <th></th>
+            <th>
+                @Html.TextBox("tx_remind",
+                                        (string)ViewBag.tx_remind,
+                                         new
+                                         {
+                                             @class = "form-control",
+                                             placeholder = "przypomnienie"
+                                         })
+            </th>
+            
+            <th>
+                <input type="submit" value="szukaj" class="btn btn-primary" />
+                @Html.ActionLink(linkText: "wyczyść",
+                             actionName: "ClearFilters",
+                             routeValues: new { },
+                             htmlAttributes: new { @class = "btn btn-default" })
+            </th>
+            }
+        </tr>
+    </thead>
+    <tfoot></tfoot>
+    <tbody>
+        @foreach (var notki in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelitem => notki.DDATA)
@@ -35,10 +81,14 @@
                 @Html.ActionLink(linkText: "Usuń", actionName: "Delete", routeValues: new { id = notki.ID })
 
             </td>
+            <td>
+                @Html.DisplayFor(modelitem => notki.DPRZYPOMNIENIE)
+            </td>
             <td class="idcolumn">
                 @Html.DisplayFor(mi => notki.ID) <br />
                 @Html.DisplayFor(mi => notki.SDATA)
             </td>
         </tr>
-    }
+        }
+    </tbody>
 </table>

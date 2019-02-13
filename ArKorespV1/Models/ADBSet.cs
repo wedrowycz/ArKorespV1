@@ -100,6 +100,11 @@ namespace ArKorespV1.Models
             return rezult;
         }
 
+        /// <summary>
+        /// retrieve all records from collection T
+        /// </summary>
+        /// <param name="condition">AQL filter where entity is named item</param>
+        /// <returns>success</returns>
         public virtual bool Get(string condition)
         {
             List<T> rezult = db.Get<T>(condition);
@@ -110,7 +115,13 @@ namespace ArKorespV1.Models
             return true;
         }
 
-
+        /// <summary>
+        /// retrieve all records from collection T on specified page
+        /// </summary>
+        /// <param name="condition">AQL filter where entity is named item</param>
+        /// <param name="page">page number</param>
+        /// <param name="pagesize">page size - number of returned records</param>
+        /// <returns></returns>
         public virtual bool Get(string condition, int page, int pagesize)
         {
             List<T> rezult = db.Get<T>(condition,page,pagesize);

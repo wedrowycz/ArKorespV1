@@ -192,7 +192,13 @@ namespace ArKorespV1.Models
             return default(T);
         }
 
-        //retrieve all records from collection T
+
+        /// <summary>
+        /// retrieve all records from collection T
+        /// </summary>
+        /// <typeparam name="T">class</typeparam>
+        /// <param name="filter">AQL filter where entity is named item</param>
+        /// <returns>List of T-type items</returns>
         public List<T> Get<T>(string filter)
             where T : IDataRecord, ICollectionMember, new()
         {
