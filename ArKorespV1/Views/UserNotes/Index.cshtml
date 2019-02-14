@@ -18,6 +18,7 @@
         <tr>
             <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DDATA) </th>
             <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DNOTATKA) </th>
+            <th></th>
             <th>@Html.DisplayNameFor(mitem => mitem.FirstOrDefault().DPRZYPOMNIENIE) </th>
             <th></th>
             <th></th>
@@ -43,7 +44,7 @@
                                              placeholder = "notatka"
                                          })
             </th>
-            <th></th>
+            <th></th>            
             <th>
                 @Html.TextBox("tx_remind",
                                         (string)ViewBag.tx_remind,

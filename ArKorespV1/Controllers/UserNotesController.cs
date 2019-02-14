@@ -22,27 +22,59 @@ namespace ArKorespV1.Controllers
         {
             string filtr_notatka = Request["tx_notatka"];
             string filtr_ddata = Request["tx_data"];
-
+            string filtr_przypomnienie = Request["tx_remind"];
             string uname = Session["UserName"].ToString();
             UserNotesDBSet notatki = new UserNotesDBSet(uname);
             ViewBag.tx_notatka = filtr_notatka;
             ViewBag.tx_data = filtr_ddata;
+            ViewBag.tx_remind = filtr_przypomnienie;
             String aqlcondition = "";
             if (filtr_notatka != null && filtr_notatka != "")
             {
                 aqlcondition += "Contains(item.DNOTATKA,'" + filtr_notatka + "' )";
             }
-            if (filtr_ddata != null)
+
+            try
             {
-                if (filtr_ddata.Length == 10)
+                if (filtr_ddata != null && filtr_ddata != "")
                 {
-                    if (aqlcondition != "")
+                    if (filtr_ddata.Length == 10)
                     {
-                        aqlcondition += " && ";
+                        if (aqlcondition != "")
+                        {
+                            aqlcondition += " && ";
+                        }
+                        aqlcondition += " item.DDATA == '" + DateTime.Parse(filtr_ddata).ToUniversalTime().ToString().Replace(" ", "T") + "Z"
+                            //+ "T23:00:00Z" 
+                            + "'";
                     }
-                    aqlcondition += " item.DDATA == '"+filtr_ddata+ "T23:00:00Z" + "'";
+
                 }
-                
+            }
+            catch (Exception e)
+            {
+                aqlcondition = "";
+            }
+            try
+            {
+                if (filtr_przypomnienie != null && filtr_przypomnienie != "")
+                {
+                    if (filtr_przypomnienie.Length == 10)
+                    {
+                        if (aqlcondition != "")
+                        {
+                            aqlcondition += " && ";
+                        }
+                        aqlcondition += " item.DPRZYPOMNIENIE == '" + DateTime.Parse(filtr_przypomnienie).ToUniversalTime().ToString().Replace(" ", "T") + "Z"
+                            //+ "T23:00:00Z" 
+                            + "'";
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                aqlcondition = "";
             }
 
             if (notatki.Get(aqlcondition))
@@ -64,8 +96,13 @@ namespace ArKorespV1.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// standard controllers method - GET
+        /// </summary>
+        /// <param name="id">records id</param>
+        /// <returns></returns>
         // GET: UserNotes/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             return View();
         }
@@ -76,6 +113,11 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        /// <summary>
+        /// standard post create method process data from form
+        /// </summary>
+        /// <param name="collection">data to write to db</param>
+        /// <returns></returns>
         // POST: UserNotes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,6 +138,11 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// Standard controller Edit get method
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>data for edit view</returns>
         // GET: UserNotes/Edit/5
         public ActionResult Edit(string id)
         {
