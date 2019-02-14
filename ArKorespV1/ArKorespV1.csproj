@@ -46,9 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Arango.Client, Version=1.0.6947.17023, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Arango.Client, Version=1.0.6984.41019, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ArangoDBNet\src\Arango\Arango.Client\bin\Debug\Arango.Client.dll</HintPath>
+      <HintPath>D:\Source\ArangoDBNet\src\Arango\Arango.Client\bin\Debug\Arango.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />

@@ -132,12 +132,21 @@ namespace ArKorespV1.Models
             return true;
         }
 
+        /// <summary>
+        /// returns collection's element count
+        /// </summary>
+        /// <param name="filter">aql filter</param>
+        /// <returns>number</returns>
         public int GetCount(string filter)
         {
             return db.GetCount<T>(filter);
         }
 
- 
+        public bool InitializeView(string viewName)
+        {
+            bool stworzone;
+            return db.InitializeView(out stworzone,  viewName);
+        }
 
 
     }

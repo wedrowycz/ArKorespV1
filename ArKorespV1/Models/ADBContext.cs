@@ -252,6 +252,12 @@ namespace ArKorespV1.Models
             return default(List<T>);
         }
 
+        /// <summary>
+        /// returns count of collection T items
+        /// </summary>
+        /// <typeparam name="T">class for collection</typeparam>
+        /// <param name="filter">AQL condition, item stands for collection alias</param>
+        /// <returns>number of items</returns>
         public int GetCount<T>(string filter)
             where T : IDataRecord, ICollectionMember, new()
         {
@@ -270,6 +276,41 @@ namespace ArKorespV1.Models
             return wynik;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="created"></param>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public bool InitializeView(out bool created, String viewName)
+        {
+            var db = new ADatabase("obieg");
+            created = false;
+            var view = db.View.GetProperties(viewName);
+            if (!view.Success)
+            {
+                created = false;
+                var createViewResult = db.View.Type(AViewType.arangosearch)
+                    .Create(viewName);
+                if (!createViewResult.Success)
+                { return false; }
+                else
+                {
+                    created = true;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Checks for collection's existence 
+        /// when not exists collection is created using T annotations
+        /// for collection name and type
+        /// </summary>
+        /// <typeparam name="T">collection's class</typeparam>
+        /// <param name="created">returns creation state</param>
+        /// <param name="prefix">optional prefic for collection name</param>
+        /// <returns>success</returns>
         public bool InitializeCollection<T>( out bool created, String prefix = "")
             where T : IDataRecord, ICollectionMember, new()
         {
@@ -390,6 +431,13 @@ namespace ArKorespV1.Models
             return null;
         }
 
+        /// <summary>
+        /// removes edges from T edge collection
+        /// </summary>
+        /// <typeparam name="T">class for collection</typeparam>
+        /// <param name="_from">filter</param>
+        /// <param name="_to">filter</param>
+        /// <returns>success</returns>
         public bool RemoveEdge<T>(string _from, string _to)
             where T : ICollectionMember, new()
         {
@@ -412,6 +460,14 @@ namespace ArKorespV1.Models
 
         }
 
+        /// <summary>
+        /// insert simple element to edge collection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_from">edge property</param>
+        /// <param name="_to">edge property</param>
+        /// <param name="elements">additional optional elements</param>
+        /// <returns>success</returns>
         public bool InsertEdge<T>(string _from, string _to, Dictionary<string, object> elements)
             where T : ICollectionMember, new()
         {

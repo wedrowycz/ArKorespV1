@@ -14,6 +14,7 @@ namespace ArKorespV1.Controllers
         public ActionResult Index(string rejkoresp)
         {
             PEKORESPDBSet koresp = new PEKORESPDBSet(rejkoresp);
+            koresp.InitializeView("V" + koresp.CollectionName());
             if (koresp.Get(""))
             {
                 PEREJKORESPDBSet deff = new PEREJKORESPDBSet();
