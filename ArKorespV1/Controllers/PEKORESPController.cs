@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for PEKORESP entity
+    /// </summary>
     public class PEKORESPController : Controller
     {
         // GET: PEKORESP
@@ -15,6 +18,7 @@ namespace ArKorespV1.Controllers
         {
             PEKORESPDBSet koresp = new PEKORESPDBSet(rejkoresp);
             koresp.InitializeView("V" + koresp.CollectionName());
+            koresp.ModifyView("V" + koresp.CollectionName(), rejkoresp.Replace("_","")+"PEKORESP");
             if (koresp.Get(""))
             {
                 PEREJKORESPDBSet deff = new PEREJKORESPDBSet();

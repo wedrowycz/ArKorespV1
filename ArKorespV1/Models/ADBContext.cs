@@ -277,11 +277,11 @@ namespace ArKorespV1.Models
         }
 
         /// <summary>
-        /// 
+        /// Initializes view - checks for existence, when missing creating
         /// </summary>
-        /// <param name="created"></param>
-        /// <param name="viewName"></param>
-        /// <returns></returns>
+        /// <param name="created">wheter view is created et this time</param>
+        /// <param name="viewName">name of a view</param>
+        /// <returns>success</returns>
         public bool InitializeView(out bool created, String viewName)
         {
             var db = new ADatabase("obieg");
@@ -299,6 +299,17 @@ namespace ArKorespV1.Models
                     created = true;
                 }
             }
+            return true;
+        }
+
+        public bool ModifyView<T>(string viewName, string collectionName)
+            where T : IDataRecord, ICollectionMember, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            var modified = db.View.Link(collectionName ==""?tmpobj.CollectionName(): collectionName).
+                ChangeProperties(viewName, collectionName == "" ? tmpobj.CollectionName() : collectionName);
+
             return true;
         }
 

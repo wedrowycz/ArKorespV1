@@ -148,6 +148,10 @@ namespace ArKorespV1.Models
             return db.InitializeView(out stworzone,  viewName);
         }
 
+        public bool ModifyView(string viewName, string collectionName)
+        {
+            return db.ModifyView<T>(viewName, collectionName);
+        }
 
     }
 }
