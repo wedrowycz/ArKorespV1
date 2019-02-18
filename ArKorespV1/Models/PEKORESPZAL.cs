@@ -13,9 +13,7 @@ namespace ArKorespV1.Models
     [CollectionName("PEKORESPZAL")]
     [CollectionType(ACollectionType.Edge)]
     public class PEKORESPZAL : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
-    {
-        public string ID { get; set ; }
-        public DateTime SDATA { get; set; }
+    {               
 
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {

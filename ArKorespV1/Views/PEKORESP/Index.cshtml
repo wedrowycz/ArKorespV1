@@ -61,7 +61,7 @@
     </span>
 </p>
 
-@if (Model.FirstOrDefault() == null)
+@if (Model == null || Model.FirstOrDefault() == null)
 {
     <h2>Brak danych do wyświetlenia</h2>
 }

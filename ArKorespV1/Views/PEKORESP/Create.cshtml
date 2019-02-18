@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DKONTRAHENT, htmlAttributes: new { @class = "control-label col-md-3 longer", @style = "width:200 % !important; min-width:180px;" })
             <div class="style=" width:500px">
-                @Html.EditorFor(model => model.DKONTRAHENT, new { htmlAttributes = new { @class = "form-control longer", @placeholder = "nazwa kontrahenta", @style = "width:800px;" } })
+                @Html.EditorFor(model => model.DKONTRAHENT, new { htmlAttributes = new { @class = "form-control longer", @placeholder = "nazwa kontrahenta", @style = "width:800px;", required = "required" } })
                 @Html.ValidationMessageFor(model => model.DKONTRAHENT, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,7 +37,8 @@
                 new { htmlAttributes =
                 new { @class = "form-control longer"
                         , @placeholder = "adres kontrahenta"
-                        , @style = "width:800px;" } })
+                        , @style = "width:800px;"
+                        , required = "required"} })
             @Html.ValidationMessageFor(model => model.DKONTRAHENTADRES, "", new { @class = "text-danger" })
 
         </div>
@@ -50,6 +51,7 @@
                         @class = "form-control longer"
                         ,
                         @rows = 6
+                        , required = "required"
                     } })
                 @Html.ValidationMessageFor(model => model.DDOTYCZY, "", new { @class = "text-danger" })
             </div>
@@ -84,7 +86,7 @@
                 htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.EditorFor(model => model.DDATA, 
-                        new { htmlAttributes = new { @class = "form-control" } })
+                        new { htmlAttributes = new { @class = "form-control" , required = "required"} })
                 @Html.ValidationMessageFor(model => model.DDATA, "", new { @class = "text-danger" })
             </div>
         </div>

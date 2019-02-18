@@ -8,14 +8,17 @@ using System.Web.Security;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for user operations such as login/logout
+    /// </summary>
     public class UserController : Controller
     {
-        // GET: User
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
+        /// <summary>
+        /// standard action to display login
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -35,17 +38,24 @@ namespace ArKorespV1.Controllers
                 var userdata = user.IsValid2(user.UserName, user.Password);
                 if (userdata != null)
                 {
-                    FormsAuthentication.SetAuthCookie(userName: user.UserName, createPersistentCookie: true);
-                    Session["UserName"] = user.UserName;
-                    Session["UserId"] = userdata.ID;
-                    Session["Role"] = userdata.UserRole.ToString();
-                    ATLOGDBSet atlog = new ATLOGDBSet();
-                    ATLOG logininfo = new ATLOG();
-                    logininfo.UserId = userdata.ID;
-                    logininfo.LoginDateTime = DateTime.Now.ToString();
-                    logininfo.LoginUrl = Request.UserHostAddress;
-                    atlog.Insert(logininfo);
-                    return RedirectToAction("Index", "Home");
+                    if (userdata.Status != 0)
+                    {
+                        ModelState.AddModelError("password", "Uzytkownik został zablokowany");
+                    }
+                    else
+                    {
+                        FormsAuthentication.SetAuthCookie(userName: user.UserName, createPersistentCookie: true);
+                        Session["UserName"] = user.UserName;
+                        Session["UserId"] = userdata.ID;
+                        Session["Role"] = userdata.UserRole.ToString();
+                        ATLOGDBSet atlog = new ATLOGDBSet();
+                        ATLOG logininfo = new ATLOG();
+                        logininfo.UserId = userdata.ID;
+                        logininfo.LoginDateTime = DateTime.Now.ToString();
+                        logininfo.LoginUrl = Request.UserHostAddress;
+                        atlog.Insert(logininfo);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -54,9 +64,15 @@ namespace ArKorespV1.Controllers
             }
             return View(user);
         }
-
+        /// <summary>
+        /// standard action for logout
+        /// </summary>
+        /// <returns>redirects to login screen</returns>
         public ActionResult Logout()
-        {
+        {            
+            Session.Remove("UserName");
+            Session.Remove("UserId");
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "User");
         }
     }

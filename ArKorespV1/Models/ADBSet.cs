@@ -68,8 +68,17 @@ namespace ArKorespV1.Models
             return true;
         }
         
+        /// <summary>
+        /// inserts new data do T collection
+        /// </summary>
+        /// <param name="newdata">entity to be inserted into database</param>
+        /// <returns>entity with _id obtained during insert</returns>
         public virtual T Insert(T newdata)
         {
+            if (newdata == null)
+            {
+                return null;
+            }
             string newkey = db.Insert<T>(newdata);
             newdata.ID = newkey;
             newdata._id = newkey;

@@ -9,11 +9,19 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// Weg Controller for PEREJKORESP collection
+    /// </summary>
     public class PEREJKORESPController : Controller
     {
         private const string wychodzacaitem = "wychodząca";
         private const string przychodzacaitem = "przychodząca";
 
+        /// <summary>
+        /// controller's Index action method
+        /// </summary>
+        /// <param name="rodzaj">kind of data object</param>
+        /// <returns>view data</returns>
         // GET: PEREJKORESP
         public ActionResult Index(int ? rodzaj)
         {
@@ -32,9 +40,18 @@ namespace ArKorespV1.Controllers
             ViewBag.rodzaj = rodz;
             return View( lista );
         }
-
+        /// <summary>
+        /// prepares data to view specific user registers
+        /// </summary>
+        /// <param name="rodzaj"></param>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult UserRegisters(int? rodzaj)
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction(actionName: "Login", controllerName: "User");
+            }
             int rodz = rodzaj ?? 0;
             string user = Session["UserId"].ToString();
 
@@ -49,13 +66,11 @@ namespace ArKorespV1.Controllers
             ViewBag.rodzaj = rodz;
             return View(lista);
         }
-
-        // GET: PEREJKORESP/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+        
+        /// <summary>
+        /// prepares static select list for DKIERUNEK field
+        /// </summary>
+        /// <returns></returns>
         private SelectList KierunkiSelectList()
         {
             Dictionary<int, string> kierunki = new Dictionary<int, string>
@@ -66,14 +81,22 @@ namespace ArKorespV1.Controllers
             return new SelectList(kierunki.Select(kk => new { id = kk.Key, value = kk.Value }), "id", "value");
         }
 
+        /// <summary>
+        /// prepares Create view 
+        /// </summary>
+        /// <returns></returns>
         // GET: PEREJKORESP/Create
         public ActionResult Create()
         {
             ViewBag.kierunki = KierunkiSelectList();
-
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collection">form data</param>
+        /// <returns>redirects to index</returns>
         // POST: PEREJKORESP/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,6 +109,14 @@ namespace ArKorespV1.Controllers
                     PEREJKORESPDBSet wstaw = new PEREJKORESPDBSet();
                     collection.SDATA = DateTime.Now;
                     wstaw.Insert(collection);
+
+                    //now create PEKORESP collection and add to search
+                    PEKORESPDBSet korespdbset = new PEKORESPDBSet(collection._id.Replace("/",""));
+                    //in case it is missing - create empty view
+                    korespdbset.InitializeView("VPEKORESP" );
+                    //optionally add link to view
+                    korespdbset.ModifyView("VPEKORESP" , collection._id.Replace("/", "").Replace("_", "") + "PEKORESP");
+
                 }
 
                 return RedirectToAction("Index");
@@ -96,6 +127,11 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// prepares edit view
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>edit view</returns>
         // GET: PEREJKORESP/Edit/5
         public ActionResult Edit(string id)
         {
@@ -109,6 +145,12 @@ namespace ArKorespV1.Controllers
             return View(datatoupdate);
         }
 
+        /// <summary>
+        /// posts edited data do database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"> posted data</param>
+        /// <returns>redirects to index</returns>
         // POST: PEREJKORESP/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,14 +161,26 @@ namespace ArKorespV1.Controllers
                 PEREJKORESPDBSet aktualizuj = new PEREJKORESPDBSet();
                 collection.SDATA = DateTime.Now;
                 aktualizuj.Update(collection);
+
+                //now create PEKORESP collection and add to search
+                PEKORESPDBSet korespdbset = new PEKORESPDBSet(collection.ID.Replace("/", ""));
+                //in case it is missing - create empty view
+                korespdbset.InitializeView("VPEKORESP");
+                korespdbset.ModifyView("VPEKORESP", collection.ID.Replace("/", "").Replace("_", "") + "PEKORESP");
+
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
         }
 
+        /// <summary>
+        /// prepares view to delete entity
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>view</returns>
         // GET: PEREJKORESP/Delete/5
         public ActionResult Delete(string id)
         {
@@ -139,6 +193,12 @@ namespace ArKorespV1.Controllers
             return View(datatodelete);
         }
 
+        /// <summary>
+        /// executes entity removal
+        /// </summary>
+        /// <param name="id">antity id</param>
+        /// <param name="collection">some data</param>
+        /// <returns></returns>
         // POST: PEREJKORESP/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

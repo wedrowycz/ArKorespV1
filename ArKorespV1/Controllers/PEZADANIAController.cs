@@ -23,6 +23,10 @@ namespace ArKorespV1.Controllers
         // GET: PEZADANIA
         public ActionResult Index(int ? status)
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction(actionName: "Login", controllerName: "User");
+            }
             PEZADANIADBSet pEZADANIA = new PEZADANIADBSet();
             int statuszad = status ?? 0;
             string userid = Session["UserId"].ToString();

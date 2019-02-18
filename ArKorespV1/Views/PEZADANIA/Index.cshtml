@@ -2,12 +2,12 @@
 @{
     Layout = "~/Views/Shared/_LayoutRefreshable.cshtml";
 }
-<h2 style="padding-top:10px">Lista zadań</h2>
+<h2 style="padding-top:10px">Lista zadań @Html.Raw(ViewBag.status == 0 ? " do wykonania" : "wykonanych")</h2>
 @Html.ActionLink(linkText: ViewBag.status == 0?"Pokaż zadania wykonane":"Pokaż zadania do wykonania",
                     actionName:"Index",
                     routeValues: new { status = ViewBag.status == 0?1:0 })
 
-@if (Model.FirstOrDefault() == null)
+@if (Model == null || Model.FirstOrDefault() == null)
 {
     @Html.Raw("Brak zadań. Poczekaj na nowe")
 }
@@ -16,7 +16,8 @@ else
     <table class ="table table-hover" style="width:110%">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().procedura.DNAZWA)</th>
+                <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().procedura.DNAZWA)              
+                </th>
                 <th>@Html.DisplayNameFor(mi => mi.FirstOrDefault().procedura.DOPIS)</th>
                 <th></th>
                 <th></th>
@@ -28,8 +29,13 @@ else
             @foreach (var item in Model)
             {
             <tr>
-                <td>@Html.DisplayFor(mi => item.procedura.DNAZWA)</td>
-                <td>@Html.DisplayFor(mi => item.procedura.DOPIS)</td>
+                <td>@Html.DisplayFor(mi => item.procedura.DNAZWA)<br />
+                @Html.Raw("Dotyczy :")<b>@Html.DisplayFor(mi => item.koresp.DDOTYCZY)</b><br />
+                @Html.Raw("Kontrahent :")<b>@Html.DisplayFor(mi => item.koresp.DKONTRAHENT)</b>
+                </td>
+                <td>@Html.DisplayFor(mi => item.procedura.DOPIS) <br />
+                    @Html.DisplayFor(mi => item.zadanie.DTRESC)
+                </td>
                 <td>
                     @if (item.zadanie.DSTATUS == 0)
                     {@Html.ActionLink(linkText: "Wykonaj",

@@ -20,6 +20,10 @@ namespace ArKorespV1.Controllers
         // GET: UserNotes
         public ActionResult Index()
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction(actionName:"Login",controllerName:"User");
+            }
             string filtr_notatka = Request["tx_notatka"];
             string filtr_ddata = Request["tx_data"];
             string filtr_przypomnienie = Request["tx_remind"];

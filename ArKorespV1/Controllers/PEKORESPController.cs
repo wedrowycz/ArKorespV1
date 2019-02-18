@@ -13,12 +13,21 @@ namespace ArKorespV1.Controllers
     /// </summary>
     public class PEKORESPController : Controller
     {
+        /// <summary>
+        /// prepares data for index view
+        /// </summary>
+        /// <param name="rejkoresp">mail register</param>
+        /// <returns>view</returns>
         // GET: PEKORESP
         public ActionResult Index(string rejkoresp)
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction(actionName: "Login", controllerName: "User");
+            }
             PEKORESPDBSet koresp = new PEKORESPDBSet(rejkoresp);
-            koresp.InitializeView("V" + koresp.CollectionName());
-            koresp.ModifyView("V" + koresp.CollectionName(), rejkoresp.Replace("_","")+"PEKORESP");
+            //koresp.InitializeView("V" + koresp.CollectionName());
+            //koresp.ModifyView("V" + koresp.CollectionName(), rejkoresp.Replace("_","")+"PEKORESP");
             if (koresp.Get(""))
             {
                 PEREJKORESPDBSet deff = new PEREJKORESPDBSet();
@@ -26,20 +35,19 @@ namespace ArKorespV1.Controllers
 
                 ViewBag.nazwa = rk.DNAZWA;
                 ViewBag.rejkoresp = rejkoresp;
-                return View(koresp);
+                return View(koresp.OrderByDescending(ko => ko.DDATA ).ToList());
             }
             else
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 
         }
-
-        // GET: PEKORESP/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+        
+        /// <summary>
+        /// prepares data  for new entity
+        /// </summary>
+        /// <param name="rejkoresp">register id</param>
+        /// <returns>view</returns>
         // GET: PEKORESP/Create
         public ActionResult Create(string rejkoresp)
         {
@@ -51,6 +59,12 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        /// <summary>
+        /// inserts data
+        /// </summary>
+        /// <param name="collection">form data</param>
+        /// <param name="rejkoresp">data register</param>
+        /// <returns>redirects to index</returns>
         // POST: PEKORESP/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,6 +86,12 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// prepares data for edit
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <param name="rejkoresp"></param>
+        /// <returns></returns>
         // GET: PEKORESP/Edit/5
         public ActionResult Edit(string id, string rejkoresp)
         {
@@ -85,6 +105,13 @@ namespace ArKorespV1.Controllers
             return View(pEKORESP);
         }
 
+        /// <summary>
+        /// writes edited data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection">form data</param>
+        /// <param name="rejkoresp">register id</param>
+        /// <returns></returns>
         // POST: PEKORESP/Edit/5
         [HttpPost]
         public ActionResult Edit(string id, PEKORESP collection, string rejkoresp)
@@ -95,7 +122,7 @@ namespace ArKorespV1.Controllers
                 collection.SDATA = DateTime.Now;
                 datatoupdate.Update(collection);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",  new { rejkoresp });
             }
             catch
             {
@@ -125,7 +152,7 @@ namespace ArKorespV1.Controllers
             {
                 PEKORESPDBSet pEKORESPs = new PEKORESPDBSet("");
                 pEKORESPs.Delete(id);
-                return RedirectToAction("Index", new { rejkoresp});
+                return RedirectToAction("Index", new { rejkoresp });
             }
             catch
             {
@@ -133,6 +160,12 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// prepares data to view attachements to entity
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <param name="rejkoresp">register id</param>
+        /// <returns>view</returns>
         public ActionResult Zalaczniki(string id, string rejkoresp)
         {
             PEKORESPZALDBSet zadb = new PEKORESPZALDBSet();

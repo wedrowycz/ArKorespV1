@@ -16,6 +16,10 @@ namespace ArKorespV1.Controllers
         // GET: PEZALACZNIKI
         public ActionResult Index(int ? pagesize, int ? pagenumber)
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction(actionName: "Login", controllerName: "User");
+            }
             int psize = pagesize ?? 5;
             int pnumber = pagenumber ?? 1;
 

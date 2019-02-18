@@ -143,6 +143,10 @@ namespace ArKorespV1.Models
         public string Insert<T>(T newdata)
             where T : IDataRecord, ICollectionMember, new()
         {
+            if (newdata == null)
+            {
+                return null;
+            }
             var db = new ADatabase("obieg");
             var createresult =
                 db.Document.WaitForSync(true)
@@ -302,6 +306,13 @@ namespace ArKorespV1.Models
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="viewName"></param>
+        /// <param name="collectionName"></param>
+        /// <returns></returns>
         public bool ModifyView<T>(string viewName, string collectionName)
             where T : IDataRecord, ICollectionMember, new()
         {

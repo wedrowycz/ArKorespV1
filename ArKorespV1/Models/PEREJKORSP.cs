@@ -15,14 +15,31 @@ namespace ArKorespV1.Models
     [CollectionName("PEREJKORESP")]
     public class PEREJKORESP : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {        
+        /// <summary>
+        /// collection's property - name
+        /// </summary>
         [Display(Name ="Nazwa rejestru")]
         public string DNAZWA { get; set; }
+        /// <summary>
+        /// collection's property 
+        /// </summary>
         [Display(Name ="Symbol")]
         public string DSYMBOL { get; set; }
+        /// <summary>
+        /// collections's property - numbering format
+        /// </summary>
         [Display(Name ="Format numeracji")]
         public string DFORMAT { get; set; }        
+        /// <summary>
+        /// collection's property - direction
+        /// </summary>
         [Display(Name ="Kierunek")]
-        public int DKIERUNEK { get; set; }
+        public int? DKIERUNEK { get; set; }
+        /// <summary>
+        /// non standard assignement method
+        /// </summary>
+        /// <param name="dictionarry">dictionary of data</param>
+        /// <returns>success</returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

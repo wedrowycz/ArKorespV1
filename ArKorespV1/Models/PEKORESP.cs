@@ -22,6 +22,7 @@ namespace ArKorespV1.Models
         /// <summary>
         /// collection's property - date
         /// </summary>
+        [Required]
         [Display(Name ="data przyjęcia")]
         [UIHint("DateTimePicker")]
         [DataType(DataType.Date)]
@@ -46,6 +47,7 @@ namespace ArKorespV1.Models
         [Display(Name ="dotyczy")]
         [StringLength(10000)]
         [DataType(DataType.MultilineText)]
+        [Required]
         public string DDOTYCZY { get; set; }
         /// <summary>
         /// collection's property - sender

@@ -26,11 +26,13 @@ namespace ArKorespV1.Models.ZADANIA
             aql.Append("for zad in PEZADANIA ");
             aql.Append("for ob in PEOBDOK ");
             aql.Append("for proc in PEPROCOBDOKPOZ ");
+            aql.Append("for kor in VPEKORESP ");
             aql.Append("FILTER zad._id == ob._to ");
-            aql.Append("filter ob.Skrzynka == '"+skrzynka.Replace("_","/")+ "'");
+            aql.Append("filter ob.Skrzynka == '"+skrzynka.Replace("_","/")+ "' ");
             aql.Append("filter zad.DSTATUS == " + status.ToString() + " ");
-            aql.Append("filter proc._id == SUBSTITUTE(zad.DPROCEDURAID, '_', '/')");
-            aql.Append("return { zadanie: zad , procedura: proc , obieg : ob}");
+            aql.Append("filter proc._id == SUBSTITUTE(zad.DPROCEDURAID, '_', '/') ");
+            aql.Append("filter kor._id == SUBSTITUTE(ob.Korespondencja, '_', '/') ");
+            aql.Append("return { zadanie: zad , procedura: proc , obieg : ob, koresp : kor }");
 
             return db.GetData<PEZADANIEZPROCEDURA>(aql.ToString());
         }
