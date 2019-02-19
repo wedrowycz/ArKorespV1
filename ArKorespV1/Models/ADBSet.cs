@@ -84,22 +84,36 @@ namespace ArKorespV1.Models
             newdata._id = newkey;
             return newdata;        
         }
-
+        /// <summary>
+        /// gets T-type data from any collection referenced by id
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>T-type data</returns>
         public virtual T GetById(string id)
         {
             T rezult = db.GetById<T>(id);
             return rezult;
         }
 
+        /// <summary>
+        /// delete record from collection passing T-tepe data
+        /// </summary>
+        /// <param name="datatodelete">entity</param>
+        /// <returns>deleted entity id</returns>
         public virtual string Delete(T datatodelete)
         {
             string rezult = db.Delete<T>(datatodelete);
             return rezult;
         }
 
+        /// <summary>
+        /// delete record from collection, using it's id
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>deleted record id</returns>
         public virtual string Delete(string id)
         {
-            string rezult = db.Delete<T>(id);
+            string rezult = db.Delete(id);
             return rezult;
         }
 
@@ -150,13 +164,23 @@ namespace ArKorespV1.Models
         {
             return db.GetCount<T>(filter);
         }
-
+        /// <summary>
+        /// initialize view - check for existence, creating it when missing
+        /// </summary>
+        /// <param name="viewName">name of a view</param>
+        /// <returns>success</returns>
         public bool InitializeView(string viewName)
         {
             bool stworzone;
             return db.InitializeView(out stworzone,  viewName);
         }
 
+        /// <summary>
+        /// adds link to collection to view
+        /// </summary>
+        /// <param name="viewName">name of a view</param>
+        /// <param name="collectionName">name of collection to be added</param>
+        /// <returns></returns>
         public bool ModifyView(string viewName, string collectionName)
         {
             return db.ModifyView<T>(viewName, collectionName);

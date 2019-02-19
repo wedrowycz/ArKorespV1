@@ -160,6 +160,12 @@ namespace ArKorespV1.Models
             return "";
         }
 
+        /// <summary>
+        /// call delete collection item identified by datatodelete.id
+        /// </summary>
+        /// <typeparam name="T">data type</typeparam>
+        /// <param name="datatodelete">data entity</param>
+        /// <returns>entity id on succesfull , empty string otherwise</returns>
         public string Delete<T>(T datatodelete)
             where T : IDataRecord
         {
@@ -171,8 +177,12 @@ namespace ArKorespV1.Models
                 return "";
         }
 
-        public string Delete<T>(string datatodelete)
-           where T : IDataRecord
+        /// <summary>
+        /// call delete collection item identified by datatodelete(id)
+        /// </summary>        
+        /// <param name="datatodelete">entity id</param>
+        /// <returns>entity id on succesfull, empty string otheriwse</returns>
+        public string Delete(string datatodelete)
         {
             var db = new ADatabase("obieg");
             var deleteresult = db.Document.Delete(datatodelete.Replace("_", "/"));
