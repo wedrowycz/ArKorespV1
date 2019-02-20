@@ -1,4 +1,5 @@
-﻿using ArKorespV1.Helpers;
+﻿using Arango.Client;
+using ArKorespV1.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,11 @@ using System.Web;
 
 namespace ArKorespV1.Models.ZADANIA
 {
+    /// <summary>
+    /// Entity class for tasks
+    /// </summary>
+    [CollectionType(ACollectionType.Document)]
+    [CollectionName("PEZADANIA")]
     public class PEZADANIA : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {
         [Display(Name ="treść zadania")]

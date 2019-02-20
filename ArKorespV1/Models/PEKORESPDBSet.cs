@@ -5,10 +5,16 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// data registy entity 
+    /// </summary>
     public class PEKORESPDBSet:ADBSet<PEKORESP>
     {
         //private string rejestr;
-
+        /// <summary>
+        /// constructor with collection prefix
+        /// </summary>
+        /// <param name="rejestr"></param>
         public PEKORESPDBSet(string rejestr)
         {
             if (db != null)

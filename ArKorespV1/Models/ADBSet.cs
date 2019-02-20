@@ -16,9 +16,14 @@ namespace ArKorespV1.Models
     public class ADBSet<T> : List<T>
         where T : class, IDictionaryAssignable, IDataRecord, ICollectionMember, new()
     {
-        //TODO: change db connection parameters to web.config values
+        /// <summary>
+        /// connection object
+        /// </summary>
         public ADBContext db = null;
             //new ADBContext("127.0.0.1", 8529, "obieg", "tomasz", "tomasz");
+        /// <summary>
+        /// flag indicating that collection is already created
+        /// </summary>
         public bool alreadycreated { get; set; }
 
         /// <summary>
@@ -49,6 +54,17 @@ namespace ArKorespV1.Models
                 }
             }
         }
+
+        /// <summary>
+        /// delete current collection from database
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        public bool DeleteCollection(string prefix)
+        {
+            return db.DeleteCollection<T>(prefix);
+        }
+
         /// <summary>
         /// method provides T type collection name 
         /// </summary>
@@ -61,11 +77,13 @@ namespace ArKorespV1.Models
         /// <summary>
         /// virtual Query
         /// </summary>
-        /// <param name="condition"></param>
+        /// <param name="query">aql query</param>
         /// <returns></returns>
-        public virtual bool Query(string condition)
+        public virtual bool Query(string query)
         {
-            return true;
+            Clear();
+            this.AddRange(db.GetData<T>(query));
+            return this.Count > 0;
         }
         
         /// <summary>
@@ -117,6 +135,11 @@ namespace ArKorespV1.Models
             return rezult;
         }
 
+        /// <summary>
+        /// update data in collection
+        /// </summary>
+        /// <param name="updatedata"></param>
+        /// <returns></returns>
         public virtual T Update(T updatedata)
         {
             T rezult = db.Update(updatedata);
@@ -125,6 +148,8 @@ namespace ArKorespV1.Models
 
         /// <summary>
         /// retrieve all records from collection T
+        /// optionally using filter
+        /// when using multiple times be sure to call Clear to get rid of previous results
         /// </summary>
         /// <param name="condition">AQL filter where entity is named item</param>
         /// <returns>success</returns>
@@ -132,7 +157,7 @@ namespace ArKorespV1.Models
         {
             List<T> rezult = db.Get<T>(condition);
             if (rezult != null)
-            {
+            {                
                 this.AddRange(rezult);
             }
             return true;
@@ -184,6 +209,16 @@ namespace ArKorespV1.Models
         public bool ModifyView(string viewName, string collectionName)
         {
             return db.ModifyView<T>(viewName, collectionName);
+        }
+
+        /// <summary>
+        /// calls to remove view from database
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <returns></returns>
+        public bool DeleteView(string viewName)
+        {
+            return db.DeleteView(viewName);
         }
 
     }

@@ -17,6 +17,14 @@ namespace ArKorespV1.Models
         private string password;
         protected string collectionprefix = "";
 
+        /// <summary>
+        /// contrctor
+        /// </summary>
+        /// <param name="hostname">db host-server name</param>
+        /// <param name="port">db port, default 8529</param>
+        /// <param name="dbname">database name</param>
+        /// <param name="username">user name</param>
+        /// <param name="password">password</param>
         public ADBContext(string hostname, int port, string dbname, string username, string password)
         {
             //todo: DBContext, need to be replaced with "connection strings in web.config"
@@ -52,7 +60,11 @@ namespace ArKorespV1.Models
             }
         }
 
-        //retrieve one record
+        /// <summary>
+        /// retrieve data using query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>dictionary with results</returns>
         public Dictionary<string, string> GetData(string query)
         {
             var db = new ADatabase("obieg");
@@ -74,6 +86,13 @@ namespace ArKorespV1.Models
                 return null;
         }
 
+        /// <summary>
+        /// retrieve data using AQL query
+        /// result to typed list
+        /// </summary>
+        /// <typeparam name="T">entity</typeparam>
+        /// <param name="aql">aql query</param>
+        /// <returns>list</returns>
         public List<T> GetData<T>(string aql)
         where T :  new()
         {
@@ -93,6 +112,15 @@ namespace ArKorespV1.Models
             return default(List<T>);
         }
 
+        /// <summary>
+        /// get data using query, and non usual assignement 
+        /// this should be called when not using entity
+        /// </summary>
+        /// <param name="query"> aql query</param>
+        /// <param name="addmethod">method to add data</param>
+        /// <param name="datacount">record count to return</param>
+        /// <param name="offset">start index</param>
+        /// <returns></returns>
         public bool GetRecords(string query, Func<Dictionary<string, string>, bool> addmethod, int datacount, int offset)
         {
             var db = new ADatabase("obieg");
@@ -140,6 +168,12 @@ namespace ArKorespV1.Models
                 return default(T);
         }
 
+        /// <summary>
+        /// insert new data into T entity collection
+        /// </summary>
+        /// <typeparam name="T">entity</typeparam>
+        /// <param name="newdata">data to be inserted</param>
+        /// <returns></returns>
         public string Insert<T>(T newdata)
             where T : IDataRecord, ICollectionMember, new()
         {
@@ -192,6 +226,12 @@ namespace ArKorespV1.Models
                 return "";
         }
 
+        /// <summary>
+        /// update data 
+        /// </summary>
+        /// <typeparam name="T">collection type</typeparam>
+        /// <param name="updaterecord">data to update</param>
+        /// <returns>updated data</returns>
         public T Update<T>(T updaterecord)
             where T : IDataRecord
         {
@@ -317,7 +357,7 @@ namespace ArKorespV1.Models
         }
 
         /// <summary>
-        /// 
+        /// add link to view
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="viewName"></param>
@@ -326,12 +366,28 @@ namespace ArKorespV1.Models
         public bool ModifyView<T>(string viewName, string collectionName)
             where T : IDataRecord, ICollectionMember, new()
         {
+            if (viewName  == null || collectionName == null || viewName == "" || collectionName == "")
+                return false;
             var db = new ADatabase("obieg");
             var tmpobj = new T();
             var modified = db.View.Link(collectionName ==""?tmpobj.CollectionName(): collectionName).
                 ChangeProperties(viewName, collectionName == "" ? tmpobj.CollectionName() : collectionName);
 
             return true;
+        }
+
+        /// <summary>
+        /// removes view definition from database
+        /// </summary>
+        /// <param name="viewName">name of a view</param>
+        /// <returns>success</returns>
+        public bool DeleteView(string viewName)
+        {
+            if (viewName == null || viewName == "")
+                return false;
+            var db = new ADatabase("obieg");
+            var ifdeleted = db.View.Delete(viewName);
+            return ifdeleted.Success;
         }
 
         /// <summary>
@@ -343,7 +399,7 @@ namespace ArKorespV1.Models
         /// <param name="created">returns creation state</param>
         /// <param name="prefix">optional prefic for collection name</param>
         /// <returns>success</returns>
-        public bool InitializeCollection<T>( out bool created, String prefix = "")
+        public bool InitializeCollection<T>( out bool created, string prefix = "")
             where T : IDataRecord, ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
@@ -371,9 +427,35 @@ namespace ArKorespV1.Models
             return true;
         }
 
+        /// <summary>
+        /// delete specified collection
+        /// </summary>
+        /// <typeparam name="T">entity</typeparam>
+        /// <param name="prefix">optional prefic for dynamically named collections</param>
+        /// <returns>success</returns>
+        public bool DeleteCollection<T>(string prefix)
+            where T : IDataRecord, ICollectionMember, new()
+        {
+            var db = new ADatabase("obieg");
+            var tmpobj = new T();
+            var deleteResult = db.Collection
+                .Delete(prefix + tmpobj.CollectionName());
+            return deleteResult.Success;
+        }
+
+        /// <summary>
+        /// returns contents of edge collection itself, not data from edged
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         public List<T> GetEdges<T>(string key, ADirection direction)
             where T : ICollectionMember, IDictionaryAssignable, new()
         {
+            if (key == null || key == "")
+                return null;
+
             var db = new ADatabase("obieg");
             var tmpObj = new T();
             var getresult = db.Document
@@ -399,7 +481,7 @@ namespace ArKorespV1.Models
         }
 
         /// <summary>
-        /// queries edge collection
+        /// queries edge collection, returns collection from edges not edge collection itself
         /// </summary>
         /// <typeparam name="T">edge collection class</typeparam>
         /// <typeparam name="V">document collection class</typeparam>
@@ -489,7 +571,6 @@ namespace ArKorespV1.Models
             {
                 return false;
             }
-
         }
 
         /// <summary>
@@ -519,6 +600,12 @@ namespace ArKorespV1.Models
 
         }
 
+        /// <summary>
+        /// insert edge data
+        /// </summary>
+        /// <typeparam name="T">entity</typeparam>
+        /// <param name="edgetoinsert">data to insert - _from and _to should be provided</param>
+        /// <returns>inserted data with new Id on success</returns>
         public T InsertEdge<T>(T edgetoinsert)
             where T : ICollectionMember, IEdgeCollection, IDataRecord, new()
         {

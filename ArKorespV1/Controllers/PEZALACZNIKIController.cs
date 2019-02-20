@@ -11,6 +11,9 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// Controller class for user documents
+    /// </summary>
     public class PEZALACZNIKIController : Controller
     {
         // GET: PEZALACZNIKI
