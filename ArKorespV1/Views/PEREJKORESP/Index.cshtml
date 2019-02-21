@@ -60,6 +60,7 @@
 </p>
 
 <table class="table" style="width:110%">
+    <thead>
     <tr style="background-color:#f2f2f2">
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DNAZWA)</th>
         <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DSYMBOL)</th>
@@ -68,6 +69,10 @@
         <th></th>
         <th>id</th>
     </tr>
+    </thead>
+    <tfoot>
+
+    </tfoot>
     @foreach (var item in Model)
     {
         i++;
@@ -88,6 +93,7 @@
         {
             rowColor = "CZWARTE";
         }
+        <tbody>
     <tr class="@rowColor">
         <td>
             @Html.DisplayFor(modelitem => item.DNAZWA)
@@ -108,6 +114,7 @@
             @Html.DisplayFor(modelitem => item.SDATA)
         </td>
     </tr>
+   </tbody>
 }
 </table>
 

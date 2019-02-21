@@ -17,32 +17,67 @@ namespace ArKorespV1.Controllers
         /// prepares data for index view
         /// </summary>
         /// <param name="rejkoresp">mail register</param>
+        /// <param name="pagesize">displayed page size</param>
+        /// <param name="pagenumber">displayed page number</param>
         /// <returns>view</returns>
         // GET: PEKORESP
-        public ActionResult Index(string rejkoresp)
+        public ActionResult Index(string rejkoresp, int? pagesize, int? pagenumber)
         {
             if (!Request.IsAuthenticated)
             {
                 return RedirectToAction(actionName: "Login", controllerName: "User");
             }
+            int psize = pagesize ?? 15;
+            int pnumber = pagenumber ?? 1;
+
+            string tx_kontrahent = Request["tx_kontrahent"];
+            string tx_dotyczy = Request["tx_dotyczy"];
+
+            tx_kontrahent = tx_kontrahent == null ? "" : tx_kontrahent;
+            tx_dotyczy = tx_dotyczy == null ? "" : tx_dotyczy;
+            string condition = "";
+
+            if (tx_dotyczy != "")
+            {
+                condition = " Contains( item.DDOTYCZY,'" + tx_dotyczy + "') ";
+            }
+            if(tx_kontrahent != "")
+            {
+                condition += (condition != "" ? " && " : "") +
+                    " Contains(item.DKONTRAHENT,'" + tx_kontrahent + "') ";
+            }
+
             PEKORESPDBSet koresp = new PEKORESPDBSet(rejkoresp);
-            //koresp.InitializeView("V" + koresp.CollectionName());
-            //koresp.ModifyView("V" + koresp.CollectionName(), rejkoresp.Replace("_","")+"PEKORESP");
-            if (koresp.Get(""))
+            
+            if (koresp.Get(condition, pnumber,psize, " item.DDATA desc "))
             {
                 PEREJKORESPDBSet deff = new PEREJKORESPDBSet();
                 PEREJKORESP rk = deff.GetById(rejkoresp.Replace("_", "/"));
-
+                int ogolem = koresp.GetCount(condition);
+                ViewBag.page = pnumber;
+                ViewBag.psize = psize;
+                ViewBag.numberofrecords = ogolem;
                 ViewBag.nazwa = rk.DNAZWA;
                 ViewBag.rejkoresp = rejkoresp;
+                ViewBag.tx_dotyczy = tx_dotyczy;
+                ViewBag.tx_kontrahent = tx_kontrahent;
                 return View(koresp.OrderByDescending(ko => ko.DDATA ).ToList());
             }
             else
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
 
+        /// <summary>
+        /// called to clear search filter
+        /// </summary>
+        /// <param name="rejkoresp"></param>
+        /// <returns></returns>
+        public ActionResult ClearFilters(string rejkoresp)
+        {
+            return RedirectToAction("Index", new { rejkoresp });
 
         }
-        
+
         /// <summary>
         /// prepares data  for new entity
         /// </summary>

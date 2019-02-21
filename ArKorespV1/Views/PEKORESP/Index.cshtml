@@ -64,26 +64,107 @@
 @if (Model == null || Model.FirstOrDefault() == null)
 {
     <h2>Brak danych do wyświetlenia</h2>
+    @Html.ActionLink(linkText: "wyczyść filtr",
+              actionName: "ClearFilters",
+              routeValues: new { rejkoresp = ViewBag.rejkoresp },
+              htmlAttributes: new { @class = "btn btn-default" })
 }
 else
 {
 
     <table class="table" style="width:140%">
-        <tr style="background-color:#f2f2f2">
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().DDATA)<br />
-                @Html.DisplayNameFor(model => model.FirstOrDefault().DNUMER)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DKONTRAHENT)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DDOTYCZY)</th>
-            <th style="width:10%;font-size:x-small">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().DNRWGKONTRAH)
-                <br />
-                @Html.DisplayNameFor(model => model.FirstOrDefault().DDATAWGKONTRAH)
-            </th>
-            <th></th>
-            <th style="width:3%">@Html.Raw("id")</th>
-        </tr>
+        <thead>
+            <tr style="background-color:#f2f2f2">
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().DDATA)<br />
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().DNUMER)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DKONTRAHENT)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DDOTYCZY)</th>
+                <th style="width:10%;font-size:x-small">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().DNRWGKONTRAH)
+                    <br />
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().DDATAWGKONTRAH)
+                </th>
+                <th></th>
+                <th style="width:3%">@Html.Raw("id")</th>
+            </tr>
+            <tr>
+                @using (Html.BeginForm())
+                {
+                    <th>
+                        @Html.Hidden("rejkoresp")
+                        @Html.Hidden("pagesize", (int)ViewBag.psize)
+                        @Html.Hidden("pagenumber", (int)ViewBag.page)
+                        <input type="submit" value="szukaj" class="btn btn-primary" />
+
+                    </th>
+
+                    <th>
+                        @Html.TextBox("tx_kontrahent",
+                                        (string)ViewBag.tx_kontrahent,
+                                         new
+                                         {
+                                             @class = "form-control",
+                                             placeholder = "kontrahent"
+                                         })
+                    </th>
+                    <th>
+                        @Html.TextBox("tx_dotyczy",
+                                        (string)ViewBag.tx_dotyczy,
+                                         new
+                                         {
+                                             @class = "form-control",
+                                             placeholder = "dotyczy"
+                                         })
+                    </th>
+                    <th></th>
+                    <th>
+                        @Html.ActionLink(linkText: "wyczyść",
+                                             actionName: "ClearFilters",
+                                             routeValues: new { rejkoresp = ViewBag.rejkoresp },
+                                             htmlAttributes: new { @class = "btn btn-default" })
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td colspan="2" style="Border-bottom: 1px solid black;">
+                    <span style="padding-right:10px">
+                        @Html.ActionLink(linkText: "<<<", actionName: "Index"
+, routeValues: new { rejkoresp = ViewBag.rejkoresp, pagesize = ViewBag.psize, pagenumber = 1 },
+htmlAttributes: new { @class = "btn btn-primary btn-lg" }
+)
+                    </span>
+                    @Html.ActionLink(linkText:"<",actionName:"Index",
+                   routeValues: new { rejkoresp = ViewBag.rejkoresp, pagesize = ViewBag.psize, pagenumber =  ViewBag.page== 1?1:ViewBag.page -1  },
+                   htmlAttributes: new { @class= "btn btn-primary btn-lg" }
+                   )
+                    @Html.Raw(ViewBag.page)
+                    @if (Model.Count() == ViewBag.psize)
+                    {
+                        <span style="padding-right:10px">
+                            @Html.ActionLink(linkText: ">", actionName: "Index"
+                            , routeValues: new { rejkoresp = ViewBag.rejkoresp, pagesize = ViewBag.psize, pagenumber = ViewBag.page + 1 },
+                           htmlAttributes: new { @class = "btn btn-primary btn-lg" }
+                           )
+                        </span>
+                        @Html.ActionLink(linkText: ">>>", actionName: "Index",
+                       routeValues: new {
+                           rejkoresp = ViewBag.rejkoresp,
+                           pagesize = ViewBag.psize,
+                           pagenumber = ((ViewBag.numberofrecords -1 )/ ViewBag.psize) + 1
+                       },
+                       htmlAttributes: new { @class = "btn btn-primary btn-lg" }
+                       )
+                    }
+                    @Html.Raw("Liczba rekordów ") <b>@Html.Raw(ViewBag.numberofrecords)</b>
+                    @Html.Raw("Liczba stron ") <b>@Html.Raw(ViewBag.numberofrecords / ViewBag.psize + (ViewBag.numberofrecords % ViewBag.psize > 0 ? 1 : 0))</b>
+                </td>
+            </tr>
+        </tfoot>
         @foreach (var item in Model)
         {
             i++;
@@ -104,36 +185,39 @@ else
             {
                 rowColor = "CZWARTE";
             }
-        <tr class="@rowColor">
-            <td>
-                @Html.DisplayFor(mi => item.DDATA) <br />
-                @Html.DisplayFor(mi => item.DNUMER)
-            </td>
-            <td>
-                @Html.DisplayFor(it => item.DKONTRAHENT)
-            </td>
-            <td>
-                @Html.DisplayFor(it => item.DDOTYCZY)
-            </td>
-            <td>
-                @Html.DisplayFor(mi => item.DDATAWGKONTRAH) <br />
-                @Html.DisplayFor(mi => item.DNRWGKONTRAH)                 
-            </td>
+            <tbody>
+                <tr class="@rowColor">
+                    <td>
+                        @Html.DisplayFor(mi => item.DDATA) <br />
+                        @Html.DisplayFor(mi => item.DNUMER)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(it => item.DKONTRAHENT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(it => item.DDOTYCZY)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(mi => item.DDATAWGKONTRAH) <br />
+                        @Html.DisplayFor(mi => item.DNRWGKONTRAH)
+                    </td>
 
-            <td>
-                @Html.ActionLink("Zmień", "Edit", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
-                @Html.ActionLink("Usuń", "Delete", 
-                    new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
-                @Html.ActionLink(linkText:"Obieg",actionName:"Index" ,controllerName:"PEOBDOK", routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },htmlAttributes:null)<br />
-                @Html.ActionLink("Załączniki",
-                        "Zalaczniki",
-                        routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },
-                        htmlAttributes: new { target = "_blank" })
-            </td>
-        <td class="idcolumn" style="background-color:cornsilk">
-            @Html.DisplayFor(mi => item._id)<br />
-            @Html.DisplayFor(mi => item.SDATA)</td>
-        </tr>
+                    <td>
+                        @Html.ActionLink("Zmień", "Edit", new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
+                        @Html.ActionLink("Usuń", "Delete",
+                            new { id = item.ID, rejkoresp = ViewBag.rejkoresp })<br />
+                        @Html.ActionLink(linkText: "Obieg", actionName: "Index", controllerName: "PEOBDOK", routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp }, htmlAttributes: null)<br />
+                        @Html.ActionLink("Załączniki",
+                                "Zalaczniki",
+                                routeValues: new { id = item.ID, rejkoresp = ViewBag.rejkoresp },
+                                htmlAttributes: new { target = "_blank" })
+                    </td>
+                    <td class="idcolumn" style="background-color:cornsilk">
+                        @Html.DisplayFor(mi => item._id)<br />
+                        @Html.DisplayFor(mi => item.SDATA)
+                    </td>
+                </tr>
+            </tbody>
         }
     </table>
 }

@@ -265,14 +265,16 @@ namespace ArKorespV1.Models
         /// </summary>
         /// <typeparam name="T">class</typeparam>
         /// <param name="filter">AQL filter where entity is named item</param>
+        /// <param name="orderexpression">AQL SORT expression (without SORT word) default empty entity is named item</param>
         /// <returns>List of T-type items</returns>
-        public List<T> Get<T>(string filter)
+        public List<T> Get<T>(string filter = "", string orderexpression = "")
             where T : IDataRecord, ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
             string aquery = "FOR item IN " + collectionprefix +  tmpobj.CollectionName() +
                 (filter != "" ? " FILTER " + filter : "") +
+                (orderexpression != ""?" SORT " + orderexpression: "") +
                 " RETURN item";
             var getrezult = db.Query.Aql(aquery).ToList<T>();
             if (getrezult.Success)
@@ -286,7 +288,7 @@ namespace ArKorespV1.Models
 
             return default(List<T>);
         }
-        
+
         /// <summary>
         ///retrieve all records from collection T, including paging ability 
         /// </summary>
@@ -294,14 +296,16 @@ namespace ArKorespV1.Models
         /// <param name="filter">AQL-syntax filter where current collection is referenced as item</param>
         /// <param name="page">page number to display</param>
         /// <param name="pagesize">page size - when not defined paging is not enabled</param>
+        /// <param name="orderexpression">AQL SORT expression (without SORT word) default empty entity is named item</param>
         /// <returns></returns>
-        public List<T> Get<T>(string filter, int page, int pagesize)
+        public List<T> Get<T>(string filter, int page, int pagesize, string orderexpression = "")
             where T : IDataRecord, ICollectionMember, new()
         {
             var db = new ADatabase("obieg");
             var tmpobj = new T();
             string aquery = "FOR item IN " + collectionprefix + tmpobj.CollectionName() +
                 (filter != "" ? " FILTER " + filter : "") +
+                (orderexpression != "" ? " SORT " + orderexpression : "") +
                 (pagesize > 0 ? " Limit " + (pagesize * (page - 1)).ToString() + "," + pagesize.ToString() : "")
                 + " RETURN item"
                 

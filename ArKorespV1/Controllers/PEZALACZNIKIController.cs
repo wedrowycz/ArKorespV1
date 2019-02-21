@@ -53,33 +53,7 @@ namespace ArKorespV1.Controllers
             }
         }
 
-        // GET: PEZALACZNIKI/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: PEZALACZNIKI/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PEZALACZNIKI/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+             
 
         // GET: PEZALACZNIKI/Edit/5
         public ActionResult Edit(string id)

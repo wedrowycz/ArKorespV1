@@ -152,10 +152,11 @@ namespace ArKorespV1.Models
         /// when using multiple times be sure to call Clear to get rid of previous results
         /// </summary>
         /// <param name="condition">AQL filter where entity is named item</param>
+        /// <param name="orderexpression">AQL SORT expression (without SORT word) default empty entity is named item</param>
         /// <returns>success</returns>
-        public virtual bool Get(string condition)
+        public virtual bool Get(string condition = "", string orderexpression = "")
         {
-            List<T> rezult = db.Get<T>(condition);
+            List<T> rezult = db.Get<T>(condition, orderexpression);
             if (rezult != null)
             {                
                 this.AddRange(rezult);
@@ -169,10 +170,11 @@ namespace ArKorespV1.Models
         /// <param name="condition">AQL filter where entity is named item</param>
         /// <param name="page">page number</param>
         /// <param name="pagesize">page size - number of returned records</param>
+        /// <param name="orderexpression">AQL SORT expression (without SORT word) default empty entity is named item</param>
         /// <returns></returns>
-        public virtual bool Get(string condition, int page, int pagesize)
+        public virtual bool Get(string condition, int page, int pagesize, string orderexpression = "")
         {
-            List<T> rezult = db.Get<T>(condition,page,pagesize);
+            List<T> rezult = db.Get<T>(condition,page,pagesize,orderexpression);
             if (rezult != null)
             {
                 this.AddRange(rezult);
