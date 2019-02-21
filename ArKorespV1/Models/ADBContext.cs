@@ -238,8 +238,18 @@ namespace ArKorespV1.Models
         public T Update<T>(T updaterecord)
             where T : IDataRecord
         {
+            if(updaterecord == null)
+                return default(T);
+            if (updaterecord._id == null && updaterecord.ID == null)
+                return default(T);
+
+            string idtoupdate = updaterecord.ID == null?updaterecord._id:updaterecord.ID;
+
+            if (updaterecord.ID == null || updaterecord.ID == "")
+                updaterecord.ID = updaterecord._id;
+
             var db = new ADatabase("obieg");
-            var updaterezult = db.Document.Update<T>(updaterecord.ID.Replace("_", "/"), updaterecord);
+            var updaterezult = db.Document.Update<T>(idtoupdate.Replace("_", "/"), updaterecord);
 
             if (updaterezult.Success)
             {
