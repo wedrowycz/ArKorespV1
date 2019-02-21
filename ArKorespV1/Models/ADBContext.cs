@@ -7,6 +7,10 @@ using ArKorespV1.Helpers;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// Arango.Client method encapsulation 
+    /// provides simpler methods to communicate with Arango database   
+    /// </summary>
     public class ADBContext
     {
         //connection settings
@@ -158,8 +162,7 @@ namespace ArKorespV1.Models
             var db = new ADatabase("obieg");
             var getbyidresult = db.Document.Get<T>(id.Replace("_", "/"));
             if (getbyidresult.Success)
-            {
-                //var dtaresult = new T();
+            {                
                 var dtaresult = getbyidresult.Value;
                 dtaresult.ID = id;
                 return dtaresult;
