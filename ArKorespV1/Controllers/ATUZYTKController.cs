@@ -8,9 +8,15 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// User View controller
+    /// </summary>
     public class ATUZYTKController : Controller
     {
-
+        /// <summary>
+        /// default index action
+        /// </summary>
+        /// <returns>view</returns>
         // GET: ATUZYTK
         public ActionResult Index()
         {
@@ -25,18 +31,22 @@ namespace ArKorespV1.Controllers
             return View(lista);
         }
 
-        // GET: ATUZYTK/Details/5
-        public ActionResult Details(string id)
-        {
-            return View();
-        }
-
+        
+        /// <summary>
+        /// standard create -prepare action
+        /// </summary>
+        /// <returns>view</returns>
         // GET: ATUZYTK/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// insert user to database
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns>redirect to index<returns>
         // POST: ATUZYTK/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -58,6 +68,11 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// prepares data to edit entity
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>view</returns>
         // GET: ATUZYTK/Edit/5
         public ActionResult Edit(string id)
         {
@@ -71,6 +86,12 @@ namespace ArKorespV1.Controllers
             return View(datatoupdate);
         }
 
+        /// <summary>
+        /// standard edit action- posts changed data
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <param name="collection">entity</param>
+        /// <returns>redirects to view</returns>
         // POST: ATUZYTK/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -88,6 +109,11 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// controler delet method
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>view</returns>
         // GET: ATUZYTK/Delete/5
         public ActionResult Delete(string id)
         {
@@ -106,6 +132,11 @@ namespace ArKorespV1.Controllers
             return View(datatodelete);
         }
 
+        /// <summary>
+        /// execute delete method
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>redirects to index</returns>
         // POST: ATUZYTK/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -127,7 +158,7 @@ namespace ArKorespV1.Controllers
         /// Change user's status 0 - active, 1 inactive
         /// </summary>
         /// <param name="id">documents id</param>
-        /// <param name="nowystatus"> new status</param>
+        /// <param name="status"> new status</param>
         /// <returns>redirects to index</returns>
         public ActionResult ChangeState(string id, int? status)
         {

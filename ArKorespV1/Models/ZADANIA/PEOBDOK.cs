@@ -14,7 +14,13 @@ namespace ArKorespV1.Models.ZADANIA
     [CollectionType(ACollectionType.Edge)]
     public class PEOBDOK : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {        
+        /// <summary>
+        /// collection property mailbox
+        /// </summary>
         public string Skrzynka { get; set; }
+        /// <summary>
+        /// collection property - PEKORESP id
+        /// </summary>
         public string Korespondencja { get; set; }
         /// <summary>
         /// standard mapper from dictionary to class

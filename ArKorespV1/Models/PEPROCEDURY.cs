@@ -8,16 +8,28 @@ using System.Web;
 
 namespace ArKorespV1.Models
 {
+    /// <summary>
+    /// edge collection for handling routes between tasks definitions
+    /// </summary>
     [CollectionName("PEPROCEDURY")]
     [CollectionType(ACollectionType.Edge)]
     public class PEPROCEDURY:EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {
+        /// <summary>
+        /// collection property - name
+        /// </summary>
         [Display(Name = "nazwa procedury")]
         public string DNAZWA { get; set; }
+        /// <summary>
+        /// collection property - description
+        /// </summary>
         [Display(Name = "opis procedury")]
         public string DOPIS { get; set; }
-        public string ID { get ; set ; }
-        public DateTime SDATA { get; set; }
+        /// <summary>
+        /// non default assignement
+        /// </summary>
+        /// <param name="dictionarry"></param>
+        /// <returns></returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

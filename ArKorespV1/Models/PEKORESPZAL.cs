@@ -14,7 +14,11 @@ namespace ArKorespV1.Models
     [CollectionType(ACollectionType.Edge)]
     public class PEKORESPZAL : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {               
-
+        /// <summary>
+        /// non default assignement method
+        /// </summary>
+        /// <param name="dictionarry"></param>
+        /// <returns></returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

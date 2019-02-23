@@ -10,7 +10,7 @@ using System.Web;
 namespace ArKorespV1.Models
 {
     /// <summary>
-    /// Template class for ARango-db operations
+    /// Template class for Arango-db operations
     /// </summary>
     /// <typeparam name="T"> type for operations , see alfo requirements in class where clause</typeparam>
     public class ADBSet<T> : List<T>
