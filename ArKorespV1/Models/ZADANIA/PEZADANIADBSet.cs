@@ -59,12 +59,12 @@ namespace ArKorespV1.Models.ZADANIA
         }
 
         /// <summary>
-        /// 
+        /// specialized query method
         /// </summary>
-        /// <param name="skrzynka"></param>
-        /// <param name="status"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenumber"></param>
+        /// <param name="skrzynka">mailbox</param>
+        /// <param name="status">status</param>
+        /// <param name="pagesize">page size</param>
+        /// <param name="pagenumber">page number</param>
         /// <returns></returns>
         public List<ZadanieObiegKorespondencja> GetZadaniaWithKoresp(string skrzynka, int status, int pagesize, int pagenumber)
         {

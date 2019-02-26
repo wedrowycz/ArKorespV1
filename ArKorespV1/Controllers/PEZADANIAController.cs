@@ -61,27 +61,7 @@ namespace ArKorespV1.Controllers
             return View("Close");
         }
 
-        // GET: PEZADANIA/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PEZADANIA/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         /// <summary>
         /// produces view with tasks data.
@@ -173,37 +153,6 @@ namespace ArKorespV1.Controllers
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: PEZADANIA/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        // POST: PEZADANIA/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
     }
 }

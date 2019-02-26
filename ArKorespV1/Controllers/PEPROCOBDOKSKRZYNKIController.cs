@@ -8,8 +8,17 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for PEPROCOBDOKSKRZYNKI views
+    /// </summary>
     public class PEPROCOBDOKSKRZYNKIController : Controller
     {
+        /// <summary>
+        /// prepares data for Index View
+        /// </summary>
+        /// <param name="pozycjaprocedury"></param>
+        /// <param name="procedura"></param>
+        /// <returns></returns>
         // GET: PEPROCOBDOKSKRZYNKI
         public ActionResult Index(string pozycjaprocedury, string procedura)
         {
@@ -32,7 +41,12 @@ namespace ArKorespV1.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// prepares data for create view
+        /// </summary>
+        /// <param name="pozycjaprocedury"></param>
+        /// <param name="procedura"></param>
+        /// <returns></returns>
         // GET: PEPROCOBDOKSKRZYNKI/Create
         public ActionResult Create(string pozycjaprocedury, string procedura)
         {

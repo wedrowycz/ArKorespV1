@@ -15,12 +15,15 @@ namespace ArKorespV1.Models
     [CollectionName("PESKRZPOCZTPRAC")]
     public class PESKRZPOCZTPRAC : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {     
-        [Key]
-        public string ID { get ; set; }        
-        [Display(Name ="Poziom uprawnień")]
+       /// <summary>
+       /// collection property 
+       /// </summary>
         public int PERMISSIONTYPE { get; set; }
-        [Display(Name ="Data modyfikacji")]
-        public DateTime SDATA { get; set; }
+        /// <summary>
+        /// non default assignement
+        /// </summary>
+        /// <param name="dictionarry">data</param>
+        /// <returns>success</returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

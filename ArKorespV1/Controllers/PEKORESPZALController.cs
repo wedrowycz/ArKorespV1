@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for binary data assognement to corespondence
+    /// </summary>
     public class PEKORESPZALController : Controller
     {
         // GET: PEKORESPZAL

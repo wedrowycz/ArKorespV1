@@ -16,6 +16,12 @@ namespace ArKorespV1.Controllers
     /// </summary>
     public class PEZALACZNIKIController : Controller
     {
+        /// <summary>
+        /// prepare data for Index View
+        /// </summary>
+        /// <param name="pagesize">page size</param>
+        /// <param name="pagenumber">page number</param>
+        /// <returns>View</returns>
         // GET: PEZALACZNIKI
         public ActionResult Index(int ? pagesize, int ? pagenumber)
         {
@@ -52,9 +58,12 @@ namespace ArKorespV1.Controllers
                 return View(new ZalacznikiZOgonemList());
             }
         }
-
              
-
+        /// <summary>
+        /// prepeare data for Edit View
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: PEZALACZNIKI/Edit/5
         public ActionResult Edit(string id)
         {
@@ -71,6 +80,12 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// Posts data from Edit View to database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         // POST: PEZALACZNIKI/Edit/5
         [HttpPost]
         public ActionResult Edit(string id, PEZALACZNIKI collection)
@@ -89,6 +104,11 @@ namespace ArKorespV1.Controllers
             }
         }
 
+        /// <summary>
+        /// prepares Delete View
+        /// </summary>
+        /// <param name="id">entity id</param>
+        /// <returns>View</returns>
         // GET: PEZALACZNIKI/Delete/5
         public ActionResult Delete(string id)
         {

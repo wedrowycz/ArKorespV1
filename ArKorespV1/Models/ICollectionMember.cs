@@ -12,7 +12,16 @@ namespace ArKorespV1.Models
     /// </summary>
     public interface ICollectionMember
     {
+        /// <summary>
+        /// return collection name
+        /// </summary>
+        /// <returns></returns>
         string CollectionName();
+
+        /// <summary>
+        /// return collection type
+        /// </summary>
+        /// <returns></returns>
         ACollectionType CollectionType();
     }
 }

@@ -5,8 +5,18 @@ using System.Web;
 
 namespace ArKorespV1.Helpers
 {
+    /// <summary>
+    /// atributes extension operation class- replaced with lighter version - to be removed
+    /// </summary>
     public static class AExtensions
     {
+        /// <summary>
+        /// get atribute from class property
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         public static T GetAttributeFrom<T>(this object instance, string propertyName) where T : Attribute
         {
             var attrType = typeof(T);
@@ -14,6 +24,14 @@ namespace ArKorespV1.Helpers
             return (T)property.GetCustomAttributes(attrType, false).First();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TAttribute"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="valueSelector"></param>
+        /// <returns></returns>
         public static TValue GetAttributeValue<TAttribute, TValue>(
         this Type type,
         Func<TAttribute, TValue> valueSelector)

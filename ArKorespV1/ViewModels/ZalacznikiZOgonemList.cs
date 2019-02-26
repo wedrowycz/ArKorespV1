@@ -6,6 +6,9 @@ using System.Web;
 
 namespace ArKorespV1.ViewModels
 {
+    /// <summary>
+    /// special container for complex view object
+    /// </summary>
     public class ZalacznikiZOgonemList: List<PEZalacznikiZOgonem>
     {
         public void Add(PEZALACZNIKI fpEZALACZNIKI )

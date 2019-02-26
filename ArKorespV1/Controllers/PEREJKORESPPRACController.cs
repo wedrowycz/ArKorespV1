@@ -9,8 +9,16 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for PEREJKORESPPRAC Views
+    /// </summary>
     public class PEREJKORESPPRACController : Controller
     {
+        /// <summary>
+        /// prepares data for Index View
+        /// </summary>
+        /// <param name="rejestr"></param>
+        /// <returns>View</returns>
         // GET: PEREJKORESPPRAC
         public ActionResult Index(string rejestr)
         {

@@ -7,6 +7,9 @@ using System.Web.Http;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// demo controller - to be removed
+    /// </summary>
     public class ValuesController : ApiController
     {
         // GET api/values

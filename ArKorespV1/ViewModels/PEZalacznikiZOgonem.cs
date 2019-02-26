@@ -7,7 +7,7 @@ using System.Web;
 namespace ArKorespV1.ViewModels
 {
     /// <summary>
-    /// 
+    /// special container for complex view object
     /// </summary>
     public class PEZalacznikiZOgonem
     {

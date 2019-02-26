@@ -49,10 +49,12 @@ namespace ArKorespV1.Controllers
                         Session["UserId"] = userdata.ID;
                         Session["Role"] = userdata.UserRole.ToString();
                         ATLOGDBSet atlog = new ATLOGDBSet();
-                        ATLOG logininfo = new ATLOG();
-                        logininfo.UserId = userdata.ID;
-                        logininfo.LoginDateTime = DateTime.Now.ToString();
-                        logininfo.LoginUrl = Request.UserHostAddress;
+                        ATLOG logininfo = new ATLOG
+                        {
+                            UserId = userdata.ID,
+                            LoginDateTime = DateTime.Now.ToString(),
+                            LoginUrl = Request.UserHostAddress
+                        };
                         atlog.Insert(logininfo);
                         return RedirectToAction("Index", "Home");
                     }

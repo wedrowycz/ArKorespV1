@@ -111,6 +111,10 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        /// <summary>
+        /// prepare Create View
+        /// </summary>
+        /// <returns>View</returns>
         // GET: UserNotes/Create
         public ActionResult Create()
         {

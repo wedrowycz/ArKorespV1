@@ -8,8 +8,15 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for PESKRZPOCZT Views
+    /// </summary>
     public class PESKRZPOCZTController : Controller
     {
+        /// <summary>
+        /// prepare data for Index View
+        /// </summary>
+        /// <returns>View</returns>
         // GET: PESKRZPOCZT
         public ActionResult Index()
         {

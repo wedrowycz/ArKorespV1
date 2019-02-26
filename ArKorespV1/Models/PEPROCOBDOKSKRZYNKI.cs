@@ -8,14 +8,18 @@ using System.Web;
 namespace ArKorespV1.Models
 {
     /// <summary>
-    /// defines realtion : PEPROCEDURY to PESKRZPOCZT
+    /// defines assignement - key : PEPROCEDURY to PESKRZPOCZT
     /// </summary>
     [CollectionName("PEPROCOBDOKSKRZYNKI")]
     [CollectionType(ACollectionType.Edge)]
     public class PEPROCOBDOKSKRZYNKI : EdgeCollectionMember, IDataRecord, IDictionaryAssignable
     {
-        public string ID { get ; set ; }
-        public DateTime SDATA { get; set; }
+        
+        /// <summary>
+        /// non default assignement
+        /// </summary>
+        /// <param name="dictionarry"></param>
+        /// <returns></returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

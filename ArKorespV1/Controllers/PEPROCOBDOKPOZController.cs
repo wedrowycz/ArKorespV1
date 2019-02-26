@@ -8,20 +8,18 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for PEPROCOBDOKPOZ views
+    /// </summary>
     public class PEPROCOBDOKPOZController : Controller
     {
-        // GET: PEPROCOBDOKPOZ
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: PEPROCOBDOKPOZ/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+        
+        /// <summary>
+        /// prepares data for create view
+        /// </summary>
+        /// <param name="procedura"></param>
+        /// <param name="levelup"></param>
+        /// <returns></returns>
         // GET: PEPROCOBDOKPOZ/Create
         public ActionResult Create(string procedura, string levelup)
         {
@@ -30,6 +28,11 @@ namespace ArKorespV1.Controllers
             return View();
         }
 
+        /// <summary>
+        /// posts data from create view
+        /// </summary>
+        /// <param name="collection">data </param>
+        /// <returns></returns>
         // POST: PEPROCOBDOKPOZ/Create
         [HttpPost]
         public ActionResult Create(PEPROCOBDOKPOZ collection)

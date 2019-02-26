@@ -12,8 +12,14 @@ namespace ArKorespV1.Models
     /// </summary>
     public class EdgeCollectionMember: AutoSignedCollectionMember, IEdgeCollection
     {
+        /// <summary>
+        /// start document key
+        /// </summary>
         [Display(Name = "Obiekt źródłowy - skrzynka")]
         public string _from { get; set; }
+        /// <summary>
+        /// final document key
+        /// </summary>
         [Display(Name = "Obiekt docelowy - użytkownik")]
         public string _to { get; set; }
     }

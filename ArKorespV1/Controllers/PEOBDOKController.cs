@@ -10,8 +10,17 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// flow view controller
+    /// </summary>
     public class PEOBDOKController : Controller
     {
+        /// <summary>
+        /// prepares Index view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="rejkoresp"></param>
+        /// <returns></returns>
         // GET: PEOBDOK
         [HttpGet]
         public ActionResult Index(string id,string rejkoresp)
@@ -98,6 +107,10 @@ namespace ArKorespV1.Controllers
             return RedirectToAction("Index", new { id, rejkoresp });
         }
 
+        /// <summary>
+        /// prepares select list for procedures
+        /// </summary>
+        /// <returns></returns>
         private SelectList ProcedurySelectList()
         {
             PEPROCOBDOKDBSet uzytkownicy = new PEPROCOBDOKDBSet();
@@ -109,12 +122,7 @@ namespace ArKorespV1.Controllers
             return null;
         }
 
-        // GET: PEOBDOK/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+        
         // GET: PEOBDOK/Create
         public ActionResult Create()
         {

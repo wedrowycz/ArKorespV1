@@ -11,8 +11,15 @@ namespace ArKorespV1.Models
     public class UserNotesDBSet : ADBSet<UserNotes>
     {
         protected string prefix;
+        /// <summary>
+        /// default empty constructor
+        /// </summary>
         public UserNotesDBSet()
         { }
+        /// <summary>
+        /// constructor - initialize collection with param
+        /// </summary>
+        /// <param name="prefix">prefix for collection</param>
         public UserNotesDBSet(string prefix)
         {
             if (db != null)

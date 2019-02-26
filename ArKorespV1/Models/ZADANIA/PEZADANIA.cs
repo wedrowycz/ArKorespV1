@@ -15,15 +15,31 @@ namespace ArKorespV1.Models.ZADANIA
     [CollectionName("PEZADANIA")]
     public class PEZADANIA : AutoSignedCollectionMember, IDataRecord, IDictionaryAssignable
     {
-        [Display(Name ="treść zadania")]
+        /// <summary>
+        /// collection property - task name
+        /// </summary>
+        [Display(Name ="nazwa zadania")]
         public string DNAZWA { get; set; }
+        /// <summary>
+        /// collection property task details
+        /// </summary>
         [Display(Name ="Treść - opis wykonania")]
         [DataType(DataType.MultilineText)]
         public string DTRESC { get; set; }
+        /// <summary>
+        /// collection property task status
+        /// </summary>
         [Display(Name ="status")]
         public int DSTATUS { get; set; }
+        /// <summary>
+        /// collection property procedure id
+        /// </summary>
         public string DPROCEDURAID { get; set; }
-
+        /// <summary>
+        /// non default assignement
+        /// </summary>
+        /// <param name="dictionarry"></param>
+        /// <returns></returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             _id = dictionarry.ContainsKey("_id") ? dictionarry["_id"] : "";

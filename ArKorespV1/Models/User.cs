@@ -13,8 +13,14 @@ namespace ArKorespV1.Models
     /// </summary>
     public class User
     {
+        /// <summary>
+        /// user name
+        /// </summary>
         [Display(Name ="Nazwa użytkownika")]
         public string UserName { get; set; }
+        /// <summary>
+        /// password
+        /// </summary>
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 

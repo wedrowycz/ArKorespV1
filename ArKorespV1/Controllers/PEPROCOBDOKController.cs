@@ -10,8 +10,15 @@ using System.Web.Mvc;
 
 namespace ArKorespV1.Controllers
 {
+    /// <summary>
+    /// controller for views with PEPROCOBDOK
+    /// </summary>
     public class PEPROCOBDOKController : Controller
     {
+        /// <summary>
+        /// prepares data for Index View
+        /// </summary>
+        /// <returns></returns>
         // GET: PEPROCOBDOK
         public ActionResult Index()
         {

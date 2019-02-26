@@ -9,7 +9,7 @@ using System.Web;
 namespace ArKorespV1.Models
 {
     /// <summary>
-    /// 
+    /// correspondence mailboxes
     /// </summary>
     [CollectionType(ACollectionType.Document)]
     [CollectionName("PESKRZPOCZT")]
@@ -32,8 +32,16 @@ namespace ArKorespV1.Models
         [Display(Name ="email skrzynki")]
         [StringLength(80)]
         public string DEMAIL { get; set; }
+        /// <summary>
+        /// collection property default user
+        /// </summary>
         [Display(Name ="użytkownik podstawowy")]
         public string DUZYTKOWNIKPODSTID { get; set; }
+        /// <summary>
+        /// non default assignement
+        /// </summary>
+        /// <param name="dictionarry">data</param>
+        /// <returns>success</returns>
         public bool AssignFromDictionary(Dictionary<string, string> dictionarry)
         {
             if (dictionarry != null)
